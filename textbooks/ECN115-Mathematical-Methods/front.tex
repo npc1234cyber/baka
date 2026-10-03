@@ -1,0 +1,212 @@
+% ====================================================================
+\chapter{How to Use This Book}
+% ====================================================================
+
+This book is a self-contained textbook for the opening part of ECN115
+\emph{Mathematical Methods in Economics and Finance}. It covers everything presented in the first two
+lectures of the module, which together make up Topic~1 (\emph{Introduction}) and the first steps into
+Topic~2 (\emph{Functions}) and Topic~3 (\emph{Limits and smooth functions}). It is written so that a
+student who has never seen the lecture slides can learn the material from these pages alone, and so that
+a student who has seen them can use it to understand every step properly rather than memorise it.
+
+The slides present ideas in the order in which they were spoken. A textbook can do better: here the
+material has been reorganised so that every idea is introduced only after the ideas it depends on. For
+example, quantifiers (``for all'' and ``there exists'') appear in the second lecture but are needed
+much earlier to state definitions precisely, so they are taught in \cref{ch:logic} alongside the rest
+of the language of mathematics.
+
+\section*{How each chapter is organised}
+Every chapter follows the same pattern, so that you always know where to find things.
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Introduction and prerequisites.} A short paragraph saying what the chapter is about and
+  why it matters, followed by a grey box listing what you need to know first, with references back to
+  earlier chapters.
+  \item \textbf{The core material.} Definitions, explanations, results and proofs, developed in prose.
+  Each important idea is explained four ways: what it says (the definition), what it means (intuition),
+  why it matters (its role in the module and in economics), and how to use it (worked examples).
+  \item \textbf{Worked examples.} Every example from the lectures is reproduced and explained in full,
+  usually with more steps shown than on the slides. Further examples have been added wherever an idea
+  needed more practice.
+  \item \textbf{Chapter review.} A summary in prose, the key definitions and key equations collected
+  in one place, connections to other chapters, the common mistakes, and an exam checklist.
+  \item \textbf{Practice questions with full solutions.} Questions are labelled by type:
+  \emph{basic} (direct use of a definition), \emph{conceptual} (explain why), \emph{mathematical}
+  (calculation or proof), \emph{application} (an economic or applied setting), \emph{multi-step}
+  (several ideas combined) and \emph{exam-style} (written in the format of the past ECN115 papers).
+  Every question uses only material covered up to that point. Full solutions follow the questions.
+\end{enumerate}
+
+\section*{The boxes}
+Different kinds of content are set in different boxes so that you can see at a glance what you are
+reading.
+
+\medskip
+\begin{tabularx}{\textwidth}{@{}p{46mm}X@{}}
+\boxkey{defcol}{defbg}{Definition} & A precise statement of what a term means. Definitions must be learned
+exactly: past ECN115 papers award marks for stating them.\\[1.2ex]
+\boxkey{thmcol}{thmbg}{Theorem / Proposition} & A statement that has been, or will be, proved from the
+definitions and axioms.\\[1.2ex]
+\boxkey{excol}{exbg}{Worked Example} & A problem solved step by step, with the reasoning behind each step.\\[1.2ex]
+\boxkey{corecol}{corebg}{CORE CONCEPT} & An idea on which a large part of the module rests. If you are
+short of time, make sure you understand every box with this label.\\[1.2ex]
+\boxkey{formcol}{formbg}{Key Formula} & An important formula, given the full treatment: what each symbol
+means, where it comes from, when to use it, an example, common mistakes, rearrangements, what happens when
+the inputs change, and how it appears in questions.\\[1.2ex]
+\boxkey{warncol}{warnbg}{Common mistake} & An error that students frequently make, and how to avoid it.\\[1.2ex]
+\boxkey{examcol}{exambg}{Recognising this in an exam} & How a type of question is usually worded and what
+it is really asking.\\[1.2ex]
+\boxkey{flagcol}{flagbg}{Note on the source material} & A place where the slides or the study guide
+contain an error, a typographical slip, or an ambiguity. The correct version is given, and nothing is
+silently changed.\\[1.2ex]
+\boxkey{extcol}{extbg}{Beyond the course materials} & Knowledge that is not in the ECN115 materials but
+helps you understand them. You are not expected to reproduce it unless your lecturer says otherwise.\\[1.2ex]
+\boxkey{notecol}{notebg}{Note} & A remark, a qualification or a piece of context.\\
+\end{tabularx}
+
+\section*{Source tags}
+Small grey tags such as \srcin{L1, slide 17} at the right-hand edge of a box tell you where the material
+comes from: \emph{L1} and \emph{L2} are the two lecture slide sets, \emph{SG} is the Topic~1 study and
+revision guide, and \emph{Jan 2024} and similar labels are past examination papers. Use these tags to
+find the original when you want to compare.
+
+\section*{A note on examinability}
+This book never claims that a particular item will be examined. Where the course materials themselves
+say something about assessment it is reported: for example, the slides describe the Least Upper Bound
+property as ``extra material, non-examinable''. Where past papers show that a type of question has been
+set before, the book says so, because that is a matter of record; it is not a prediction.
+
+\section*{Suggested way to study}
+On a first reading, work through each chapter in order and attempt every worked example yourself before
+reading its solution. On a second reading, concentrate on the CORE CONCEPT boxes, the key formulas and
+the chapter reviews, and attempt the practice questions with the solutions covered. Before an assessment,
+use the \emph{Final Master Review} at the end of the book: it contains a summary of the whole module, a
+concept map, a master formula sheet, a glossary, a checklist of everything you should be able to do, and
+a final set of mixed practice questions with solutions.
+
+% ====================================================================
+\chapter{Module Overview}
+% ====================================================================
+
+\section*{The module}
+ECN115 \emph{Mathematical Methods in Economics and Finance} is taught at Queen Mary University of London in
+2026--27 by Dr Evgenii Safonov (e-mail \texttt{e.safonov@qmul.ac.uk}, office GC332, office hours Tuesdays
+15:00--17:00). Lectures take place on Wednesdays 09:00--11:00 (Arts Two lecture theatre) and Thursdays
+09:00--11:00 (Bancroft Mason lecture theatre); classes are listed on MyTimetable, and undergraduate support
+is through AskQM. \src{L1, slides 2--6}
+
+Assessment consists of a one-hour closed-book midterm test worth 30\% (on 11 November 2026) and a two-hour
+closed-book final examination worth 70\% (in January). Calculators were not permitted on any of the three
+past papers summarised in the study guide. Weekly homework is not graded but is described as an important
+component: each week you attempt the homework, the most challenging problems are analysed in class, and
+then solutions are posted. As the slides put it, ``it is almost impossible to learn mathematics without
+practice''.
+
+No textbook is required. The slides suggest three for supplementary reading: Sydsæter, Hammond and others,
+\emph{Essential Mathematics for Economic Analysis}; Simon and Blume, \emph{Mathematics for Economists}; and,
+for more advanced study, Sydsæter, Hammond, Seierstad and Strøm, \emph{Further Mathematics for Economic
+Analysis}.
+
+\section*{The six topics of the module}
+\begin{enumerate}[label=\textbf{Topic \arabic*.}, leftmargin=5.5em]
+  \item \textbf{Introduction.} Mathematical arguments. Sets, numbers, vectors and sequences. Absolute value,
+  inequalities, mathematical induction, the binomial formula.
+  \item \textbf{Functions.} The concept of a function. Elementary numerical functions. Basic properties of
+  functions. Relationships between functions.
+  \item \textbf{Limits and smooth functions.} Limits of sequences. Continuity and differentiability of
+  functions. Properties of the derivative. The chain rule and other rules of differentiation. Higher-order
+  derivatives.
+  \item \textbf{Univariate optimisation.} The existence of maxima and minima. The first-order condition for
+  optimality. Corner solutions. Dependence of the solution on the parameter.
+  \item \textbf{Linear algebra.} Systems of linear equations. Matrix algebra. Matrix inversion.
+  \item \textbf{Multivariate analysis and optimisation.} Multivariate functions. Partial derivatives.
+  Unconstrained and constrained optimisation: existence, first-order conditions.
+\end{enumerate}
+
+\section*{What this book covers}
+The materials provided for this book are the slides of Lectures 1 and 2, a study and revision guide for
+Topic~1 (which also summarises the January 2024, 2025 and 2026 papers), and nothing else. The book therefore
+covers exactly the content of those two lectures: all of Topic~1 except vectors, the concept of a function
+and polynomials from Topic~2, and the definition of the limit of a sequence from Topic~3. The slides list
+the plan for the following two lectures (properties of limits, calculating limits, infinite sums and an
+introduction to derivatives in Lecture~3; more functions and derivatives in Lecture~4), but no material
+from those lectures was provided, so it is not covered here.
+
+\begin{sourcenote}[Coverage]
+The Topic~1 syllabus lists \emph{vectors}, but vectors do not appear in the slides of Lectures 1 and 2.
+They are therefore not taught in this book. If vectors are covered later in the module, treat that material
+as an addition to \cref{ch:sets,ch:numbers}.
+\end{sourcenote}
+
+\section*{How the chapters fit together}
+The chapters build on one another as shown in the map below. The first three chapters provide the
+language (logic and sets) and the objects (real numbers and their properties). Chapters \ref{ch:ineq} and
+\ref{ch:abs} use the properties of real numbers to solve inequalities, which is the single most frequently
+used skill in the module. Chapters \ref{ch:sum}--\ref{ch:binom} develop sums and proof by induction, and
+use them to prove the binomial formula. Chapter~\ref{ch:func} defines functions and proves that a polynomial
+can be factorised through each of its roots. Chapter~\ref{ch:limits} brings everything together in the
+definition of the limit of a sequence, which uses quantifiers, absolute values, inequalities and the
+triangle inequality all at once, and which is the foundation of Topic~3.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[node distance=9mm and 6mm, every node/.style={mapnode=34mm}]
+  \node (logic) {1. Language of\\ mathematics};
+  \node[right=of logic] (sets) {2. Sets};
+  \node[right=of sets] (num) {3. Real numbers\\ and their axioms};
+  \node[below=of num] (ineq) {4. Inequalities};
+  \node[left=of ineq] (abs) {5. Absolute value,\\ triangle inequality};
+  \node[left=of abs] (sum) {6. Summation\\ notation};
+  \node[below=of sum] (ind) {7. Mathematical\\ induction};
+  \node[right=of ind] (bin) {8. Binomial\\ formula};
+  \node[right=of bin] (fun) {9. Functions and\\ polynomials};
+  \node[below=of bin, mapnode=60mm, fill=corebg, draw=corecol] (lim) {10. Sequences and limits};
+  \draw[maparrow] (logic) -- (sets);
+  \draw[maparrow] (sets) -- (num);
+  \draw[maparrow] (num) -- (ineq);
+  \draw[maparrow] (ineq) -- (abs);
+  \draw[maparrow] (num) to[bend right=12] (sum);
+  \draw[maparrow] (sum) -- (ind);
+  \draw[maparrow] (ind) -- (bin);
+  \draw[maparrow] (ind) to[bend right=25] (fun);
+  \draw[maparrow] (abs) -- (lim);
+  \draw[maparrow] (fun) -- (lim);
+  \draw[maparrow] (logic) to[out=-120,in=150] (ind);
+\end{tikzpicture}
+\caption*{\textbf{Map of the book.} How the chapters depend on one another. An arrow from one chapter to another means that the
+second uses ideas from the first. The limit of a sequence (\cref{ch:limits}) draws on almost everything
+before it.}
+\end{figure}
+
+\section*{Where the lectures appear in this book}
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}Xlc@{}}
+\toprule
+Lecture material & Slides & Chapter\\
+\midrule
+Elementary logic: propositions, proof, axiom, theorem, $\Rightarrow$, $\Leftrightarrow$, negation & L1, 8 & \ref{ch:logic}\\
+``There exists'' and ``for all'' & L2, 21 & \ref{ch:logic}\\
+Sets, subsets, intersection, union, set-builder notation, set difference & L1, 10--14 & \ref{ch:sets}\\
+Number systems, properties O1--O2, A1--A5, M1--M6, Least Upper Bound, intervals & L1, 16--20 & \ref{ch:numbers}\\
+Basic and quadratic inequalities (Examples 1--3) & L1, 22--25 & \ref{ch:ineq}\\
+Absolute value, triangle inequality & L2, 10--11 & \ref{ch:abs}\\
+Summation operator and its properties & L1, 27--30 & \ref{ch:sum}\\
+Mathematical induction & L1, 32--36; L2, 4--8 & \ref{ch:ind}\\
+The binomial formula, factorials, binomial coefficients & L2, 13--14 & \ref{ch:binom}\\
+Functions, polynomials, Theorem L2.1 & L2, 16--19 & \ref{ch:func}\\
+Sequences, numerical sequences, limits & L2, 22--30 & \ref{ch:limits}\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section*{Why mathematics in an economics degree?}
+Economics makes claims about how people, firms and governments behave and about the consequences of
+that behaviour. Many of these claims are precise enough to be written down mathematically: a consumer
+chooses the bundle that maximises utility subject to a budget, a firm chooses output to maximise profit,
+an interest rate compounds over time, a sequence of quarterly output figures approaches a long-run level.
+Writing such claims mathematically has two great advantages. First, it forces precision: a statement such
+as ``demand falls when the price rises'' becomes an inequality that can be checked. Second, it allows
+\emph{proof}: once the assumptions are written down, their consequences can be derived with certainty
+rather than argued about. The material in this book is the toolkit for both. Inequalities describe
+constraints and comparisons; sets describe the options available to a decision-maker; sums describe
+totals over time or over people; induction proves statements about every period at once; functions
+describe relationships such as cost as a function of output; and limits describe long-run behaviour.

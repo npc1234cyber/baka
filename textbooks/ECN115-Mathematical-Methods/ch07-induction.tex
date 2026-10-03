@@ -1,0 +1,405 @@
+% ====================================================================
+\chapter{Mathematical Induction}\label{ch:ind}
+% ====================================================================
+
+\begin{chapterintro}
+Many statements in mathematics and economics are claims about every natural number at once: a formula for the sum of
+the first $n$ numbers, a bound on a sequence that holds in every period, a property of a polynomial of every degree.
+Checking such a claim for a few values of $n$ proves nothing about the infinitely many values that remain.
+Mathematical induction is the technique that proves all of them together, by proving just two things.
+\end{chapterintro}
+
+\begin{prerequisites}
+Propositions and implication (\cref{ch:logic}); the natural numbers and the successor property (\cref{sec:number-systems});
+summation notation and property P3 (\cref{ch:sum}).
+\end{prerequisites}
+
+\section{The principle of induction}\label{sec:ind-principle}
+
+Induction applies when there is a sequence of similar propositions $P_1,P_2,\dots,P_n,\dots$ that depend on a
+parameter $n\in\N$. \src{L1, slide 32; L2, slide 4}
+
+\begin{principle}[Mathematical induction][pr:induction]
+Instead of proving each of the propositions $P_1,P_2,P_3,\dots$ separately, we prove only two propositions:
+\begin{itemize}
+  \item the \term{induction base}: the first proposition, $P_1$;
+  \item the \term{induction step}: the proposition that for any index $n$, $P_n\Rightarrow P_{n+1}$.
+\end{itemize}
+When both the induction base and the induction step are proven, all the propositions $P_1,P_2,P_3,\dots$ are proven.
+When proving the induction step $P_n\Rightarrow P_{n+1}$, the statement that $P_n$ is true is called the
+\term{induction hypothesis}. \src{L2, slide 4}
+\end{principle}
+
+\begin{intuition}[Dominoes]
+Imagine an infinite row of dominoes, one for each natural number. The base knocks over the first domino. The step
+guarantees that whenever a domino falls, it knocks over the next one. Then every domino falls:
+\[
+P_1\ \Longrightarrow\ P_2\ \Longrightarrow\ P_3\ \Longrightarrow\ P_4\ \Longrightarrow\ P_5\ \Longrightarrow\ \cdots
+\]
+Both parts are essential. A perfect chain of dominoes achieves nothing if nobody pushes the first; and pushing the
+first achieves nothing if there is a gap somewhere in the row.
+\end{intuition}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=11mm]
+  \foreach \i in {1,...,7} {
+    \pgfmathsetmacro{\ang}{\i<4 ? -58 : 0}
+    \begin{scope}[shift={(\i,0)}]
+      \fill[accent!\ifnum\i<4 70\else 25\fi, rotate around={\ang:(0.18,0)}] (0,0) rectangle (0.18,1.1);
+      \draw[rotate around={\ang:(0.18,0)}] (0,0) rectangle (0.18,1.1);
+      \node[below, font=\small] at (0.09,-0.05) {$P_{\i}$};
+    \end{scope}
+  }
+  \node[font=\small] at (8.4,0.4) {$\cdots$};
+  \draw[thick] (0.5,0) -- (8.8,0);
+  \draw[-{Stealth}, thick, corecol] (0.2,1.2) -- (0.95,0.95) node[pos=0, above left, font=\small] {base};
+  \draw[-{Stealth}, thick, excol] (3.7,1.5) to[bend left=30] (4.3,1.3);
+  \node[font=\small, excol, above] at (4.0,1.6) {step: $P_n\Rightarrow P_{n+1}$};
+\end{tikzpicture}
+\caption{Induction as a row of dominoes. Proving the base $P_1$ knocks over the first; proving the step shows that each
+falling domino knocks over its successor. Together they guarantee that every $P_n$ is true.}
+\label{fig:dominoes}
+\end{figure}
+
+\begin{external}[Why induction is valid]
+Suppose the base and the step have been proved, but some $P_n$ is false. Among the natural numbers $n$ for which
+$P_n$ is false there is a smallest one, say $m$. It is not $1$, because $P_1$ is true; so $m-1\in\N$, and $P_{m-1}$ is true
+because $m$ was the smallest failure. But the step gives $P_{m-1}\Rightarrow P_m$, so $P_m$ is true, a contradiction.
+(The argument uses the fact that every non-empty set of natural numbers has a smallest element, which is
+equivalent to the principle of induction itself. In this module induction is taken as a basic property of $\N$,
+resting on the successor property.)
+\end{external}
+
+\section{The first example}\label{sec:ind-first}
+
+\begin{example}[Sum of the first $n$ natural numbers][ex:sum-n]
+Prove that for every $n\in\N$, $\displaystyle\sum_{j=1}^{n}j=\frac{n(n+1)}{2}$. \src{L1, slides 33--34; L2, slides 5--6}
+\solution
+For $n=1,2,3,\dots$ let $P_n$ be the proposition
+\[
+P_n:\qquad \sum_{j=1}^{n}j=\frac{n(n+1)}{2}.
+\]
+Put differently, $P_n$ states that the sum of all natural numbers from $1$ to $n$ is equal to $\frac{n(n+1)}2$.
+
+\emph{Induction base.} The first proposition, $P_1$, is $\sum_{j=1}^{1}j=\frac{1\cdot(1+1)}2$. The left-hand side is $1$ and
+the right-hand side is $1$, so $P_1$ is true.
+
+\emph{Induction step.} We must show that for any natural $n$, $P_n\Rightarrow P_{n+1}$. Here $P_{n+1}$ is the proposition
+\[
+\sum_{j=1}^{n+1}j=\frac{(n+1)\big((n+1)+1\big)}{2}.
+\]
+Assume $P_n$ (the induction hypothesis). Then
+\begin{align*}
+\sum_{j=1}^{n+1}j&=\sum_{j=1}^{n}j+(n+1)=\frac{n(n+1)}{2}+(n+1)\\
+&=\Big(\frac n2+1\Big)(n+1)=\frac{(n+2)(n+1)}{2}=\frac{(n+1)\big((n+1)+1\big)}{2},
+\end{align*}
+which is $P_{n+1}$. Note that we used $P_n$, the induction hypothesis, in the second equality.
+
+\emph{Conclusion.} By the principle of induction, $P_n$ is true for every $n\in\N$.
+\end{example}
+
+The first equality in the step, $\sum_{j=1}^{n+1}j=\sum_{j=1}^{n}j+(n+1)$, is property P3 with $m=n+1$: we
+\emph{peel off the last term}. This is the standard first move in any induction proof about a sum, because it exposes
+the expression $\sum_{j=1}^n j$ about which the hypothesis tells us something.
+
+\begin{keyformula}[Sum of the first $n$ natural numbers][kf:sum-n]{\sum_{j=1}^{n}j=1+2+\dots+n=\frac{n(n+1)}{2}}
+\fsymbols $n\in\N$ is the number of terms; $j$ is the summation index.
+\fmeaning The total of the first $n$ natural numbers. Equivalently, their average is $\frac{n+1}2$, the average of the
+first and last terms.
+\forigin Proved by induction in \cref{ex:sum-n}; recalled quickly by pairing the first and last terms
+(\cref{sec:sigma-compute}).
+\fuse To evaluate sums of linear expressions $\sum(aj+b)$ together with P1, P2 and the constant-sum rule; in
+economics, for totals of quantities growing by a fixed amount each period.
+\fexample $\sum_{j=1}^{100}j=\frac{100\cdot101}2=5050$. And $\sum_{j=1}^{12}(1000+50j)=12000+50\cdot78=15900$.
+\fmistakes Applying the formula when the sum does not start at $1$; use P3: $\sum_{j=k}^{n}j=\frac{n(n+1)}2-\frac{(k-1)k}2$.
+Writing $\frac{n(n-1)}2$, which is $\sum_{j=1}^{n-1}j$.
+\frearrange Doubling: $2\sum_{j=1}^n j=n^2+n$. Shifting: $\sum_{j=0}^{n-1}j=\frac{(n-1)n}2$.
+\fchanges Adding one more term adds $n+1$; the sum grows roughly like $\frac{n^2}2$, i.e.\ quadratically in $n$.
+\fexam As the standard first example of induction, and as a given fact (``you may take as given that\dots'') in
+computations with $\sum$.
+\end{keyformula}
+
+\section{The structure of an induction proof}\label{sec:ind-structure}
+
+\begin{core}[Template for a proof by induction]
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{State $P_n$.} Write down precisely the proposition $P_n$ to be proved for each $n$.
+  \item \textbf{Base.} Verify $P_1$, evaluating both sides separately.
+  \item \textbf{Hypothesis.} Fix an arbitrary $n\in\N$ and assume $P_n$.
+  \item \textbf{Target.} Write out $P_{n+1}$, so you know what you are aiming for.
+  \item \textbf{Step.} Starting from one side of $P_{n+1}$, use the hypothesis (and say where) to reach the other side.
+  \item \textbf{Conclusion.} ``By the principle of induction, $P_n$ holds for every $n\in\N$.''
+\end{enumerate}
+\end{core}
+
+\begin{warning}[The hypothesis must be used]
+If your argument for the step never uses $P_n$, then either the statement could have been proved directly (so
+induction was unnecessary), or, far more often, there is an error. The hypothesis is the only extra information the
+step is entitled to use.
+\end{warning}
+
+\begin{warning}[The base is not a formality]
+The step alone proves nothing. Consider the false statement $P_n$: ``$n=n+1$''. Its step is perfectly valid: if
+$n=n+1$, then adding $1$ gives $n+1=n+2$, which is $P_{n+1}$. But $P_1$ (``$1=2$'') is false, so no domino ever falls.
+\end{warning}
+
+\section{An equivalent form of the step}\label{sec:ind-alt-step}
+
+The slides note that the step can equally be written with the indices shifted down by one.
+
+\begin{example}[The step written as $P_{n-1}\Rightarrow P_n$]
+Equivalently, the induction step is the proposition that for any natural $n\ge2$, $P_{n-1}\Rightarrow P_n$. In this
+formulation the induction hypothesis is $P_{n-1}$. Carry out the step for \cref{ex:sum-n} in this form.
+\src{L1, slide 35; L2, slide 7}
+\solution
+The hypothesis $P_{n-1}$ is $\sum_{j=1}^{n-1}j=\frac{(n-1)((n-1)+1)}2=\frac{(n-1)n}2$. Then
+\[
+\sum_{j=1}^{n}j=\sum_{j=1}^{n-1}j+n=\frac{(n-1)n}{2}+n=\Big(\frac{n-1}{2}+1\Big)n=\frac{(n+1)n}{2},
+\]
+so $P_n$ holds. Since the argument works for all $n\ge2$, $P_{n-1}\Rightarrow P_n$ for all $n\ge 2$, proving the step.
+\end{example}
+
+Both forms say the same thing: every proposition in the chain implies the next one. Use whichever makes the algebra
+tidier.
+
+\section{More examples}\label{sec:ind-more}
+
+\begin{example}[Sum of the first $n$ odd numbers]
+Prove that $\sum_{j=1}^{n}(2j-1)=n^2$ for every $n\in\N$.
+\solution
+Let $P_n$ be $\sum_{j=1}^n(2j-1)=n^2$.
+\emph{Base:} for $n=1$ the left side is $2\cdot1-1=1$ and the right side is $1^2=1$.
+\emph{Step:} assume $P_n$. Then
+\[
+\sum_{j=1}^{n+1}(2j-1)=\sum_{j=1}^{n}(2j-1)+\big(2(n+1)-1\big)=n^2+2n+1=(n+1)^2,
+\]
+using $P_n$ in the second equality. This is $P_{n+1}$, so by induction $P_n$ holds for all $n\in\N$.
+\end{example}
+
+\begin{example}[Sum of squares][ex:sum-squares]
+Prove that $\displaystyle\sum_{j=1}^{n}j^2=\frac{n(n+1)(2n+1)}{6}$ for every $n\in\N$. \src{SG, mock Q5(a)}
+\solution
+Let $P_n$ be the displayed identity.
+\emph{Base:} $n=1$ gives $1$ on the left and $\frac{1\cdot2\cdot3}{6}=1$ on the right.
+\emph{Hypothesis:} assume $P_n$ for some $n\in\N$.
+\emph{Target:} $\sum_{j=1}^{n+1}j^2=\frac{(n+1)(n+2)(2n+3)}6$.
+\emph{Step:}
+\begin{align*}
+\sum_{j=1}^{n+1}j^2&=\sum_{j=1}^{n}j^2+(n+1)^2=\frac{n(n+1)(2n+1)}{6}+(n+1)^2 \qquad\text{(hypothesis used here)}\\
+&=\frac{(n+1)\big[n(2n+1)+6(n+1)\big]}{6}=\frac{(n+1)(2n^2+7n+6)}{6}\\
+&=\frac{(n+1)(n+2)(2n+3)}{6},
+\end{align*}
+since $2n^2+7n+6=(n+2)(2n+3)$. This is $P_{n+1}$, because $(n+1)+1=n+2$ and $2(n+1)+1=2n+3$. By induction the
+identity holds for all $n\in\N$.
+\end{example}
+
+\begin{example}[A geometric sum][ex:geometric]
+Let $r\ne1$ be a real number. Prove that for every $n\in\N$,
+\[
+\sum_{t=0}^{n-1}r^t=1+r+r^2+\dots+r^{n-1}=\frac{1-r^n}{1-r}.
+\]
+\solution
+\emph{Base:} for $n=1$ the left side is $r^0=1$ and the right side is $\frac{1-r}{1-r}=1$.
+\emph{Step:} assume the formula for $n$. Then
+\[
+\sum_{t=0}^{n}r^t=\frac{1-r^n}{1-r}+r^n=\frac{1-r^n+r^n-r^{n+1}}{1-r}=\frac{1-r^{n+1}}{1-r},
+\]
+which is the formula for $n+1$. By induction it holds for every $n\in\N$.
+\end{example}
+
+\begin{external}[Why the geometric sum matters in economics]
+Present values of constant payment streams, annuity formulas and the Keynesian multiplier are all geometric sums.
+For example, an asset paying $\pounds1$ at the end of each of $n$ years, at interest rate $i>0$, has present value
+$\sum_{t=1}^{n}(1+i)^{-t}=\frac{1-(1+i)^{-n}}{i}$, obtained from \cref{ex:geometric} with $r=\frac{1}{1+i}$.
+\end{external}
+
+\subsection{Inequalities by induction, and other starting points}
+
+Induction proves inequalities as well as identities, and the chain of dominoes need not start at $1$: to prove $P_n$
+for all $n\ge n_0$, prove $P_{n_0}$ and $P_n\Rightarrow P_{n+1}$ for all $n\ge n_0$.
+
+\begin{example}[Bernoulli's inequality][ex:bernoulli]
+Let $x\ge-1$. Prove that $(1+x)^n\ge1+nx$ for every $n\in\N$. Deduce that $2^n\ge n+1$.
+\solution
+\emph{Base:} $(1+x)^1=1+x$, so equality holds.
+\emph{Step:} assume $(1+x)^n\ge1+nx$. Since $x\ge-1$, the number $1+x$ is non-negative, so multiplying the hypothesis
+by it keeps the direction (M6, or trivially if $1+x=0$):
+\[
+(1+x)^{n+1}=(1+x)^n(1+x)\ge(1+nx)(1+x)=1+(n+1)x+nx^2\ge1+(n+1)x,
+\]
+since $nx^2\ge0$. By induction the inequality holds for all $n\in\N$. With $x=1$: $2^n\ge1+n$.
+\end{example}
+
+\begin{example}[Starting from a later value]
+Prove that $2^n>n^2$ for every integer $n\ge5$.
+\solution
+\emph{Base} ($n=5$): $32>25$.
+\emph{Step:} assume $2^n>n^2$ for some $n\ge5$. Then $2^{n+1}=2\cdot2^n>2n^2$. It remains to show $2n^2\ge(n+1)^2$, i.e.\
+$n^2-2n-1\ge0$, i.e.\ $(n-1)^2\ge2$, which holds for $n\ge3$. So $2^{n+1}>(n+1)^2$, and by induction the inequality holds
+for all $n\ge5$. (It fails for $n=2,3,4$: $4=4$, $8<9$, $16=16$.)
+\end{example}
+
+\section{The alternative (strong) formulation}\label{sec:strong-ind}
+
+\begin{principle}[Induction, alternative formulation][pr:strong]
+To prove the propositions $P_1,P_2,\dots,P_n,\dots$:
+\begin{itemize}
+  \item the induction base is the first proposition $P_1$;
+  \item the induction step is the proposition that for any index $n$, $(P_1\text{ and }\dots\text{ and }P_n)\Rightarrow P_{n+1}$.
+\end{itemize}
+When proving this step, the statement that the propositions $P_1,\dots,P_n$ are true is the induction hypothesis. The
+two versions of the principle are, in fact, equivalent. \src{L1, slide 36; L2, slide 8}
+\end{principle}
+
+The hypothesis is now stronger --- all the earlier propositions, not only the last one --- so the step is easier to
+prove. This is useful when $P_{n+1}$ depends on a case other than $P_n$, for example on two earlier cases, or on a case
+with roughly half the size. The two formulations are equivalent: any proof using only $P_n$ is also a proof using all
+of $P_1,\dots,P_n$; and conversely, applying ordinary induction to the statement $Q_n$: ``$P_1$ and $\dots$ and $P_n$''
+recovers the strong form. The proof of the factorisation theorem for polynomials (\cref{thm:factor}) uses this
+formulation.
+
+\begin{example}[A recursively defined sequence][ex:strong-seq]
+A sequence is defined by $x_1=1$, $x_2=3$ and $x_{n+1}=x_n+2x_{n-1}$ for $n\ge2$. Prove that $x_n=\dfrac{2^{n+1}+(-1)^n}{3}$
+for every $n\in\N$.
+\solution
+Let $P_n$ be the formula for $x_n$. Since $x_{n+1}$ depends on \emph{two} earlier terms, we use the strong form and need
+two base cases.
+\emph{Base:} $n=1$: $\frac{4-1}{3}=1=x_1$. $n=2$: $\frac{8+1}{3}=3=x_2$. (The case $n=2$ must be checked separately
+because the recursion only starts at $n\ge2$ and would require $x_0$, which is not defined.)
+\emph{Step:} let $n\ge2$ and assume $P_1,\dots,P_n$; in particular $P_n$ and $P_{n-1}$. Then
+\begin{align*}
+x_{n+1}=x_n+2x_{n-1}&=\frac{2^{n+1}+(-1)^n}{3}+\frac{2\big(2^{n}+(-1)^{n-1}\big)}{3}\\
+&=\frac{2\cdot 2^{n+1}+(-1)^n-2(-1)^{n}}{3}=\frac{2^{n+2}+(-1)^{n+1}}{3},
+\end{align*}
+using $(-1)^{n-1}=-(-1)^n$. This is $P_{n+1}$. By (strong) induction, $P_n$ holds for all $n\in\N$.
+\end{example}
+
+\section{What induction is not}\label{sec:ind-not}
+
+\begin{warning}[Checking cases is not a proof]
+A student verifies $\sum_{j=1}^{n}j^2=\frac{n(n+1)(2n+1)}6$ for $n=1,\dots,100$ and concludes that it holds for all $n$.
+This establishes one hundred propositions and says nothing about $P_{101}$; by the successor property there is always a
+further case. Only the general step, proved for an arbitrary $n$, covers them all.
+\end{warning}
+
+\begin{external}[A famous faulty induction]
+``All horses have the same colour.'' Let $P_n$ be ``in any group of $n$ horses, all have the same colour''. $P_1$ is
+true. For the step, take $n+1$ horses; remove one, and by the hypothesis the remaining $n$ have the same colour; remove a
+different one, and again the remaining $n$ share a colour; the two groups overlap, so all $n+1$ share a colour.
+The flaw is in the step from $n=1$ to $n=2$: the two groups of size $1$ do not overlap. The step must work for
+\emph{every} $n$, including the smallest.
+\end{external}
+
+% --------------------------------------------------------------------
+\section{Chapter review}
+% --------------------------------------------------------------------
+\subsection*{Summary}
+Induction proves an infinite sequence of propositions $P_1,P_2,\dots$ by proving the base $P_1$ and the step
+$P_n\Rightarrow P_{n+1}$ for arbitrary $n$; in the step, $P_n$ is the induction hypothesis and must be used. For sums, the
+step starts by peeling off the last term (P3). The step may equally be written $P_{n-1}\Rightarrow P_n$ for $n\ge2$; the
+chain may start at any $n_0$; and in the equivalent strong formulation the hypothesis is $P_1$ and $\dots$ and $P_n$, with
+as many base cases as the argument needs. Checking finitely many cases is never a proof.
+
+\subsection*{Key definitions}
+\begin{itemize}
+  \item \textbf{Induction base:} the proposition $P_1$.
+  \item \textbf{Induction step:} for every $n$, $P_n\Rightarrow P_{n+1}$ (equivalently, $P_{n-1}\Rightarrow P_n$ for $n\ge2$).
+  \item \textbf{Induction hypothesis:} the assumption that $P_n$ (or $P_1,\dots,P_n$) is true, made while proving the step.
+\end{itemize}
+
+\subsection*{Key equations}
+\[
+\sum_{j=1}^{n}j=\frac{n(n+1)}2,\qquad\sum_{j=1}^{n}(2j-1)=n^2,\qquad\sum_{j=1}^{n}j^2=\frac{n(n+1)(2n+1)}6,\qquad
+\sum_{t=0}^{n-1}r^t=\frac{1-r^n}{1-r}\ (r\ne1).
+\]
+
+\subsection*{Connections}
+Induction rests on the successor property of $\N$ (\cref{sec:number-systems}) and proves $\forall n\in\N$ statements
+(\cref{sec:quantifiers}). It is used to prove the binomial formula (\cref{ch:binom}) and the factorisation theorem for
+polynomials (\cref{ch:func}), and Bernoulli's inequality gives $2^n\ge n+1$, which is useful for limits
+(\cref{ch:limits}).
+
+\subsection*{Common mistakes}
+\begin{itemize}
+  \item Omitting or not actually checking the base.
+  \item Not using the hypothesis, or using $P_{n+1}$ (what is to be proved) as if it were known.
+  \item Not stating $P_n$ clearly, so that the target $P_{n+1}$ is unclear.
+  \item Using too few base cases in the strong form.
+  \item Treating verification of many cases as a proof.
+\end{itemize}
+
+\subsection*{Exam checklist}
+\begin{checklist}
+  \item State the principle of induction, naming the base, the step and the hypothesis.
+  \item Prove summation identities by induction, marking where the hypothesis is used.
+  \item Write the step in the form $P_{n-1}\Rightarrow P_n$.
+  \item State the alternative formulation and say when it is useful.
+  \item Explain why checking finitely many cases is not a proof.
+\end{checklist}
+
+% --------------------------------------------------------------------
+\section{Practice questions}
+% --------------------------------------------------------------------
+\pq[basic] For the claim $\sum_{j=1}^{n}a_j=b_n$ for all $n\in\N$, write down (a) the base, (b) the induction hypothesis,
+(c) the statement to be proved in the step.
+
+\pq[mathematical] Prove by induction that $\sum_{j=1}^{n}j^3=\Big(\frac{n(n+1)}2\Big)^2$ for every $n\in\N$.
+
+\pq[mathematical] Prove by induction that $\sum_{j=1}^{n}\frac{1}{j(j+1)}=\frac{n}{n+1}$ for every $n\in\N$.
+
+\pq[mathematical] Prove by induction that $n^3-n$ is divisible by $3$ for every $n\in\N$.
+
+\pq[conceptual] A student proves the step $P_n\Rightarrow P_{n+1}$ for the claim $\sum_{j=1}^{n}(2j-1)=n^2+1$ and concludes
+that the claim is true. Explain the error.
+
+\pq[application] A loan of $L$ pounds accrues interest at rate $i$ per year, and nothing is repaid. Let $D_n$ be the debt
+after $n$ years, so $D_1=L(1+i)$ and $D_{n+1}=(1+i)D_n$. Prove by induction that $D_n=L(1+i)^n$.
+
+\pq[multi-step] A sequence is defined by $a_1=5$, $a_2=13$ and $a_{n+1}=5a_n-6a_{n-1}$ for $n\ge2$. (a) Explain why ordinary
+induction with a single base case is not sufficient, and how many base cases are needed. (b) Prove that $a_n=2^n+3^n$
+for every $n\in\N$.
+
+\pq[exam-style] (a) Prove by mathematical induction that $\sum_{j=1}^{n}j(j+1)=\frac{n(n+1)(n+2)}{3}$ for every $n\in\N$.
+Identify the base, the hypothesis and the step, and state where the hypothesis is used.
+(b) Using (a) and \cref{kf:sum-n}, deduce the formula for $\sum_{j=1}^n j^2$.
+
+% --------------------------------------------------------------------
+\section{Solutions to practice questions}
+% --------------------------------------------------------------------
+\pqsol{7.1}
+(a) $a_1=b_1$. (b) For some $n\in\N$, $\sum_{j=1}^{n}a_j=b_n$. (c) $\sum_{j=1}^{n+1}a_j=b_{n+1}$, i.e.\ (after peeling off the
+last term) $b_n+a_{n+1}=b_{n+1}$.
+
+\pqsol{7.2}
+Base: $1=\big(\frac{1\cdot2}{2}\big)^2=1$. Step: assume the formula for $n$. Then
+$\sum_{j=1}^{n+1}j^3=\frac{n^2(n+1)^2}{4}+(n+1)^3=\frac{(n+1)^2\,(n^2+4n+4)}{4}=\frac{(n+1)^2(n+2)^2}{4}
+=\Big(\frac{(n+1)(n+2)}2\Big)^2$, which is the formula for $n+1$.
+
+\pqsol{7.3}
+Base: $\frac1{1\cdot2}=\frac12=\frac{1}{1+1}$. Step: assume the formula for $n$. Then
+$\sum_{j=1}^{n+1}\frac1{j(j+1)}=\frac n{n+1}+\frac1{(n+1)(n+2)}=\frac{n(n+2)+1}{(n+1)(n+2)}=\frac{(n+1)^2}{(n+1)(n+2)}=\frac{n+1}{n+2}$.
+
+\pqsol{7.4}
+Base: $1-1=0=3\cdot0$. Step: assume $n^3-n=3k$ for an integer $k$. Then
+$(n+1)^3-(n+1)=n^3+3n^2+3n+1-n-1=(n^3-n)+3(n^2+n)=3(k+n^2+n)$, a multiple of $3$.
+
+\pqsol{7.5}
+The base fails: for $n=1$ the left side is $1$ and the right side is $2$. The step is valid ($n^2+1+2n+1=(n+1)^2+1$), but
+without a true base it establishes nothing --- the correct identity is $\sum(2j-1)=n^2$. Both the base and the step are
+needed.
+
+\pqsol{7.6}
+Base: $D_1=L(1+i)=L(1+i)^1$. Step: if $D_n=L(1+i)^n$ then $D_{n+1}=(1+i)D_n=L(1+i)^{n+1}$. By induction $D_n=L(1+i)^n$ for all $n$.
+
+\pqsol{7.7}
+(a) $a_{n+1}$ is determined by $a_n$ \emph{and} $a_{n-1}$, so the hypothesis $P_n$ alone does not give enough information;
+the strong form supplies both $P_n$ and $P_{n-1}$. Two base cases ($n=1$ and $n=2$) are needed, because the recursion
+expresses $a_{n+1}$ only for $n\ge2$; $a_2$ cannot be obtained from it (that would need $a_0$).
+(b) Base: $a_1=5=2+3$, $a_2=13=4+9$. Step: for $n\ge2$, assume the formula for all indices up to $n$. Then
+$a_{n+1}=5(2^n+3^n)-6(2^{n-1}+3^{n-1})=2^{n-1}(10-6)+3^{n-1}(15-6)=4\cdot2^{n-1}+9\cdot3^{n-1}=2^{n+1}+3^{n+1}$.
+
+\pqsol{7.8}
+(a) Let $P_n$ be the identity. Base: $1\cdot2=2=\frac{1\cdot2\cdot3}{3}$. Hypothesis: assume $P_n$. Step:
+$\sum_{j=1}^{n+1}j(j+1)=\frac{n(n+1)(n+2)}3+(n+1)(n+2)$ (hypothesis used here) $=\frac{(n+1)(n+2)(n+3)}{3}$, which is $P_{n+1}$.
+(b) $j^2=j(j+1)-j$, so by P1, P2: $\sum j^2=\frac{n(n+1)(n+2)}3-\frac{n(n+1)}2=\frac{n(n+1)\big(2(n+2)-3\big)}{6}=\frac{n(n+1)(2n+1)}6$.

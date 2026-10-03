@@ -1,0 +1,20 @@
+% Generic title page. Requires \tpcode, \tptitle, \tpsubtitle, \tpsources, \tpedition defined.
+\begin{titlepage}
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[accent] (current page.north west) rectangle ([yshift=-105mm]current page.north east);
+  \fill[accent!75!black] ([yshift=-105mm]current page.north west) rectangle ([yshift=-108mm]current page.north east);
+  \node[anchor=north west, text=white, font=\sffamily\bfseries\Large, inner sep=0pt]
+     at ([xshift=24mm,yshift=-30mm]current page.north west) {\tpcode};
+  \node[anchor=north west, text=white, font=\sffamily\bfseries\fontsize{30}{36}\selectfont\hyphenpenalty=10000\exhyphenpenalty=10000,
+     text width=162mm, align=left, inner sep=0pt]
+     at ([xshift=24mm,yshift=-45mm]current page.north west) {\tptitle};
+  \node[anchor=north west, text=accent!90!black, font=\sffamily\Large, text width=160mm,
+     align=left, inner sep=0pt]
+     at ([xshift=24mm,yshift=-122mm]current page.north west) {\tpsubtitle};
+  \node[anchor=north west, text=inkgrey, font=\small, text width=150mm, align=left, inner sep=0pt]
+     at ([xshift=24mm,yshift=-160mm]current page.north west) {\tpsources};
+  \node[anchor=south west, text=inkgrey, font=\sffamily\small, inner sep=0pt]
+     at ([xshift=24mm,yshift=22mm]current page.south west) {\tpedition};
+  \fill[accent] ([yshift=12mm]current page.south west) rectangle (current page.south east);
+\end{tikzpicture}
+\end{titlepage}

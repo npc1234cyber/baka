@@ -1,0 +1,372 @@
+% ====================================================================
+\chapter{Absolute Value and the Triangle Inequality}\label{ch:abs}
+% ====================================================================
+
+\begin{chapterintro}
+The absolute value of a number measures its size regardless of sign; the absolute value of a difference
+measures the distance between two numbers. Distance is the key idea behind limits: a sequence approaches a
+number when the distance between them becomes as small as we please. This chapter defines the absolute
+value, proves its basic properties, establishes the triangle inequality, and shows how to solve inequalities
+involving absolute values.
+\end{chapterintro}
+
+\begin{prerequisites}
+The properties of the real numbers and the sign rules (\cref{ch:numbers}, especially \cref{prop:signs}); proof by
+cases (\cref{sec:proof-types}); solving linear and product inequalities (\cref{ch:ineq}); intervals
+(\cref{sec:intervals}).
+\end{prerequisites}
+
+\section{Definition}\label{sec:abs-def}
+
+\begin{definition}[Absolute value][def:abs]
+The \term{absolute value} $|x|$ of a real number $x$ is defined as follows:
+\[
+|x|=\begin{cases} x & \text{if } x\ge 0,\\ -x & \text{if } x<0.\end{cases}
+\]
+Equivalently, $|x|=\max\{x,-x\}$, the larger of the two numbers $x$ and $-x$. \src{L2, slide 10}
+\end{definition}
+
+For a non-negative number the absolute value changes nothing; for a negative number it removes the minus sign.
+The two descriptions agree: if $x\ge0$ then $x\ge -x$ (since $-x\le0\le x$), so $\max\{x,-x\}=x$; if $x<0$ then
+$-x>0>x$, so $\max\{x,-x\}=-x$.
+
+\begin{example}[Computing absolute values]
+$|2|=2$, \ $|-5|=5$, \ $\big|\tfrac73\big|=\tfrac73$, \ $|-\sqrt{11}|=\sqrt{11}$, \ $|0|=0$. \src{L2, slide 10}
+\end{example}
+
+\begin{warning}[$|{-x}|$ is not always $x$]
+It is tempting to think ``the absolute value removes the minus sign'', so that $|{-x}|=x$. That is true only if
+$x\ge0$. For $x=-3$, $|{-x}|=|3|=3=-x$. The correct statement is $|{-x}|=|x|$ (\cref{prop:abs-props}).
+\end{warning}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[stat, width=8cm, height=5.2cm, xmin=-3.3, xmax=3.3, ymin=-0.3, ymax=3.4, axis x line=middle,
+  axis y line=middle, xlabel={$x$}, ylabel={$y$}, x label style={anchor=west}, y label style={anchor=south},
+  xtick={-3,-2,-1,1,2,3}, ytick={1,2,3}]
+  \addplot[curve, accent, domain=-3.1:0] {-x};
+  \addplot[curve, accent, domain=0:3.1] {x};
+  \node[lab, accent] at (axis cs:2.2,3.0) {$y=|x|$};
+\end{axis}
+\end{tikzpicture}
+\caption{The graph of $y=|x|$. To the right of $0$ it coincides with $y=x$; to the left it coincides with
+$y=-x$. The graph has a corner at the origin.}
+\label{fig:abs-graph}
+\end{figure}
+
+\section{Properties}\label{sec:abs-props}
+
+\begin{proposition}[Properties of the absolute value][prop:abs-props]
+For all real numbers $a$ and $b$: \src{L2, slide 10}
+\begin{enumerate}[label=(\roman*)]
+  \item $|a|\ge a$;
+  \item $|a|\ge -a$;
+  \item $|{-a}|=|a|$;
+  \item $|a\cdot b|=|a|\cdot|b|$;
+  \item if $b\ne0$, then $\left|\dfrac ab\right|=\dfrac{|a|}{|b|}$ (this follows from the previous property).
+\end{enumerate}
+In addition, $|a|\ge0$, with $|a|=0$ if and only if $a=0$.
+\end{proposition}
+\emph{Proof.} (i) and (ii) are immediate from $|a|=\max\{a,-a\}$: the maximum of two numbers is at least as large
+as each of them. Combining them with \cref{prop:signs} gives the useful double inequality
+\begin{equation}\label{eq:abs-sandwich}
+-|a|\le a\le |a|.
+\end{equation}
+(iii) $|{-a}|=\max\{-a,-(-a)\}=\max\{-a,a\}=|a|$.
+
+(iv) Consider the signs. If $a\ge0$ and $b\ge0$ then $ab\ge0$ and $|ab|=ab=|a||b|$. If $a\ge0$ and $b<0$ then
+$ab\le0$, so $|ab|=-ab=a\cdot(-b)=|a||b|$. The case $a<0$, $b\ge0$ is symmetric. If $a<0$ and $b<0$ then $ab>0$,
+so $|ab|=ab=(-a)(-b)=|a||b|$.
+
+(v) Apply (iv) to $a=\frac ab\cdot b$: $|a|=\big|\frac ab\big|\cdot|b|$. Since $b\ne0$, $|b|>0$, and dividing by
+$|b|$ gives the result.
+
+Finally, if $a>0$ then $|a|=a>0$; if $a<0$ then $|a|=-a>0$; and $|0|=0$. \hfill$\square$
+
+\begin{external}[Absolute value and square roots]
+For every real $a$, $|a|^2=a^2$ and $\sqrt{a^2}=|a|$ (where $\sqrt{\ }$ denotes the non-negative square root).
+The second identity is a frequent source of errors: $\sqrt{(-3)^2}=\sqrt9=3$, not $-3$.
+\end{external}
+
+\section{Absolute value as distance}\label{sec:abs-distance}
+
+\begin{core}[Distance on the number line]
+For real numbers $x$ and $y$, $|x-y|$ is the \term{distance} between $x$ and $y$ on the number line. In
+particular $|x|=|x-0|$ is the distance from $x$ to $0$. \src{L2, slide 11}
+\end{core}
+
+Distance does not depend on direction: $|x-y|=|y-x|$ by \cref{prop:abs-props}(iii). For example, the distance
+between $-2$ and $5$ is $|-2-5|=7=|5-(-2)|$.
+
+Statements about distance translate directly into absolute values, and vice versa:
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+In words & In symbols\\
+\midrule
+$x$ is within $2$ of $3$ & $|x-3|<2$\\
+$x$ is at least $4$ away from $-1$ & $|x+1|\ge4$\\
+$a_n$ is within $\varepsilon$ of $x$ & $|a_n-x|<\varepsilon$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The last line is exactly the condition that appears in the definition of a limit (\cref{ch:limits}).
+
+\section{The triangle inequality}\label{sec:triangle}
+
+\begin{theorem}[Triangle inequality][thm:triangle3]
+For any real numbers $x,y,z$,
+\[
+|x-z|\le|x-y|+|y-z|. \tag*{\srcin{L2, slide 11; HW-1 Problem B1}}
+\]
+\end{theorem}
+
+\begin{intuition}
+$|x-z|$ is the distance from $x$ to $z$; $|x-y|$ is the distance from $x$ to $y$; $|y-z|$ is the distance from
+$y$ to $z$. Going from $x$ to $z$ directly should not be longer than going first from $x$ to $y$ and then from
+$y$ to $z$. A detour cannot be shorter than the direct route. The name comes from geometry: in a triangle, one
+side is never longer than the sum of the other two.
+\end{intuition}
+
+\begin{sourcenote}[The proof]
+The slides pose the triangle inequality as Problem B1 of the first homework and refer to ``notes'' for the
+argument, but no proof appears in the materials provided. The proof below is supplied for completeness.
+\end{sourcenote}
+
+The cleanest route is to prove a two-number version first.
+
+\begin{theorem}[Triangle inequality, two-number form][thm:triangle2]
+For any real numbers $a$ and $b$, $|a+b|\le|a|+|b|$.
+\end{theorem}
+\emph{Proof.} By \eqref{eq:abs-sandwich}, $-|a|\le a\le|a|$ and $-|b|\le b\le|b|$. Adding these (\cref{ch:numbers},
+Question 3.5 applied to $\le$),
+\[
+-(|a|+|b|)\le a+b\le |a|+|b|.
+\]
+Now $|a+b|$ equals either $a+b$ or $-(a+b)$. The right-hand inequality gives $a+b\le|a|+|b|$; the left-hand
+inequality, multiplied by $-1$ (reversing it), gives $-(a+b)\le|a|+|b|$. In both cases $|a+b|\le|a|+|b|$.
+\hfill$\square$
+
+\emph{Proof of \cref{thm:triangle3}.} Put $a=x-y$ and $b=y-z$. Then $a+b=x-z$, and \cref{thm:triangle2} gives
+$|x-z|\le|x-y|+|y-z|$. \hfill$\square$
+
+The slides ask how the three-number form can be used to prove two further inequalities. Both follow by choosing
+the three numbers cleverly.
+
+\begin{example}[Applying the triangle inequality][ex:triangle-apply]
+Use \cref{thm:triangle3} to show that for any real $a,b$: (i) $|a+b|\le|a|+|b|$; (ii) $|a|\le|a-b|+|b|$.
+\src{L2, slide 11}
+\solution
+(i) Take $x=a$, $y=0$, $z=-b$. Then $|x-z|=|a-(-b)|=|a+b|$, $|x-y|=|a-0|=|a|$ and $|y-z|=|0-(-b)|=|b|$. So $|a+b|\le|a|+|b|$.
+
+(ii) Take $x=a$, $y=b$, $z=0$. Then $|x-z|=|a|$, $|x-y|=|a-b|$ and $|y-z|=|b|$. So $|a|\le|a-b|+|b|$.
+\end{example}
+
+\begin{external}[Reverse triangle inequality]
+Rearranging (ii) gives $|a|-|b|\le|a-b|$; exchanging $a$ and $b$ gives $|b|-|a|\le|a-b|$. Together:
+$\big||a|-|b|\big|\le|a-b|$. The sizes of two numbers differ by no more than the distance between them.
+\end{external}
+
+\begin{keyformula}[The triangle inequality][kf:triangle]{|x-z|\le|x-y|+|y-z|\qquad\text{equivalently}\qquad |a+b|\le|a|+|b|}
+\fsymbols $x,y,z,a,b$ are any real numbers; $|\cdot|$ is the absolute value.
+\fmeaning The distance between two points is at most the length of any route between them that passes through a
+third point. In the second form: the size of a sum is at most the sum of the sizes.
+\forigin From $-|a|\le a\le|a|$ and $-|b|\le b\le|b|$ by adding (\cref{thm:triangle2}); the three-number form
+follows by substituting $a=x-y$, $b=y-z$.
+\fuse To bound the distance between two numbers by passing through a convenient intermediate number; to bound
+the size of a sum; above all in proofs about limits (\cref{ex:no-limit}).
+\fexample With $x=1$, $y=x_0$, $z=0$: $1=|1-0|\le|1-x_0|+|x_0-0|$. If both distances on the right were less than
+$\tfrac14$, we would get $1<\tfrac12$, which is false. This is exactly the argument that $1,0,1,0,\dots$ has no
+limit.
+\fmistakes Writing $|a+b|=|a|+|b|$ (equality holds only when $a$ and $b$ do not have opposite signs: $|3+(-5)|=2$
+but $|3|+|-5|=8$); writing $|a-b|\le|a|-|b|$ (false: $a=0$, $b=1$ gives $1\le-1$).
+\frearrange $|a|-|b|\le|a-b|$ and $\big||a|-|b|\big|\le|a-b|$ (reverse triangle inequality); $|a-b|\le|a|+|b|$
+(apply the two-number form to $a$ and $-b$).
+\fchanges Equality $|a+b|=|a|+|b|$ holds exactly when $ab\ge0$. In the three-number form, equality holds exactly
+when $y$ lies between $x$ and $z$ (inclusive): moving $y$ outside that interval makes the detour strictly longer.
+\fexam As a step in a proof (``by the triangle inequality, \dots''), particularly in arguments by contradiction
+about limits; or as a short ``show that'' question.
+\end{keyformula}
+
+\section{Solving inequalities with absolute values}\label{sec:abs-ineq}
+
+\begin{proposition}[Within a distance][prop:abs-within]
+Let $a\in\R$ and $r>0$. Then
+\begin{align*}
+|x-a|<r\quad&\Longleftrightarrow\quad a-r<x<a+r\quad\Longleftrightarrow\quad x\in(a-r,\,a+r),\\
+|x-a|>r\quad&\Longleftrightarrow\quad x<a-r\ \text{ or }\ x>a+r.
+\end{align*}
+The same holds with $\le$ and $\ge$, with the endpoints included.
+\end{proposition}
+\emph{Proof.} Split by the sign of $x-a$. If $x\ge a$, then $|x-a|=x-a$, and $|x-a|<r\Leftrightarrow x<a+r$; combined
+with $x\ge a$ this gives $a\le x<a+r$. If $x<a$, then $|x-a|=a-x$, and $|x-a|<r\Leftrightarrow x>a-r$; combined with
+$x<a$ this gives $a-r<x<a$. The union of the two cases is $a-r<x<a+r$. The second statement is the negation of
+the first with $\le$ (\cref{sec:negation}): $\text{not}(a-r\le x\le a+r)\Leftrightarrow x<a-r$ or $x>a+r$.
+\hfill$\square$
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=10mm]
+  \draw[-{Stealth}] (-0.8,0) -- (7.8,0);
+  \draw[accent, line width=2.4pt] (1.5,0) -- (5.5,0);
+  \node[circle, draw=accent, fill=white, thick, inner sep=1.5pt] at (1.5,0) {};
+  \node[circle, draw=accent, fill=white, thick, inner sep=1.5pt] at (5.5,0) {};
+  \draw (3.5,0.12) -- (3.5,-0.12);
+  \node[below, font=\small] at (1.5,-0.1) {$a-r$}; \node[below, font=\small] at (3.5,-0.1) {$a$};
+  \node[below, font=\small] at (5.5,-0.1) {$a+r$};
+  \draw[decorate, decoration={brace, amplitude=4pt}] (3.5,0.25) -- (5.5,0.25) node[midway, above=4pt, font=\small] {$r$};
+  \draw[decorate, decoration={brace, amplitude=4pt}] (1.5,0.25) -- (3.5,0.25) node[midway, above=4pt, font=\small] {$r$};
+\end{tikzpicture}
+\caption{The set $\{x\in\R\mid |x-a|<r\}$ is the open interval of radius $r$ centred at $a$: all points whose
+distance from $a$ is less than $r$.}
+\label{fig:abs-interval}
+\end{figure}
+
+\begin{example}[Inequalities with absolute values]
+Solve (a) $|x-3|<2$; (b) $|2x+1|\le5$; (c) $|x|>3$; (d) $|x-1|<|x+2|$.
+\solution
+(a) By \cref{prop:abs-within} with $a=3$, $r=2$: $1<x<5$, so $x\in(1,5)$. In words: the numbers within distance
+$2$ of $3$.
+
+(b) $|2x+1|\le5\Leftrightarrow-5\le2x+1\le5\Leftrightarrow-6\le2x\le4\Leftrightarrow-3\le x\le2$, so $x\in[-3,2]$.
+(Alternatively write $|2x+1|=2|x+\tfrac12|$ and use distance from $-\tfrac12$.)
+
+(c) $x<-3$ or $x>3$: $x\in(-\infty,-3)\cup(3,\infty)$.
+
+(d) Both sides are non-negative, and for non-negative numbers $u<v\Leftrightarrow u^2<v^2$ (by \cref{ch:numbers}, Question 3.7
+and its converse). So the inequality is equivalent to $(x-1)^2<(x+2)^2$, i.e.\ $x^2-2x+1<x^2+4x+4$, i.e.\
+$-6x<3$, i.e.\ $x>-\tfrac12$. In words: $x$ is closer to $1$ than to $-2$ exactly when it lies to the right of the
+midpoint $-\tfrac12$.
+\end{example}
+
+\begin{warning}[Splitting $|x-a|<r$ wrongly]
+$|x-3|<2$ does \emph{not} mean ``$x-3<2$'' alone; that drops the lower bound. Nor does $|x|>3$ mean $-3>x>3$, which
+is impossible. Inequalities of the form $|\cdot|<r$ give a single interval (``and''); those of the form $|\cdot|>r$
+give two pieces (``or'').
+\end{warning}
+
+\begin{example}[An economic tolerance band]
+A central bank targets an inflation rate of $2\%$ and regards outcomes within one percentage point of the target as
+acceptable. Write the acceptable range as an absolute-value inequality and as an interval.
+\solution
+If $\pi$ denotes inflation in per cent, the condition is $|\pi-2|\le1$, i.e.\ $1\le\pi\le3$, or $\pi\in[1,3]$.
+Inflation outside this band, $|\pi-2|>1$, means $\pi<1$ or $\pi>3$.
+\end{example}
+
+% --------------------------------------------------------------------
+\section{Chapter review}
+% --------------------------------------------------------------------
+\subsection*{Summary}
+$|x|$ equals $x$ for $x\ge0$ and $-x$ for $x<0$; equivalently $|x|=\max\{x,-x\}$. It is never negative and is zero
+only at $0$. It satisfies $|a|\ge a$, $|a|\ge-a$, $|{-a}|=|a|$, $|ab|=|a||b|$ and $|a/b|=|a|/|b|$. The quantity
+$|x-y|$ is the distance between $x$ and $y$. The triangle inequality, $|x-z|\le|x-y|+|y-z|$, says a detour is never
+shorter than the direct route; its two-number form is $|a+b|\le|a|+|b|$. Inequalities $|x-a|<r$ describe intervals of
+radius $r$ about $a$, and $|x-a|>r$ describes the two pieces outside.
+
+\subsection*{Key definitions}
+\begin{itemize}
+  \item $|x|=x$ if $x\ge0$, $|x|=-x$ if $x<0$; equivalently $|x|=\max\{x,-x\}$.
+  \item $|x-y|$: the distance between $x$ and $y$.
+\end{itemize}
+
+\subsection*{Key equations}
+\begin{gather*}
+-|a|\le a\le|a|,\qquad |{-a}|=|a|,\qquad |ab|=|a||b|,\qquad \Big|\frac ab\Big|=\frac{|a|}{|b|}\ (b\ne0),\\
+|x-z|\le|x-y|+|y-z|,\qquad |a+b|\le|a|+|b|,\qquad |a|\le|a-b|+|b|,\\
+|x-a|<r\ \Leftrightarrow\ a-r<x<a+r.
+\end{gather*}
+
+\subsection*{Connections}
+The proofs use cases (\cref{sec:proof-types}) and the sign rules of \cref{prop:signs}. Absolute-value inequalities
+reduce to the linear inequalities of \cref{ch:ineq}. The distance interpretation and the triangle inequality are
+the main tools of \cref{ch:limits}, where they are used to prove that a sequence converges or that it does not.
+
+\subsection*{Common mistakes}
+\begin{itemize}
+  \item Writing $|{-x}|=x$ or $\sqrt{x^2}=x$ without the condition $x\ge0$.
+  \item Writing $|a+b|=|a|+|b|$ or $|a-b|=|a|-|b|$.
+  \item Solving $|x-a|<r$ as $x-a<r$ only.
+  \item Squaring both sides of an inequality whose sides might be negative.
+\end{itemize}
+
+\subsection*{Exam checklist}
+\begin{checklist}
+  \item State the definition of $|x|$ in both forms.
+  \item State and prove the properties $|a|\ge a$, $|{-a}|=|a|$, $|ab|=|a||b|$.
+  \item State the triangle inequality and explain it as a statement about distances.
+  \item Derive $|a+b|\le|a|+|b|$ and $|a|\le|a-b|+|b|$ from the three-number form.
+  \item Solve inequalities of the forms $|x-a|<r$, $|x-a|\ge r$ and $|\,\cdot\,|<|\,\cdot\,|$.
+\end{checklist}
+
+% --------------------------------------------------------------------
+\section{Practice questions}
+% --------------------------------------------------------------------
+\pq[basic] Evaluate $|-7|$, $|3-8|$, $|2-\sqrt5|$, $|-\tfrac{4}{9}|$ and $|x^2+1|$ (for real $x$).
+
+\pq[basic] Solve (a) $|x+4|<1$; (b) $|3x-6|\ge 9$; (c) $|5-x|\le 0$.
+
+\pq[conceptual] Give an example of real numbers $a,b$ with $|a+b|<|a|+|b|$, and one with $|a+b|=|a|+|b|$. What
+distinguishes the two situations?
+
+\pq[mathematical] Prove that for all real $a,b$, $|a-b|\le|a|+|b|$.
+
+\pq[mathematical] Prove that $\big||a|-|b|\big|\le|a-b|$ for all real $a,b$.
+
+\pq[mathematical] Solve $|x-2|>|x|$ and interpret your answer as a statement about distances.
+
+\pq[application] A firm's production line is calibrated to fill bags with $500$ grams of flour. A bag is rejected
+if its weight $w$ differs from $500$ grams by more than $2\%$ of $500$ grams. Write the condition for acceptance as an
+absolute-value inequality and solve it.
+
+\pq[multi-step] Show that if $|x-3|<1$ then $|x^2-9|<7$. (Hint: write $x^2-9=(x-3)(x+3)$ and bound $|x+3|$.)
+
+\pq[exam-style] (a) State the triangle inequality for three real numbers $x,y,z$ and explain its meaning in terms of
+distances on the number line.
+(b) Suppose that the real number $c$ satisfies both $|c-1|<\tfrac14$ and $|c|<\tfrac14$. Use the triangle inequality to
+derive a contradiction, and explain what this shows about a number that is simultaneously close to $0$ and to $1$.
+
+% --------------------------------------------------------------------
+\section{Solutions to practice questions}
+% --------------------------------------------------------------------
+\pqsol{5.1}
+$|-7|=7$; $|3-8|=|-5|=5$; since $\sqrt5>2$, $|2-\sqrt5|=\sqrt5-2$; $|-\tfrac49|=\tfrac49$; $x^2+1\ge1>0$, so
+$|x^2+1|=x^2+1$.
+
+\pqsol{5.2}
+(a) $-1<x+4<1\Leftrightarrow-5<x<-3$: $x\in(-5,-3)$.
+(b) $|3x-6|=3|x-2|\ge9\Leftrightarrow|x-2|\ge3\Leftrightarrow x\le-1$ or $x\ge5$: $x\in(-\infty,-1]\cup[5,\infty)$.
+(c) An absolute value is never negative, so $|5-x|\le0\Leftrightarrow|5-x|=0\Leftrightarrow x=5$. Solution $\{5\}$.
+
+\pqsol{5.3}
+$a=3$, $b=-5$: $|a+b|=2<8=|a|+|b|$. $a=3$, $b=5$: $|a+b|=8=|a|+|b|$. Equality holds exactly when $a$ and $b$ do not have
+opposite signs ($ab\ge0$); when they have opposite signs, part of one cancels part of the other.
+
+\pqsol{5.4}
+Apply $|u+v|\le|u|+|v|$ with $u=a$, $v=-b$: $|a-b|\le|a|+|-b|=|a|+|b|$.
+
+\pqsol{5.5}
+From $|a|\le|a-b|+|b|$ (\cref{ex:triangle-apply}), $|a|-|b|\le|a-b|$. Exchanging the roles of $a$ and $b$:
+$|b|-|a|\le|b-a|=|a-b|$. So both $|a|-|b|$ and its negative are at most $|a-b|$; since $\big||a|-|b|\big|$ equals one of
+them, $\big||a|-|b|\big|\le|a-b|$.
+
+\pqsol{5.6}
+Both sides are non-negative, so square: $(x-2)^2>x^2\Leftrightarrow x^2-4x+4>x^2\Leftrightarrow-4x>-4\Leftrightarrow x<1$.
+Solution $(-\infty,1)$: the points closer to $0$ than to $2$ are those to the left of the midpoint $1$.
+
+\pqsol{5.7}
+$2\%$ of $500$ is $10$. Acceptance: $|w-500|\le10\Leftrightarrow490\le w\le510$, i.e.\ $w\in[490,510]$ grams.
+
+\pqsol{5.8}
+If $|x-3|<1$ then $2<x<4$, so $5<x+3<7$ and $|x+3|<7$. Then $|x^2-9|=|x-3|\,|x+3|<1\cdot7=7$. (Both factors are
+non-negative, so the strict inequalities may be multiplied: if $0\le u<1$ and $0\le v<7$ then $uv\le 1\cdot v<7$ when
+$v>0$, and $uv=0<7$ when $v=0$.)
+
+\pqsol{5.9}
+(a) For any real $x,y,z$, $|x-z|\le|x-y|+|y-z|$. Since $|u-v|$ is the distance between $u$ and $v$, it says that the
+distance from $x$ to $z$ is at most the distance from $x$ to $y$ plus the distance from $y$ to $z$: going via $y$ is
+never shorter than going directly.
+(b) Take $x=1$, $y=c$, $z=0$:
+$1=|1-0|\le|1-c|+|c-0|<\tfrac14+\tfrac14=\tfrac12$, so $1<\tfrac12$, a contradiction. Hence no number can be within
+$\tfrac14$ of both $0$ and $1$. This is the key step in showing that $1,0,1,0,\dots$ has no limit (\cref{ex:no-limit}): a
+limit would have to be close to both $0$ and $1$ at once.

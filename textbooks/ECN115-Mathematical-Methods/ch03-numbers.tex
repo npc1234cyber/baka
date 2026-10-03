@@ -1,0 +1,437 @@
+% ====================================================================
+\chapter{Number Systems and the Properties of Real Numbers}\label{ch:numbers}
+% ====================================================================
+
+\begin{chapterintro}
+Economics measures prices, quantities, incomes and rates, and all of these are numbers. This chapter
+introduces the four number systems used in the module --- the natural numbers, the integers, the rational
+numbers and the real numbers --- and then lists the basic properties of the real numbers from which every
+calculation in this book can be justified. These properties are the axioms of the module: when we solve an
+inequality, every step is an application of one of them.
+\end{chapterintro}
+
+\begin{prerequisites}
+Sets, subsets and set-builder notation (\cref{ch:sets}); the meaning of axiom and theorem
+(\cref{sec:proof}); implication and equivalence (\cref{sec:implication,sec:equivalence}).
+\end{prerequisites}
+
+\section{The four number systems}\label{sec:number-systems}
+
+\begin{definition}[Number systems][def:number-systems]
+\begin{itemize}
+  \item The \term{natural numbers} are the set $\N=\{1,2,3,\dots\}$.
+  \item The \term{integers} are the set $\Z=\{\dots,-3,-2,-1,0,1,2,3,\dots\}$.
+  \item The \term{rational numbers} are the set $\Q$ consisting of all numbers that can be written as $p/q$
+  with $p\in\Z$ and $q\in\N$.
+  \item The \term{real numbers} are (informally) the set $\R$ of points on the number line.
+\end{itemize}
+\src{L1, slide 16}
+\end{definition}
+
+\begin{core}[Successor property of $\N$]
+For any $n\in\N$, we have $n+1\in\N$. \src{L1, slide 16}
+
+Starting from $1$ and repeatedly adding $1$ reaches every natural number and never leaves $\N$. This simple
+fact is what makes proof by induction work (\cref{ch:ind}).
+\end{core}
+
+\begin{warning}[$0$ is not a natural number in this module]
+In ECN115, $\N=\{1,2,3,\dots\}$ starts at $1$. Some books include $0$. The difference matters for index
+ranges in sums and for the starting point of an induction. When $0$ is wanted it is added explicitly, as in
+$\{0\}\cup\N$ in the binomial formula (\cref{ch:binom}).
+\end{warning}
+
+\paragraph{Why $q\in\N$ in the definition of $\Q$} Requiring the denominator to be a natural number does
+two jobs at once. It rules out $q=0$, so the fraction $p/q$ always makes sense, without a separate clause.
+And it puts the sign in the numerator: $-\tfrac34$ is written $\tfrac{-3}{4}$ rather than $\tfrac{3}{-4}$.
+Every rational number can be written in many ways ($\tfrac12=\tfrac24=\tfrac{50}{100}$), but this does not
+matter: $\Q$ is the set of numbers that can be written in this form at least once.
+
+\begin{proposition}[The number systems are nested][prop:nested]
+\[
+\N\subseteq\Z\subseteq\Q\subseteq\R. \tag*{\srcin{L1, slide 16}}
+\]
+\end{proposition}
+Every natural number is an integer; every integer $p$ is the rational number $p/1$; and every rational
+number is a point on the number line. Equality and the inequalities $\ge,\le,>,<$ are defined on all four
+sets as usual, and they agree with one another: $2<3$ means the same whether $2$ and $3$ are thought of as
+natural numbers or as real numbers.
+
+\subsection{Why the real numbers are needed}
+The slides note that the rational numbers are adequate for \emph{arithmetic}: adding, subtracting,
+multiplying or dividing (by a non-zero number) two rational numbers always gives a rational number. The real
+numbers are needed for \emph{algebra} (for example, solving $x^2=2$), \emph{geometry} (for example, the ratio of
+the circumference of a circle to its diameter, $\pi$) and \emph{limits}. \src{L1, slide 16}
+
+\begin{external}[$\sqrt2$ is not rational]
+The equation $x^2=2$ has no solution in $\Q$. Suppose it did: $x=p/q$ with $p\in\Z$, $q\in\N$, and the fraction
+in lowest terms (so $p$ and $q$ are not both even). Then $p^2=2q^2$, so $p^2$ is even, and therefore $p$ is even
+(the square of an odd number is odd). Write $p=2k$; then $4k^2=2q^2$, so $q^2=2k^2$ is even and $q$ is even.
+So $p$ and $q$ are both even, contradicting lowest terms. Hence no rational number squares to $2$. On the
+number line there is nevertheless a point at distance $\sqrt2$ from $0$ (the diagonal of a unit square), so the
+rational numbers have ``gaps'' that the real numbers fill. \Cref{sec:lub} describes the property of $\R$ that
+captures the absence of gaps.
+\end{external}
+
+\section{The properties of the real numbers}\label{sec:axioms}
+
+The slides list thirteen properties of the real numbers in three groups: two for the order relation, five
+for addition and six for multiplication. In this module they are the axioms: we do not prove them, and every
+other fact about real numbers is derived from them.
+
+\subsection{The order relation}
+
+\begin{definition}[Order: O1--O2][def:order]
+\begin{description}[style=sameline, leftmargin=3.2em, font=\sffamily\bfseries\color{defcol}]
+  \item[O1] For any real numbers $a,b$, exactly one of the following statements is true: either $a>b$, or
+  $a=b$, or $a<b$.
+  \begin{itemize}
+    \item $a<b$ is the same as $b>a$.
+    \item We write $a\ge b$ if $a>b$ or $a=b$. We write $a\le b$ if $a<b$ or $a=b$.
+  \end{itemize}
+  \item[O2] \emph{Transitivity:} if $a>b$ and $b>c$, then $a>c$.
+\end{description}
+\src{L1, slide 17}
+\end{definition}
+
+O1 is called the \term{trichotomy} property (``division into three''). It has two halves: \emph{at least}
+one of the three possibilities holds, so any two real numbers can be compared; and \emph{at most} one holds,
+so the possibilities exclude each other. The first half is what makes case analyses complete: when a factor
+in a product is not zero, it must be positive or negative, and there is no fourth option
+(\cref{ex:product-ineq}). The second half is what makes negation simple: ``not $(a>b)$'' is the same as
+$a\le b$.
+
+Note that $\ge$ and $\le$ are \emph{defined} from $>$ and $=$; they are not separate primitive notions.
+
+\subsection{Addition}
+
+Addition assigns to any numbers $a,b$ a unique number $a+b$.
+
+\begin{definition}[Addition: A1--A5][def:addition]
+For all real numbers $a$, $b$, $c$:
+\begin{description}[style=sameline, leftmargin=3.2em, font=\sffamily\bfseries\color{defcol}]
+  \item[A1] \emph{Commutativity:} $a+b=b+a$.
+  \item[A2] \emph{Associativity:} $a+(b+c)=(a+b)+c$.
+  \item[A3] \emph{Property of the number zero:} $a+0=a$.
+  \item[A4] \emph{Existence of the additive inverse:} $a+(-a)=0$.
+  \item[A5] \emph{Additivity of the order:} $a>b\ \Rightarrow\ a+c>b+c$.
+\end{description}
+\src{L1, slide 17}
+\end{definition}
+
+A1 and A2 say that, in a sum, neither the order of the terms nor the way they are grouped matters, which is
+why we may write $a+b+c$ without brackets. A3 says that $0$ changes nothing when added. A4 says that every
+number $a$ has a partner $-a$ that cancels it; subtraction is \emph{defined} by $a-b=a+(-b)$. A5 connects
+addition to order: adding the same number to both sides of a strict inequality preserves it.
+
+\begin{warning}[A5 is an implication, not an equivalence]
+As stated, A5 says only $a>b\Rightarrow a+c>b+c$. The reverse direction is true but needs an argument: from
+$a+c>b+c$, apply A5 again with $-c$ to get $(a+c)+(-c)>(b+c)+(-c)$, and simplify with A2--A4 to $a>b$. So
+\[
+a>b\quad\Longleftrightarrow\quad a+c>b+c \qquad\text{for every real } c.
+\]
+This is a small theorem, not the axiom itself. The slides use exactly this two-step argument in Example 1 of
+\cref{ch:ineq}.
+\end{warning}
+
+\subsection{Multiplication}
+
+Multiplication assigns to any numbers $a,b$ a unique number $a\cdot b$ (also written $ab$).
+
+\begin{definition}[Multiplication: M1--M6][def:multiplication]
+For all real numbers $a$, $b$, $c$:
+\begin{description}[style=sameline, leftmargin=3.2em, font=\sffamily\bfseries\color{defcol}]
+  \item[M1] \emph{Commutativity:} $a\cdot b=b\cdot a$.
+  \item[M2] \emph{Associativity:} $a\cdot(b\cdot c)=(a\cdot b)\cdot c$.
+  \item[M3] \emph{Properties of the number one:} $1\ne0$, and $a\cdot1=a$.
+  \item[M4] \emph{Existence of the inverse of a non-zero number:} $a\cdot(1/a)=1$ for $a\ne0$.
+  \item[M5] \emph{Distributive law:} $a\cdot(b+c)=a\cdot b+a\cdot c$.
+  \item[M6] \emph{Multiplicative properties of the order relation:}
+  \begin{itemize}
+    \item if $a>b$ and $c>0$, then $a\cdot c>b\cdot c$;
+    \item if $a>b$ and $c<0$, then $a\cdot c<b\cdot c$.
+  \end{itemize}
+\end{description}
+\src{L1, slide 18}
+\end{definition}
+
+M1--M4 mirror A1--A4. Division is defined by $a/b=a\cdot(1/b)$ for $b\ne0$; there is no $1/0$, which is why
+M4 carries the condition $a\ne0$. M5 is the only property that links addition and multiplication: it is what
+allows brackets to be multiplied out and common factors to be taken out.
+
+\begin{core}[M6: the sign of the multiplier decides the direction]
+Multiplying both sides of an inequality by a \emph{positive} number keeps its direction; multiplying by a
+\emph{negative} number reverses it. Multiplying by $0$ destroys it (both sides become $0$). Consequently:
+\begin{itemize}
+  \item before multiplying or dividing an inequality by anything, establish its sign;
+  \item if the sign is unknown (a variable or a parameter), split into the cases positive, zero and negative.
+\end{itemize}
+This one habit accounts for a large share of the marks in inequality and parameter questions on past ECN115
+papers.
+\end{core}
+
+\begin{note}[The rational numbers satisfy all thirteen properties]
+Every one of O1--O2, A1--A5 and M1--M6 is also true in $\Q$: sums, products, negatives and reciprocals of
+rational numbers are rational, and the order behaves in the same way. \src{L1, slide 19} So these properties
+cannot, on their own, tell $\R$ apart from $\Q$. Whatever distinguishes the real numbers --- the existence of
+$\sqrt2$, the good behaviour of limits --- must come from an additional property (\cref{sec:lub}).
+\end{note}
+
+\section{Consequences of the properties}\label{sec:consequences}
+
+Many familiar rules of algebra are not on the list. They are theorems, derived from the list. The slides use
+some of them without proof (the study guide points out that Example 2 of \cref{ch:ineq} relies on $0\cdot a=0$);
+this section proves the ones needed in the book. The proofs show how theorems are built from axioms, and you
+may use the results freely afterwards.
+
+\begin{proposition}[Multiplying by zero][prop:zero-times]
+For every real number $a$, $0\cdot a=0$.
+\end{proposition}
+\emph{Proof.} By A3, $0+0=0$. Multiply by $a$ and use M1 and M5:
+$0\cdot a=(0+0)\cdot a=0\cdot a+0\cdot a$. Now add $-(0\cdot a)$ to both sides and use A2, A4 and A3:
+$0=0\cdot a$. \hfill$\square$
+
+\begin{proposition}[Zero products][prop:zero-product]
+For real numbers $a,b$: if $ab=0$ then $a=0$ or $b=0$. Equivalently, if $a\ne0$ and $b\ne0$ then $ab\ne0$.
+\end{proposition}
+\emph{Proof.} Suppose $ab=0$ and $a\ne0$. By M4, $1/a$ exists. Then, using M2, M4, M3 and
+\cref{prop:zero-times},
+$b=1\cdot b=\big((1/a)\cdot a\big)\cdot b=(1/a)\cdot(ab)=(1/a)\cdot0=0$. So if $a\ne0$ then $b=0$; hence
+$a=0$ or $b=0$. \hfill$\square$
+
+\begin{proposition}[Signs][prop:signs]
+For real numbers $a,b$:
+\begin{enumerate}[label=(\roman*)]
+  \item $(-1)\cdot a=-a$, and $-(-a)=a$;
+  \item $a>0\Leftrightarrow -a<0$;
+  \item $a>b\Leftrightarrow a-b>0$;
+  \item if $a\ne0$ then $a^2>0$; hence $a^2\ge0$ for every $a$, and in particular $1=1^2>0$;
+  \item if $a>0$ then $1/a>0$; if $a<0$ then $1/a<0$;
+  \item the product of two numbers with the same sign is positive; the product of two numbers with opposite
+  signs is negative.
+\end{enumerate}
+\end{proposition}
+\emph{Proof.} (i) $a+(-1)a=1\cdot a+(-1)a=(1+(-1))a=0\cdot a=0$ by M3, M5, A4 and \cref{prop:zero-times}; so
+$(-1)a$ is an additive inverse of $a$. Additive inverses are unique (if $a+b=0$ and $a+c=0$ then
+$b=b+(a+c)=(b+a)+c=0+c=c$), so $(-1)a=-a$. Also $-a+a=0$ shows that $a$ is the inverse of $-a$, i.e.\ $-(-a)=a$.
+
+(ii) If $a>0$, add $-a$ to both sides (A5): $0>-a$. Conversely, if $-a<0$, add $a$: $0<a$.
+
+(iii) Add $-b$ to both sides of $a>b$ (A5, A4): $a-b>0$. Conversely add $b$.
+
+(iv) If $a>0$, M6 with $c=a>0$ applied to $a>0$ gives $a\cdot a>0\cdot a=0$. If $a<0$, apply M6 to the
+inequality $0>a$ with $c=a<0$: the direction reverses, giving $0\cdot a<a\cdot a$, that is, $a\cdot a>0$.
+Either way $a^2>0$.
+
+(v) Let $a>0$. By M4, $a\cdot(1/a)=1>0$. If $1/a$ were $0$ the product would be $0$; if $1/a$ were negative,
+M6 applied to $a>0$ with $c=1/a<0$ would give $a\cdot(1/a)<0$. By O1, $1/a>0$. The case $a<0$ is similar.
+
+(vi) If $a>0$ and $b>0$, M6 gives $ab>0\cdot b=0$. If $a<0$ and $b<0$, M6 with $c=b<0$ applied to $0>a$ gives
+$0\cdot b<ab$, i.e.\ $ab>0$. If $a>0$ and $b<0$, M6 with $c=b<0$ applied to $a>0$ gives $ab<0$. \hfill$\square$
+
+\begin{note}
+You will not be asked to reproduce these derivations in ECN115: the slides say explicitly that, when solving
+problems, ``it suffices just to do correct calculations''. They are included so that you can see that every
+rule you use rests on the thirteen properties, and so that the reasoning behind sign analysis
+(\cref{sec:sign-analysis}) is complete.
+\end{note}
+
+\section{The Least Upper Bound property}\label{sec:lub}
+
+\begin{sourcenote}[Non-examinable]
+The slides present this property as ``extra material, non-examinable''. It is included because it explains
+\emph{why} the real numbers, rather than the rational numbers, are the right setting for limits.
+\end{sourcenote}
+
+\begin{definition}[Upper bound and least upper bound][def:lub]
+Let $A\subseteq\R$ be non-empty. A number $y\in\R$ is an \term{upper bound} for $A$ if $x\le y$ for all
+$x\in A$. A number $z\in\R$ is a \term{least upper bound} for $A$ if
+\begin{enumerate}[label=(\roman*)]
+  \item $z$ is an upper bound: $x\le z$ for all $x\in A$; and
+  \item no smaller number is an upper bound: for every $w<z$ there is $x\in A$ such that $x>w$.
+\end{enumerate}
+\src{L1, slide 19}
+\end{definition}
+
+\begin{principle}[Least Upper Bound property][pr:lub]
+If a non-empty subset $A\subseteq\R$ has an upper bound, then $A$ has a least upper bound. \src{L1, slide 19}
+\end{principle}
+
+The rational numbers do \emph{not} have this property. The set $A=\{q\in\Q\mid q>0,\ q^2<2\}$ is non-empty
+($1\in A$) and bounded above (by $2$), but there is no smallest \emph{rational} upper bound: the least upper
+bound would have to be $\sqrt2$, which is not rational. In $\R$ the number $\sqrt2$ exists, and it is the least
+upper bound. The Least Upper Bound property is precisely the statement that the real number line has no
+gaps; it is what guarantees, in Topic~3, that limits exist when we expect them to.
+
+\section{Intervals}\label{sec:intervals}
+
+Subsets of $\R$ consisting of all numbers between two endpoints occur so often that they have their own
+notation.
+
+\begin{definition}[Intervals][def:intervals]
+For real numbers $a\le b$:
+\begin{align*}
+\text{closed interval:}\quad &[a,b]=\{x\in\R\mid a\le x\le b\},\\
+\text{open interval:}\quad &(a,b)=\{x\in\R\mid a<x<b\},\\
+\text{half-open intervals:}\quad &(a,b]=\{x\in\R\mid a<x\le b\},\qquad [a,b)=\{x\in\R\mid a\le x<b\},\\
+\text{infinite intervals:}\quad &(a,\infty)=\{x\in\R\mid a<x\},\qquad (-\infty,b)=\{x\in\R\mid x<b\},\\
+\text{half-infinite intervals:}\quad &[a,\infty)=\{x\in\R\mid a\le x\},\qquad (-\infty,b]=\{x\in\R\mid x\le b\},\\
+&(-\infty,\infty)=\R.
+\end{align*}
+\src{L1, slide 20}
+\end{definition}
+
+A square bracket means the endpoint is \emph{included} ($\le$); a round bracket means it is \emph{excluded}
+($<$). The symbols $\infty$ and $-\infty$ are not real numbers; they only indicate that the interval has no
+upper or lower end. They can therefore never be included, and always take a round bracket.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=9mm]
+  \tikzset{open/.style={circle, draw=accent, fill=white, thick, inner sep=1.6pt},
+           closed/.style={circle, draw=accent, fill=accent, thick, inner sep=1.6pt}}
+  \foreach \y/\lab/\l/\r in {0/{[1,4]}/closed/closed, -0.9/{(1,4)}/open/open, -1.8/{(1,4]}/open/closed, -2.7/{[1,4)}/closed/open}{
+    \draw[-{Stealth}] (-0.5,\y) -- (6.3,\y);
+    \draw[accent, line width=2.2pt] (1,\y) -- (4,\y);
+    \node[\l] at (1,\y) {}; \node[\r] at (4,\y) {};
+    \node[anchor=west, font=\small] at (6.6,\y) {$\lab$};
+  }
+  \draw[-{Stealth}] (-0.5,-3.6) -- (6.3,-3.6);
+  \draw[accent, line width=2.2pt, -{Stealth}] (1,-3.6) -- (6.2,-3.6);
+  \node[open] at (1,-3.6) {};
+  \node[anchor=west, font=\small] at (6.6,-3.6) {$(1,\infty)$};
+  \draw[-{Stealth}] (-0.5,-4.5) -- (6.3,-4.5);
+  \draw[accent, line width=2.2pt, {Stealth}-] (-0.4,-4.5) -- (4,-4.5);
+  \node[closed] at (4,-4.5) {};
+  \node[anchor=west, font=\small] at (6.6,-4.5) {$(-\infty,4]$};
+  \foreach \x in {0,...,6} \draw (\x,-4.9) -- (\x,-5.05) node[below, font=\scriptsize] {\x};
+\end{tikzpicture}
+\caption{Intervals on the number line. A filled dot marks an included endpoint (square bracket), an open dot an
+excluded endpoint (round bracket). An arrow shows that the interval continues without end.}
+\label{fig:intervals}
+\end{figure}
+
+\begin{example}[Writing sets as intervals]
+Write each set as an interval or a union of intervals: (a) $\{x\in\R\mid -2\le x<7\}$;
+(b) $\{x\in\R\mid x>3\}$; (c) $\{x\in\R\mid x\le 0\text{ or }x>5\}$; (d) $\{x\in\R\mid x\ne 1\}$.
+\solution
+(a) $[-2,7)$. (b) $(3,\infty)$. (c) $(-\infty,0]\cup(5,\infty)$. (d) $(-\infty,1)\cup(1,\infty)$, which can also be
+written $\R\setminus\{1\}$.
+\end{example}
+
+\begin{external}[Why the type of endpoint matters]
+$[0,1)$ has a smallest element ($0$) but no largest: for any $x<1$ in the interval, $(x+1)/2$ is a larger element
+of the interval. $(0,1]$ has a largest element ($1$) but no smallest. In optimisation (Topic~4) this decides
+whether a function defined on the interval can attain a maximum or a minimum, which is why a question may be
+posed on a half-open interval such as $(0,c]$.
+\end{external}
+
+% --------------------------------------------------------------------
+\section{Chapter review}
+% --------------------------------------------------------------------
+\subsection*{Summary}
+$\N=\{1,2,3,\dots\}$, with the successor property; $\Z$ adds zero and the negatives; $\Q$ consists of fractions
+$p/q$ with $p\in\Z$, $q\in\N$; and $\R$ is, informally, the number line. They are nested:
+$\N\subseteq\Z\subseteq\Q\subseteq\R$. The rationals suffice for arithmetic, but solving $x^2=2$, measuring a
+circle and taking limits need $\R$. The real numbers satisfy the order properties O1 (trichotomy) and O2
+(transitivity), the addition properties A1--A5 and the multiplication properties M1--M6; in ECN115 these are
+the axioms. M6 --- a positive multiplier keeps an inequality, a negative one reverses it --- is the most
+important for calculation. $\Q$ satisfies all thirteen properties too; the additional Least Upper Bound property
+(non-examinable) is what distinguishes $\R$. Intervals name the subsets of $\R$ between two endpoints.
+
+\subsection*{Key definitions and properties}
+\begin{itemize}
+  \item $\N=\{1,2,3,\dots\}$; \ $\Z=\{\dots,-1,0,1,\dots\}$; \ $\Q=\{p/q: p\in\Z,\ q\in\N\}$; \ $\R$: the number line.
+  \item O1: exactly one of $a>b$, $a=b$, $a<b$. \ O2: $a>b$, $b>c\Rightarrow a>c$.
+  \item A1--A4: $a+b=b+a$; $a+(b+c)=(a+b)+c$; $a+0=a$; $a+(-a)=0$. \ A5: $a>b\Rightarrow a+c>b+c$.
+  \item M1--M5: $ab=ba$; $a(bc)=(ab)c$; $1\ne0$, $a\cdot1=a$; $a\cdot(1/a)=1$ $(a\ne0)$; $a(b+c)=ab+ac$.
+  \item M6: $a>b$, $c>0\Rightarrow ac>bc$; \ $a>b$, $c<0\Rightarrow ac<bc$.
+  \item Intervals: $[a,b]$, $(a,b)$, $(a,b]$, $[a,b)$, $(a,\infty)$, $[a,\infty)$, $(-\infty,b)$, $(-\infty,b]$, $\R$.
+\end{itemize}
+
+\subsection*{Connections}
+The axioms justify every step of the inequality solving in \cref{ch:ineq}; the sign rules of
+\cref{prop:signs} drive the sign analysis there. The successor property underlies induction (\cref{ch:ind}).
+Intervals are the natural form of answers to inequalities and the domains of functions (\cref{ch:func}). The
+Least Upper Bound property is the reason limits (\cref{ch:limits}) are studied in $\R$ rather than $\Q$.
+
+\subsection*{Common mistakes}
+\begin{itemize}
+  \item Including $0$ in $\N$.
+  \item Forgetting to reverse an inequality after multiplying or dividing by a negative number.
+  \item Dividing by a quantity that might be zero.
+  \item Putting a square bracket next to $\infty$, or the wrong bracket for a strict inequality.
+  \item Assuming A5 gives an equivalence without the second step.
+\end{itemize}
+
+\subsection*{Exam checklist}
+\begin{checklist}
+  \item Write down $\N$, $\Z$, $\Q$, $\R$ and the inclusions between them; state the successor property.
+  \item Explain why $\R$ is needed in addition to $\Q$.
+  \item State O1, O2, A1--A5 and M1--M6, and say which property justifies a given step.
+  \item State both clauses of M6 exactly.
+  \item Write any interval in set-builder notation and vice versa.
+\end{checklist}
+
+% --------------------------------------------------------------------
+\section{Practice questions}
+% --------------------------------------------------------------------
+\pq[basic] Decide whether each number belongs to $\N$, $\Z$, $\Q$, $\R$ (list all that apply):
+$5$, $-3$, $0$, $\tfrac{-7}{2}$, $0.25$, $\sqrt9$, $\pi$.
+
+\pq[basic] Write in set-builder notation: (a) $(-3,5]$; (b) $[2,\infty)$; (c) $(-\infty,0)\cup[1,2]$.
+
+\pq[conceptual] Explain why the definition of $\Q$ uses $q\in\N$ rather than $q\in\Z$.
+
+\pq[mathematical] Starting from $a>b$, and naming the property used at each step, show that $-a<-b$.
+
+\pq[mathematical] Using the properties of the real numbers, prove that if $a>b$ and $c>d$ then $a+c>b+d$.
+
+\pq[conceptual] Which of the thirteen properties O1--M6 fail for the natural numbers $\N$ (with the usual
+addition and multiplication)? Give a reason for each.
+
+\pq[multi-step] Let $a,b$ be real numbers with $0<a<b$. Prove that $a^2<b^2$ and that $1/a>1/b$.
+
+\pq[exam-style] (a) State both clauses of the multiplicative property of the order relation (M6).
+(b) A student argues: ``$x>y$, so multiplying both sides by $x$ gives $x^2>xy$.'' Give conditions on $x$
+under which the conclusion is guaranteed, and give an example with $x>y$ for which $x^2>xy$ is false.
+
+% --------------------------------------------------------------------
+\section{Solutions to practice questions}
+% --------------------------------------------------------------------
+\pqsol{3.1}
+$5$: $\N,\Z,\Q,\R$. \ $-3$: $\Z,\Q,\R$. \ $0$: $\Z,\Q,\R$ (not $\N$). \ $\tfrac{-7}{2}$: $\Q,\R$. \
+$0.25=\tfrac14$: $\Q,\R$. \ $\sqrt9=3$: $\N,\Z,\Q,\R$. \ $\pi$: $\R$ only.
+
+\pqsol{3.2}
+(a) $\{x\in\R\mid -3<x\le5\}$. (b) $\{x\in\R\mid x\ge2\}$. (c) $\{x\in\R\mid x<0\text{ or }1\le x\le2\}$.
+
+\pqsol{3.3}
+Since $0\notin\N$, the condition $q\in\N$ excludes a zero denominator automatically, so $p/q$ is always
+defined. It also fixes the sign in the numerator. With $q\in\Z$ a separate condition $q\ne0$ would be needed.
+
+\pqsol{3.4}
+Add $(-a)+(-b)$ to both sides of $a>b$ (A5): $a+((-a)+(-b))>b+((-a)+(-b))$. Rearranging with A1 and A2,
+the left side is $(a+(-a))+(-b)=0+(-b)=-b$ (A4, A1, A3) and the right side is $(b+(-b))+(-a)=-a$. Hence
+$-b>-a$, i.e.\ $-a<-b$. (Alternatively: multiply by $-1<0$ using M6 and \cref{prop:signs}(i).)
+
+\pqsol{3.5}
+From $a>b$, A5 with $c$ gives $a+c>b+c$. From $c>d$, A5 with $b$ gives $c+b>d+b$, i.e.\ $b+c>b+d$ (A1).
+By transitivity (O2), $a+c>b+d$.
+
+\pqsol{3.6}
+A3 fails: there is no $0$ in $\N$, so ``$a+0=a$'' has no meaning inside $\N$. A4 fails: $-1\notin\N$, so $1$
+has no additive inverse in $\N$. M4 fails: $2\in\N$ but $1/2\notin\N$. The order properties O1, O2, A5 and M6
+(with $c\in\N$; the second clause never applies since no natural number is negative), and A1, A2, M1--M3, M5
+continue to hold.
+
+\pqsol{3.7}
+Since $b>a$ and $a>0$, M6 gives $b\cdot a>a\cdot a$; since $b>a$ and $b>0$, M6 gives $b\cdot b>a\cdot b$. By M1 and
+O2, $b^2>ab>a^2$. For the reciprocals: $a>0$ and $b>0$ give $ab>0$, so $1/(ab)>0$ by \cref{prop:signs}(v).
+Multiply $b>a$ by $1/(ab)>0$ (M6): $b/(ab)>a/(ab)$, i.e.\ $1/a>1/b$.
+
+\pqsol{3.8}
+(a) If $a>b$ and $c>0$, then $a\cdot c>b\cdot c$. If $a>b$ and $c<0$, then $a\cdot c<b\cdot c$.
+(b) The step is M6 with multiplier $x$, so it is guaranteed when $x>0$. If $x<0$ the direction reverses and
+$x^2<xy$; if $x=0$ both sides are $0$. Example: $x=-1$, $y=-2$ gives $x>y$, but $x^2=1$ and $xy=2$, so
+$x^2>xy$ is false.

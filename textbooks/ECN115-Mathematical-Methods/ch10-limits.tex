@@ -1,0 +1,434 @@
+% ====================================================================
+\chapter{Sequences and Limits}\label{ch:limits}
+% ====================================================================
+
+\begin{chapterintro}
+Economics is full of processes that unfold over time: output in successive quarters, the balance of a savings account
+year after year, the price in successive rounds of an auction. A sequence records such a process, and its limit
+describes where the process is heading in the long run. This chapter defines sequences, gives the precise definition of
+the limit of a sequence --- one of the most important definitions in the whole module --- and shows how to prove that a
+sequence converges to a given number, or that it has no limit at all.
+\end{chapterintro}
+
+\begin{prerequisites}
+Quantifiers and their order (\cref{sec:quantifiers}); proof by contradiction (\cref{sec:proof-types}); functions
+(\cref{sec:function}); absolute value as distance and the triangle inequality (\cref{ch:abs}); solving inequalities
+(\cref{ch:ineq}).
+\end{prerequisites}
+
+\section{Sequences}\label{sec:sequences}
+
+\begin{definition}[Sequence][def:sequence]
+A \term{sequence} is an infinite ordered list $x=(x_1,x_2,x_3,\dots)$, whose elements $x_n$ are indexed by $n\in\N$.
+More formally, a sequence $x$ is a function whose domain is the set of natural numbers; we write $x_n=x(n)$.
+\src{L2, slide 22}
+\end{definition}
+
+\begin{example}[Sequences in applications]
+\begin{enumerate}
+  \item Writing H for heads and T for tails, a sequence of coin-flip results might appear as
+  $(T,T,T,T,H,T,T,T,H,H,\dots)$.
+  \item A macroeconomic series might record four numbers in each period,
+  \[x_t=\big(\text{output}(t),\ \text{employment}(t),\ \text{debt}(t),\ \text{inflation}(t)\big),\]
+  where $t=1,2,3,\dots$ denotes the time period.
+\end{enumerate}
+\src{L2, slide 22}
+\end{example}
+
+\begin{sourcenote}[Codomain of a sequence]
+The slide's formal definition reads ``a function $x\colon\N\to\R$'', but its own examples have values that are not real
+numbers (the letters H and T; four-number vectors). The general definition allows any codomain; sequences whose values
+are real numbers are singled out next as \emph{numerical} sequences.
+\end{sourcenote}
+
+\begin{definition}[Numerical sequence][def:numerical-sequence]
+A sequence $x=(x_1,x_2,x_3,\dots)$ with each $x_k\in\R$ is called a \term{numerical sequence}. \src{L2, slide 23}
+\end{definition}
+
+\begin{example}[Numerical sequences][ex:num-seq]
+\begin{enumerate}
+  \item The sequence $a=(7,7,7,7,\dots)$ is \emph{constant}.
+  \item The $n$-th element of $b=(3,\,3.1,\,3.14,\,3.141,\dots)$ gives the first $n$ digits of the decimal expansion of $\pi$.
+  \item The sequence $c=(-0.5,\,0.11,\,0.3596,\,0.365881,\dots)$ is given by $c_n=f(b_n)$, where $f(x)=x^2-9.5$. For example
+  $c_2=3.1^2-9.5=9.61-9.5=0.11$.
+  \item The $n$-th element of $d=(0,\,0.69,\,1.09,\,1.38,\,1.60,\,1.79,\,1.94,\dots)$ gives $\ln(n)$ truncated to two decimal
+  places.
+\end{enumerate}
+\src{L2, slide 23}
+\end{example}
+
+\paragraph{Notation} All of the following may denote a sequence:
+$x$, \ $x_1,x_2,x_3,\dots$, \ $(x_1,x_2,x_3,\dots)$, \ $(x_n)$, \ $(x_n)_{n\in\N}$, \ $(x_n)_{n=1}^{\infty}$.
+The index need not be $n$; letters such as $i,j,k,l,m$ are also used. \src{L2, slide 23}
+
+\section{Behaviour at infinity}\label{sec:at-infinity}
+
+What happens to $a_n$ when $n$ grows arbitrarily large? Consider $a_n=2^{-n}$:
+\[
+(a_n)=\Big(\tfrac12,\tfrac14,\tfrac18,\tfrac1{16},\tfrac1{32},\tfrac1{64},\tfrac1{128},\tfrac1{256},\tfrac1{512},\tfrac1{1024},\tfrac1{2048},\dots\Big).
+\]
+As $n$ grows, $a_n$ stays positive but becomes smaller and smaller, and closer and closer to zero. So $0$ is a good
+description of what happens ``at infinity''. If instead the sequence were
+\[
+(b_n)=\Big(\tfrac12,\tfrac14,\tfrac18,\tfrac1{16},\tfrac1{32},\tfrac1{64},\tfrac1{128},\tfrac1{256},\tfrac1{256},\tfrac1{256},\tfrac1{256},\dots\Big),
+\]
+then the number $\tfrac1{256}$ would better describe its behaviour at infinity. \src{L2, slide 24}
+
+\begin{core}[Why a precise definition is needed]
+The behaviour ``at infinity'' cannot be determined from any finite number of initial elements: $(a_n)$ and $(b_n)$ agree
+in their first eight terms but head to different places. A definition is needed that speaks about \emph{all sufficiently
+late} terms at once.
+\end{core}
+
+\section{The definition of a limit}\label{sec:limit-def}
+
+\begin{definition}[Limit of a sequence][def:limit]
+A number $x\in\R$ is a \term{limit} of a sequence $(a_n)$ if for any real number $\varepsilon>0$ there exists a natural
+number $N$ such that for all $n>N$, $|a_n-x|<\varepsilon$. In this case we say that the sequence $(a_n)$ has a
+\term{finite limit}, or that it \term{converges}. In symbols:
+\[
+\forall\varepsilon>0,\ \exists N\in\N:\ \forall n>N,\ |a_n-x|<\varepsilon. \tag*{\srcin{L2, slide 25}}
+\]
+\end{definition}
+
+\begin{sourcenote}[A missing subscript]
+On the slide, the symbolic version of the definition is printed with ``$|a-x|<\varepsilon$''; the subscript $n$ is missing.
+The correct condition is $|a_n-x|<\varepsilon$, as in the verbal definition above it.
+\end{sourcenote}
+
+\subsection{Reading the definition}
+\begin{core}[The limit as a game]
+Read the definition from left to right, as a challenge and a response.
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{$\forall\varepsilon>0$}: a challenger names a tolerance $\varepsilon$, as small as they like.
+  \item \textbf{$\exists N\in\N$}: you must reply with a point $N$ in the sequence. Your $N$ may depend on $\varepsilon$
+  (it comes after $\varepsilon$; \cref{ex:quant-order}).
+  \item \textbf{$\forall n>N$}: every term after position $N$ must then pass the test:
+  \item \textbf{$|a_n-x|<\varepsilon$}: $a_n$ is within distance $\varepsilon$ of $x$ (\cref{sec:abs-distance}), i.e.\
+  $x-\varepsilon<a_n<x+\varepsilon$.
+\end{enumerate}
+$x$ is a limit if you can win this game whatever $\varepsilon$ the challenger chooses. Equivalently: however narrow a band
+is drawn around $x$, the sequence eventually enters the band and never leaves it.
+\end{core}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[stat, width=12cm, height=6cm, xmin=0, xmax=21, ymin=0.85, ymax=2.1, xlabel={$n$}, ylabel={$b_n$},
+  xtick={1,5,10,15,20}, ytick={1,1.2,1.5,2}, yticklabels={$1$,$1+\varepsilon$,$1.5$,$2$}]
+  \fill[accent!15] (axis cs:0,0.8) rectangle (axis cs:21,1.2);
+  \addplot[guide, domain=0:21] {1.2};
+  \addplot[guide, domain=0:21] {0.8};
+  \addplot[thin, black, domain=0:21] {1};
+  \addplot[only marks, mark=*, mark size=1.6pt, accent] coordinates {(1,2)(2,1.5)(3,1.3333)(4,1.25)};
+  \addplot[only marks, mark=*, mark size=1.6pt, excol] coordinates {(5,1.2)(6,1.1667)(7,1.1429)(8,1.125)(9,1.1111)(10,1.1)(11,1.0909)(12,1.0833)(13,1.0769)(14,1.0714)(15,1.0667)(16,1.0625)(17,1.0588)(18,1.0556)(19,1.0526)(20,1.05)};
+  \draw[corecol, thick] (axis cs:5,0.85) -- (axis cs:5,2.0) node[above, font=\small] {$N=5$};
+\end{axis}
+\end{tikzpicture}
+\caption{The sequence $b_n=1+\frac1n$ with the band $|b_n-1|<\varepsilon$ for $\varepsilon=0.2$ (shaded). The terms $b_1,\dots,b_4$
+lie outside the band; $b_5=1.2$ lies on its edge (since $|b_5-1|=0.2\not<0.2$); every term after $N=5$ lies strictly inside. A
+smaller $\varepsilon$ requires a larger $N$, but for every $\varepsilon>0$ some $N$ works.}
+\label{fig:epsilon-band}
+\end{figure}
+
+\section{Proving convergence}\label{sec:proving-convergence}
+
+\begin{example}[Finding $N$ for particular $\varepsilon$][ex:2n-table]
+Let $a_n=2^{-n}$ and $x=0$, so $|a_n-x|=|2^{-n}-0|=2^{-n}$. For each $\varepsilon$ below, find an $N$ such that
+$|a_n-0|<\varepsilon$ for all $n>N$. \src{L2, slide 26}
+\solution
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+$\varepsilon$ & first term inside the band & a valid $N$\\
+\midrule
+$1$ & all terms ($a_1=\tfrac12<1$) & $N=1$\\
+$0.1$ & $a_4=\tfrac1{16}=0.0625$ (since $a_3=0.125$) & $N=3$\\
+$0.01$ & $a_7=\tfrac1{128}\approx0.0078$ (since $a_6\approx0.0156$) & $N=6$\\
+$0.003$ & $a_9=\tfrac1{512}\approx0.00195$ (since $a_8\approx0.0039$) & $N=8$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Because $2^{-n}$ decreases as $n$ increases, once one term is inside the band, all later terms are too.
+\end{example}
+
+\begin{note}[Any working $N$ will do]
+$N=100$ works for $\varepsilon=1,\,0.1,\,0.01,\,0.003$ as well. It does not matter which particular $N$ we choose for which
+$\varepsilon$: the important thing is that for \emph{any} $\varepsilon>0$ there is \emph{some} $N$ such that
+$|a_n-x|<\varepsilon$ whenever $n>N$. In words, people sometimes say that $|a_n-x|<\varepsilon$ ``for large enough $n$'',
+meaning the same statement. \src{L2, slide 27}
+\end{note}
+
+A table, however long, does not prove convergence: it deals with finitely many values of $\varepsilon$. A proof must handle an
+\emph{arbitrary} $\varepsilon>0$.
+
+\begin{example}[$2^{-n}$ converges to $0$][ex:2n-proof]
+Prove that $x=0$ is a limit of $a_n=2^{-n}$. \src{L2, slide 28}
+\solution
+Consider an arbitrary $\varepsilon>0$. We want to show that for large enough $n$, $|2^{-n}-0|<\varepsilon$, that is, $2^{-n}<\varepsilon$.
+Since $\log_2$ is increasing,
+\[
+2^{-n}<\varepsilon\ \Longleftrightarrow\ \log_2(2^{-n})<\log_2\varepsilon\ \Longleftrightarrow\ -n<\log_2\varepsilon\ \Longleftrightarrow\ n>-\log_2\varepsilon.
+\]
+Hence we can take any natural number $N>-\log_2\varepsilon$; then for all $n>N$,
+\[
+n>N>-\log_2\varepsilon\ \Longrightarrow\ |2^{-n}-0|<\varepsilon.
+\]
+Since $\varepsilon>0$ was arbitrary, $0$ is a limit of $(2^{-n})$. (There are many other proofs.) $\square$
+\end{example}
+
+\begin{external}[A proof without logarithms]
+By Bernoulli's inequality (\cref{ex:bernoulli}), $2^n\ge n+1>n$, so $0<2^{-n}<\frac1n$. Given $\varepsilon>0$, choose a natural
+number $N\ge\frac1\varepsilon$. For $n>N$: $2^{-n}<\frac1n<\frac1N\le\varepsilon$. This uses only the properties of the real
+numbers and induction, and it shows a useful technique: bound the distance $|a_n-x|$ by something simpler (here $\frac1n$)
+whose behaviour is easy to control.
+\end{external}
+
+\begin{example}[$1+\frac1n$ converges to $1$][ex:one-over-n]
+Consider $b_n=1+\frac1n$, i.e.\ $(b_n)=\big(2,\tfrac32,\tfrac43,\tfrac54,\tfrac65,\tfrac76,\dots\big)$. Show that $x=1$ is a limit of
+$(b_n)$. \src{L2, slide 29}
+\solution
+\begin{itemize}
+  \item Consider an arbitrary $\varepsilon>0$. (We need to prove that the statement holds for \emph{any} $\varepsilon>0$.)
+  \item Let $N=\lceil1/\varepsilon\rceil$ be the smallest natural number not less than $1/\varepsilon$. (It is enough to find \emph{one}
+  $N$ that works for the given $\varepsilon$.)
+  \item Consider an arbitrary $n>N$. (We again need to show that the inequality holds for \emph{any} $n>N$, given the $N$ we have
+  picked.) Then
+  \[
+  |b_n-1|=\Big|\frac1n\Big|=\frac1n<\frac1N\le\varepsilon.
+  \]
+  \item Therefore $|b_n-1|<\varepsilon$ for all $n>N$, which we wanted to prove. $\square$
+\end{itemize}
+Each line of the proof corresponds to one quantifier of the definition: an arbitrary $\varepsilon$ ($\forall$), a chosen $N$
+($\exists$), an arbitrary $n$ ($\forall$), and finally the inequality.
+\end{example}
+
+\begin{core}[Template for proving $a_n\to x$ from the definition]
+\begin{enumerate}[label=\arabic*.]
+  \item \emph{Scratch work:} simplify $|a_n-x|$ and find a condition on $n$ that makes it less than $\varepsilon$ (solve the
+  inequality, or bound $|a_n-x|$ by something simpler first).
+  \item \emph{Proof:} ``Let $\varepsilon>0$ be arbitrary. Choose $N=\dots$ (a natural number depending on $\varepsilon$). Let $n>N$.
+  Then $|a_n-x|=\dots<\varepsilon$. Hence $x$ is a limit of $(a_n)$.''
+\end{enumerate}
+\end{core}
+
+\begin{example}[A rational sequence][ex:rational-seq]
+Prove from the definition that $a_n=\dfrac{n^2-1}{n^2+1}$ converges to $1$.
+\solution
+\emph{Scratch work.} $|a_n-1|=\Big|\frac{n^2-1-(n^2+1)}{n^2+1}\Big|=\frac{2}{n^2+1}<\frac2{n^2}\le\frac2n$ for $n\ge1$. So it is enough to
+make $\frac2n<\varepsilon$, i.e.\ $n>\frac2\varepsilon$.
+
+\emph{Proof.} Let $\varepsilon>0$ be arbitrary and choose a natural number $N\ge\frac2\varepsilon$. For $n>N$,
+\[
+|a_n-1|=\frac{2}{n^2+1}<\frac2n<\frac2N\le\varepsilon.
+\]
+Hence $a_n\to1$. $\square$
+\end{example}
+
+\section{Showing that a sequence has no limit}\label{sec:no-limit}
+
+To show that a sequence does not converge, we must show that \emph{no} real number $x$ is a limit. Negating the definition
+(\cref{sec:negation}): $x$ is \emph{not} a limit of $(a_n)$ when
+\[
+\exists\varepsilon>0:\ \forall N\in\N,\ \exists n>N:\ |a_n-x|\ge\varepsilon.
+\]
+Some tolerance $\varepsilon$ defeats every $N$: however late we start, some later term is at least $\varepsilon$ away from $x$.
+
+\begin{example}[An oscillating sequence has no limit][ex:no-limit]
+Consider the sequence $1,0,1,0,1,0,\dots$, that is, $c_n=1$ if $n$ is odd and $c_n=0$ if $n$ is even. Show that $(c_n)$ does
+not have a (finite) limit. \src{L2, slide 30}
+\solution
+\begin{itemize}
+  \item Towards a contradiction, assume that $x$ is a limit of $(c_n)$. (We should consider an \emph{arbitrary} $x$.)
+  \item Consider $\varepsilon=\tfrac14$. (It is enough to find \emph{some} $\varepsilon>0$ that leads to a contradiction.)
+  \item Then there should exist $N\in\N$ such that for all $n>N$, $|c_n-x|<\varepsilon$. (We should consider an arbitrary such $N$.)
+  \item One of the numbers $c_{N+1},c_{N+2}$ is zero and the other is one; since $N+1,N+2>N$, it should be that
+  $|1-x|<\tfrac14$ and $|0-x|<\tfrac14$. Then, by the triangle inequality (\cref{thm:triangle3}),
+  \[
+  1=|1-0|\le|1-x|+|x-0|<\tfrac14+\tfrac14=\tfrac12.
+  \]
+  \item We get $1<\tfrac12$, a contradiction. $\square$
+\end{itemize}
+\end{example}
+
+The choice $\varepsilon=\tfrac14$ is not special: any $\varepsilon\le\tfrac12$ works. The idea is that the terms keep returning to
+both $0$ and $1$, which are $1$ apart, so no single number can be within less than $\tfrac12$ of both; the triangle inequality
+turns this picture into a proof.
+
+\section{Further properties}\label{sec:limit-props}
+
+\begin{external}[A sequence has at most one limit]
+The slides say ``$x$ is \emph{a} limit''. In fact a sequence cannot have two different limits, so one may speak of
+\emph{the} limit and write $\lim_{n\to\infty}a_n=x$ or $a_n\to x$. \emph{Proof.} Suppose $x\ne y$ are both limits and take
+$\varepsilon=\frac{|x-y|}{2}>0$. There are $N_1$ and $N_2$ with $|a_n-x|<\varepsilon$ for $n>N_1$ and $|a_n-y|<\varepsilon$ for $n>N_2$. For
+$n>\max\{N_1,N_2\}$ both hold, and by the triangle inequality $|x-y|\le|x-a_n|+|a_n-y|<2\varepsilon=|x-y|$, a contradiction.
+\end{external}
+
+The following results are in the style of the first question of the January 2025 paper (as summarised in the study guide).
+They show how the definition is used to prove general facts.
+
+\begin{example}[Limits preserve non-negativity][ex:limit-nonneg]
+Let $a_n\to a$ and suppose $a_n\ge0$ for every $n$. Prove that $a\ge0$. Hint: assume, towards a contradiction, that $a<0$.
+\src{SG: Jan 2025 Q1(b)}
+\solution
+Suppose, for a contradiction, that $a<0$. Take $\varepsilon=-a>0$ (the distance from $a$ to $0$). By the definition of the limit there
+is $N$ with $|a_n-a|<-a$ for all $n>N$. Take $n=N+1$. Then $a_n-a\le|a_n-a|<-a$, so $a_n<0$. This contradicts $a_n\ge0$. Hence
+$a\ge0$. (The negation of $a\ge0$ is $a<0$ by trichotomy, \cref{sec:negation}.)
+\end{example}
+
+\begin{example}[Comparing limits][ex:limit-compare]
+Let $b_n\to b$ and $c_n\to c$ with $c_n\ge b_n$ for every $n$. Prove that $c\ge b$. \src{SG: Jan 2025 Q1(c)}
+\solution
+Let $a_n=c_n-b_n\ge0$. First we show $a_n\to c-b$. Given $\varepsilon>0$, choose $N_1$ with $|b_n-b|<\varepsilon/2$ for $n>N_1$, and $N_2$
+with $|c_n-c|<\varepsilon/2$ for $n>N_2$. For $n>N=\max\{N_1,N_2\}$, by the triangle inequality,
+\[
+|a_n-(c-b)|=|(c_n-c)-(b_n-b)|\le|c_n-c|+|b_n-b|<\tfrac\varepsilon2+\tfrac\varepsilon2=\varepsilon.
+\]
+So $a_n\to c-b$. Since $a_n\ge0$ for all $n$, \cref{ex:limit-nonneg} gives $c-b\ge0$, i.e.\ $c\ge b$.
+\end{example}
+
+\begin{warning}[Strict inequalities need not survive the limit]
+If $a_n>0$ for every $n$ and $a_n\to a$, it does \emph{not} follow that $a>0$: the sequence $a_n=\frac1n$ is always positive
+but its limit is $0$. Only the non-strict inequality $a\ge0$ is guaranteed.
+\end{warning}
+
+\section{Limits in economics}\label{sec:limits-econ}
+
+\begin{example}[Convergence to a steady state][ex:steady-state]
+A simple model of capital accumulation sets $K_{t+1}=0.8K_t+20$, with $K_1=50$. Show that $K_t=100-50\cdot(0.8)^{t-1}$ and that
+$K_t\to100$.
+\solution
+The formula holds for $t=1$ ($100-50=50$). If it holds for $t$, then
+$K_{t+1}=0.8\big(100-50(0.8)^{t-1}\big)+20=100-50(0.8)^t$, which is the formula for $t+1$; so by induction it holds for all $t$.
+Then $|K_t-100|=50(0.8)^{t-1}$. Given $\varepsilon>0$, this is less than $\varepsilon$ once $(0.8)^{t-1}<\frac\varepsilon{50}$, i.e.\
+$t-1>\frac{\ln(\varepsilon/50)}{\ln0.8}$ (dividing by $\ln0.8<0$ reverses the inequality). Choosing $N$ larger than
+$1+\frac{\ln(\varepsilon/50)}{\ln0.8}$ completes the proof. The capital stock approaches the \emph{steady state} $K^*=100$, the value
+at which $K^*=0.8K^*+20$.
+\end{example}
+
+\begin{external}[Infinite sums are limits]
+The present value of a perpetuity paying $\pounds1$ per year forever at interest rate $i>0$ is defined as the limit of the
+present values of finite streams, $\sum_{t=1}^{n}(1+i)^{-t}=\frac{1-(1+i)^{-n}}{i}$ (\cref{ex:geometric}). Since $(1+i)^{-n}\to0$, the
+limit is $\frac1i$. Infinite sums of this kind are the subject of Lecture~3.
+\end{external}
+
+% --------------------------------------------------------------------
+\section{Chapter review}
+% --------------------------------------------------------------------
+\subsection*{Summary}
+A sequence is an infinite ordered list indexed by $\N$, formally a function with domain $\N$; a numerical sequence has real
+values. Its behaviour at infinity cannot be read from finitely many terms, which is why limits are defined with quantifiers:
+$x$ is a limit of $(a_n)$ if for every $\varepsilon>0$ there is $N\in\N$ such that $|a_n-x|<\varepsilon$ for all $n>N$. To prove
+convergence, take an arbitrary $\varepsilon$, produce an $N$ (which may depend on $\varepsilon$), take an arbitrary $n>N$ and verify the
+inequality. To prove that there is no limit, assume a limit $x$ exists and use one well-chosen $\varepsilon$ and the triangle
+inequality to reach a contradiction. Limits are unique, preserve non-strict inequalities, and describe long-run behaviour such
+as convergence to a steady state.
+
+\subsection*{Key definitions}
+\begin{itemize}
+  \item \textbf{Sequence:} $(x_1,x_2,\dots)$, formally a function on $\N$ with $x_n=x(n)$; \textbf{numerical} if $x_n\in\R$.
+  \item \textbf{Limit:} $x$ is a limit of $(a_n)$ if $\forall\varepsilon>0\ \exists N\in\N\ \forall n>N:\ |a_n-x|<\varepsilon$; the
+  sequence then \textbf{converges} (has a finite limit).
+\end{itemize}
+
+\subsection*{Key statements}
+\begin{gather*}
+\text{$x$ is a limit:}\quad \forall\varepsilon>0,\ \exists N\in\N:\ \forall n>N,\ |a_n-x|<\varepsilon;\\
+\text{$x$ is not a limit:}\quad \exists\varepsilon>0:\ \forall N\in\N,\ \exists n>N:\ |a_n-x|\ge\varepsilon;\\
+2^{-n}\to0,\qquad 1+\tfrac1n\to1,\qquad (1,0,1,0,\dots)\ \text{has no limit.}
+\end{gather*}
+
+\subsection*{Connections}
+The definition combines nearly everything in the book: quantifiers and their order (\cref{ch:logic}), sets and functions
+(\cref{ch:sets,ch:func}), the properties of $\R$ (\cref{ch:numbers}), solving inequalities for $n$ (\cref{ch:ineq}), distance and the
+triangle inequality (\cref{ch:abs}) and induction (\cref{ch:ind}). It is the foundation of Topic~3: properties and calculation of
+limits, infinite sums, continuity and derivatives are all defined through limits.
+
+\subsection*{Common mistakes}
+\begin{itemize}
+  \item Choosing $N$ before $\varepsilon$, or a single $N$ meant to work for every $\varepsilon$.
+  \item ``Proving'' convergence with a table of values for a few $\varepsilon$.
+  \item Fixing a particular $n$ instead of an arbitrary $n>N$.
+  \item Writing $|a_n-x|\le\varepsilon$ in place of $<\varepsilon$ without care (harmless in practice, but match the definition).
+  \item In a non-existence proof, choosing a particular $x$ instead of an arbitrary one.
+  \item Concluding $a>0$ from $a_n>0$.
+\end{itemize}
+
+\subsection*{Exam checklist}
+\begin{checklist}
+  \item Define a sequence and a numerical sequence; give examples.
+  \item State the definition of a limit exactly, with quantifiers in the right order.
+  \item For a given sequence and $\varepsilon$, find a valid $N$.
+  \item Prove from the definition that a given sequence converges to a given number.
+  \item Prove that a given sequence has no limit.
+  \item Prove that limits preserve $\ge$, using contradiction.
+\end{checklist}
+
+% --------------------------------------------------------------------
+\section{Practice questions}
+% --------------------------------------------------------------------
+\pq[basic] Write down the first five terms of $a_n=\frac{(-1)^n}{n}$, $b_n=\frac{n}{n+1}$ and $c_n=n^2-3n$.
+
+\pq[basic] For $a_n=\frac1n$ and $x=0$, find an $N$ that works for $\varepsilon=0.1$, for $\varepsilon=0.01$ and for $\varepsilon=0.003$.
+
+\pq[conceptual] Explain why the following is \emph{not} a valid definition of $a_n\to x$: ``there is $N\in\N$ such that for every
+$\varepsilon>0$ and every $n>N$, $|a_n-x|<\varepsilon$.'' Which sequences satisfy it?
+
+\pq[mathematical] Prove from the definition that $\frac{3n+1}{n}\to3$.
+
+\pq[mathematical] Prove from the definition that $\frac{(-1)^n}{n}\to0$.
+
+\pq[mathematical] Prove that the sequence $a_n=(-1)^n$ has no limit.
+
+\pq[application] A savings balance evolves as $B_{t+1}=0.5B_t+10$ with $B_1=30$. Show by induction that $B_t=20+10\cdot(0.5)^{t-1}$,
+and prove from the definition that $B_t\to20$.
+
+\pq[multi-step] Let $a_n\to a$. Prove that $3a_n\to3a$, directly from the definition.
+
+\pq[exam-style] (a) Define what it means that a sequence $(a_n)$ has a finite limit $a$.
+(b) Let $a_n\to a$, and suppose $a_n\le5$ for all $n$. Prove that $a\le5$. Hint: assume, towards a contradiction, that $a>5$.
+(c) Give an example of a sequence with $a_n<5$ for all $n$ whose limit is not less than $5$.
+
+% --------------------------------------------------------------------
+\section{Solutions to practice questions}
+% --------------------------------------------------------------------
+\pqsol{10.1}
+$a$: $-1,\tfrac12,-\tfrac13,\tfrac14,-\tfrac15$. \ $b$: $\tfrac12,\tfrac23,\tfrac34,\tfrac45,\tfrac56$. \ $c$: $-2,-2,0,4,10$.
+
+\pqsol{10.2}
+We need $\frac1n<\varepsilon$ for $n>N$, i.e.\ $n>\frac1\varepsilon$. So $N=10$ works for $\varepsilon=0.1$ (for $n\ge11$, $\frac1n<0.1$); $N=100$ for
+$\varepsilon=0.01$; and $N=333$ for $\varepsilon=0.003$ (since $\frac1{334}<0.003<\frac1{333}$). Any larger $N$ also works.
+
+\pqsol{10.3}
+Here $N$ is chosen \emph{before} $\varepsilon$ and must work for every $\varepsilon$ simultaneously. If $|a_n-x|<\varepsilon$ for every
+$\varepsilon>0$, then $|a_n-x|$ is a non-negative number smaller than every positive number, so it is $0$. The condition therefore says
+that $a_n=x$ for all $n>N$: only sequences that are eventually constant equal to $x$ satisfy it. The correct definition lets $N$
+depend on $\varepsilon$ (\cref{ex:quant-order}).
+
+\pqsol{10.4}
+$\big|\frac{3n+1}n-3\big|=\frac1n$. Given $\varepsilon>0$, choose a natural number $N\ge\frac1\varepsilon$. For $n>N$:
+$\frac1n<\frac1N\le\varepsilon$. Hence the limit is $3$.
+
+\pqsol{10.5}
+$\big|\frac{(-1)^n}{n}-0\big|=\frac1n$. Given $\varepsilon>0$, choose $N\ge\frac1\varepsilon$; for $n>N$, $\frac1n<\varepsilon$.
+
+\pqsol{10.6}
+Suppose, for a contradiction, that $x$ is a limit, and take $\varepsilon=\tfrac12$. There is $N$ with $|a_n-x|<\tfrac12$ for $n>N$. Among
+$N+1$ and $N+2$ one is even and one is odd, so $|1-x|<\tfrac12$ and $|-1-x|<\tfrac12$. By the triangle inequality,
+$2=|1-(-1)|\le|1-x|+|x-(-1)|<\tfrac12+\tfrac12=1$, a contradiction. So $(a_n)$ has no limit.
+
+\pqsol{10.7}
+Base: $20+10=30=B_1$. Step: if $B_t=20+10(0.5)^{t-1}$ then $B_{t+1}=0.5\big(20+10(0.5)^{t-1}\big)+10=20+10(0.5)^t$.
+Limit: $|B_t-20|=10(0.5)^{t-1}=20\cdot2^{-t}$. By Bernoulli, $2^t>t$, so $|B_t-20|<\frac{20}{t}$. Given $\varepsilon>0$, choose $N\ge\frac{20}\varepsilon$;
+for $t>N$, $|B_t-20|<\frac{20}t<\frac{20}N\le\varepsilon$.
+
+\pqsol{10.8}
+Let $\varepsilon>0$. Since $a_n\to a$, there is $N$ with $|a_n-a|<\frac\varepsilon3$ for all $n>N$. For such $n$,
+$|3a_n-3a|=3|a_n-a|<3\cdot\frac\varepsilon3=\varepsilon$. Hence $3a_n\to3a$. (The trick is to apply the definition for $a_n$ with the smaller
+tolerance $\varepsilon/3$.)
+
+\pqsol{10.9}
+(a) $(a_n)$ has finite limit $a\in\R$ if for every $\varepsilon>0$ there exists $N\in\N$ such that $|a_n-a|<\varepsilon$ for all $n>N$.
+(b) Suppose $a>5$ and let $\varepsilon=a-5>0$. There is $N$ with $|a_n-a|<a-5$ for all $n>N$. For $n=N+1$:
+$a-a_n\le|a_n-a|<a-5$, so $a_n>5$, contradicting $a_n\le5$. Hence $a\le5$.
+(c) $a_n=5-\frac1n$: every term is less than $5$, but $a_n\to5$ (since $|a_n-5|=\frac1n$), and $5$ is not less than $5$.

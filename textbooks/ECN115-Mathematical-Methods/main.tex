@@ -1,0 +1,41 @@
+\documentclass[11pt,oneside,openany]{book}
+\usepackage{../common/textbook}
+\definecolor{accent}{HTML}{6B2150}
+\definecolor{accentlight}{HTML}{F6EDF2}
+\renewcommand{\bookshorttitle}{ECN115 Mathematical Methods}
+\hypersetup{pdftitle={ECN115 Mathematical Methods in Economics and Finance: Foundations},
+  pdfauthor={Course textbook compiled from the ECN115 materials}, pdfsubject={Mathematics for economics},
+  pdflang={en-GB}}
+
+\newcommand{\tpcode}{ECN115 \,\textbar\, Mathematical Methods in Economics and Finance}
+\newcommand{\tptitle}{Foundations of Mathematical\\ Reasoning for Economics}
+\newcommand{\tpsubtitle}{Logic, sets, real numbers, inequalities, sums, induction,\\
+  the binomial formula, functions, polynomials and limits of sequences}
+\newcommand{\tpsources}{\textbf{A complete textbook for Topic 1 and the opening of Topics 2--3.}\\[2mm]
+  Built from the ECN115 2026--27 lecture slides (Lectures 1 and 2), the Topic~1 study and
+  revision guide, and the January 2024, 2025 and 2026 examination papers as summarised in that
+  guide. Material that goes beyond these sources is marked \emph{Beyond the course materials};
+  errors and ambiguities in the sources are marked \emph{Note on the source material}.}
+\newcommand{\tpedition}{Edition for the 2026--27 academic year}
+
+\begin{document}
+\frontmatter
+\input{../common/titlepage}
+\pagestyle{plain}
+\tableofcontents
+\input{front}
+\mainmatter
+\pagestyle{fancy}
+\input{ch01-logic}
+\input{ch02-sets}
+\input{ch03-numbers}
+\input{ch04-inequalities}
+\input{ch05-absolute}
+\input{ch06-summation}
+\input{ch07-induction}
+\input{ch08-binomial}
+\input{ch09-functions}
+\input{ch10-limits}
+\backmatter
+\input{review}
+\end{document}

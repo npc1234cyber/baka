@@ -1,0 +1,326 @@
+% ====================================================================
+\chapter{The Binomial Formula}\label{ch:binom}
+% ====================================================================
+
+\begin{chapterintro}
+Expanding a power of a sum, such as $(1+r)^n$, is one of the most common calculations in economics and finance: it
+appears whenever interest compounds or a quantity grows at a constant rate. The binomial formula gives the expansion of
+$(x+y)^n$ for every $n$ in one line. This chapter introduces factorials and binomial coefficients, states the formula,
+proves it by induction, and uses it to estimate powers without a calculator, as in a question set on the January 2026
+paper.
+\end{chapterintro}
+
+\begin{prerequisites}
+Summation notation (\cref{ch:sum}); proof by induction (\cref{ch:ind}); the distributive law M5 (\cref{ch:numbers}).
+\end{prerequisites}
+
+\section{Powers of a sum}\label{sec:binom-powers}
+
+Consider $(x+y)^n$, where $x,y\in\R$ and $n\in\{0\}\cup\N$. Multiplying out repeatedly gives
+\begin{align*}
+(x+y)^0&=1\\
+(x+y)^1&=x+y\\
+(x+y)^2&=x^2+2xy+y^2\\
+(x+y)^3&=x^3+3x^2y+3xy^2+y^3\\
+(x+y)^4&=x^4+4x^3y+6x^2y^2+4xy^3+y^4\\
+(x+y)^5&=x^5+5x^4y+10x^3y^2+10x^2y^3+5xy^4+y^5
+\end{align*}
+\src{L2, slide 13}
+
+Three patterns are visible. In $(x+y)^n$ every term has total degree $n$: the power of $x$ falls from $n$ to $0$ while the
+power of $y$ rises from $0$ to $n$. There are $n+1$ terms. And the coefficients are symmetric and follow a pattern in
+which each is the sum of the two above it (\cref{fig:pascal}).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=9mm, y=7mm]
+  \foreach \n/\row in {0/{1}, 1/{1,1}, 2/{1,2,1}, 3/{1,3,3,1}, 4/{1,4,6,4,1}, 5/{1,5,10,10,5,1}} {
+    \node[anchor=east, font=\small, inner sep=0pt] at (-4.2,-\n) {$n=\n$};
+    \foreach \c [count=\i from 0] in \row {
+      \node[font=\small] (p\n-\i) at ({\i-\n/2},-\n) {$\c$};
+    }
+  }
+  \node[draw=corecol, thick, rounded corners=2pt, fit=(p3-1)(p3-2), inner sep=1pt] {};
+  \node[draw=corecol, thick, circle, inner sep=0.5pt, fit=(p4-2)] {};
+\end{tikzpicture}
+\caption{The coefficients of $(x+y)^n$ arranged in a triangle (Pascal's triangle). Each interior entry is the sum of the
+two entries above it; the highlighted entries show $3+3=6$. Row $n$ lists the binomial coefficients $C_n^0,C_n^1,\dots,C_n^n$.}
+\label{fig:pascal}
+\end{figure}
+
+\section{Factorials and binomial coefficients}\label{sec:binom-coeff}
+
+\begin{definition}[Factorial][def:factorial]
+Given $k\in\{0\}\cup\N$, the \term{factorial} $k!$ is defined recursively by
+\[
+0!=1,\qquad k!=(k-1)!\cdot k\quad\text{for }k\ge1.
+\]
+\src{L2, slide 14}
+\end{definition}
+So $k!=1\cdot2\cdot3\cdots k$ for $k\ge1$, and
+\[
+0!=1,\quad1!=1,\quad2!=2,\quad3!=6,\quad4!=24,\quad5!=120.
+\]
+The definition $0!=1$ is a convention, chosen so that the recursion $1!=0!\cdot1$ works and so that the formulas below hold
+without exceptions (compare the empty-sum convention in \cref{sec:sigma-conventions}: an empty product is $1$).
+
+\begin{definition}[Binomial coefficient][def:binom-coeff]
+For $j,n\in\{0\}\cup\N$ with $n\ge j$, the \term{binomial coefficient} is
+\[
+C_n^j=\binom{n}{j}=\frac{n!}{(n-j)!\,j!}.
+\]
+This book follows the slides in writing $C_n^j$; the notation $\binom nj$ (read ``$n$ choose $j$'') is more common.
+\src{L2, slide 14}
+\end{definition}
+
+\begin{example}[Computing a binomial coefficient]
+Compute $C_5^2$. \src{L2, slide 14}
+\solution
+\[
+C_5^2=\frac{5!}{(5-2)!\cdot2!}=\frac{5!}{3!\cdot2!}=\frac{5\cdot4\cdot3\cdot2}{(3\cdot2)\cdot2}=10.
+\]
+In practice, cancel the larger factorial in the denominator first:
+$C_n^j=\frac{n(n-1)\cdots(n-j+1)}{j!}$, so $C_5^2=\frac{5\cdot4}{2}=10$ and $C_{102}^{3}=\frac{102\cdot101\cdot100}{6}=171700$.
+\end{example}
+
+\begin{proposition}[Properties of binomial coefficients][prop:binom-props]
+For $n\in\{0\}\cup\N$ and $0\le j\le n$:
+\begin{enumerate}[label=(\roman*)]
+  \item $C_n^0=C_n^n=1$ and, for $n\ge1$, $C_n^1=C_n^{n-1}=n$;
+  \item symmetry: $C_n^j=C_n^{n-j}$;
+  \item Pascal's rule: for $0\le j\le n-1$, \ $C_n^{j}+C_n^{j+1}=C_{n+1}^{j+1}$.
+\end{enumerate}
+\end{proposition}
+\emph{Proof.} (i) $C_n^0=\frac{n!}{n!\,0!}=1$ and $C_n^1=\frac{n!}{(n-1)!\,1!}=n$; the others follow from (ii).
+(ii) Replacing $j$ by $n-j$ swaps the two factorials in the denominator: $C_n^{n-j}=\frac{n!}{j!\,(n-j)!}=C_n^j$.
+(iii) Bring the two fractions to the common denominator $(j+1)!\,(n-j)!$:
+\begin{align*}
+\frac{n!}{(n-j)!\,j!}+\frac{n!}{(n-j-1)!\,(j+1)!}
+&=\frac{n!\,(j+1)+n!\,(n-j)}{(n-j)!\,(j+1)!}=\frac{n!\,(n+1)}{(n-j)!\,(j+1)!}\\
+&=\frac{(n+1)!}{\big((n+1)-(j+1)\big)!\,(j+1)!}=C_{n+1}^{j+1}. \qquad\square
+\end{align*}
+
+\begin{external}[What binomial coefficients count]
+$C_n^j$ is the number of ways of choosing $j$ objects from $n$ distinct objects when order does not matter. For example
+there are $C_5^2=10$ ways to choose $2$ of $5$ candidates for a committee. This is why the coefficients appear in
+$(x+y)^n$: expanding the product of $n$ brackets $(x+y)(x+y)\cdots(x+y)$, the term $x^{n-j}y^j$ arises once for each way of
+choosing the $j$ brackets that contribute a $y$.
+\end{external}
+
+\section{The binomial formula}\label{sec:binom-formula}
+
+\begin{keyformula}[The binomial formula][kf:binomial]{(x+y)^n=\sum_{j=0}^{n}C_n^j\,x^{n-j}y^j,\qquad C_n^j=\frac{n!}{(n-j)!\,j!}}
+\fsymbols $x,y\in\R$; $n\in\{0\}\cup\N$ is the power; $j$ is the summation index, the power of $y$ in each term;
+$C_n^j$ are the binomial coefficients. \src{L2, slide 13}
+\fmeaning $(x+y)^n$ is a sum of $n+1$ terms, one for each $j=0,1,\dots,n$. The $j$-th term contains $y$ to the power $j$,
+$x$ to the power $n-j$, and the coefficient $C_n^j$.
+\forigin From repeated use of the distributive law; formally by induction on $n$ using Pascal's rule
+(\cref{thm:binomial}).
+\fuse To expand powers of sums exactly, to compute particular coefficients, and to bound or approximate powers such as
+$(1+r)^n$ by their first few terms.
+\fexample $(2a-1)^3$: with $x=2a$, $y=-1$, $n=3$:
+$C_3^0(2a)^3+C_3^1(2a)^2(-1)+C_3^2(2a)(-1)^2+C_3^3(-1)^3=8a^3-12a^2+6a-1$.
+\fmistakes Forgetting to raise the coefficient inside $x$ or $y$ to the power (writing $2a^3$ for $(2a)^3$); losing the
+signs when $y$ is negative ($(-1)^j$ alternates); counting $n$ terms instead of $n+1$.
+\frearrange Exchanging the roles of $x$ and $y$: $(x+y)^n=\sum_{j=0}^nC_n^jx^jy^{n-j}$ (by symmetry of $C_n^j$). Special
+cases: $(1+y)^n=\sum_{j=0}^nC_n^jy^j$; $x=y=1$ gives $\sum_{j=0}^nC_n^j=2^n$; $x=1$, $y=-1$ gives
+$\sum_{j=0}^n(-1)^jC_n^j=0$ for $n\ge1$.
+\fchanges Increasing $n$ by one adds a term and updates the coefficients by Pascal's rule. If $y$ is small relative to
+$x$, the terms shrink rapidly as $j$ grows (each contains a further factor $y/x$), which is why the first few terms give a
+good approximation.
+\fexam ``Write the binomial formula for $(x+1)^n$ and the first four terms explicitly'', followed by an estimate such as
+``show that $1.02^{102}>6$'' (January 2026, Question 1).
+\end{keyformula}
+
+\begin{theorem}[Binomial formula][thm:binomial]
+For all $x,y\in\R$ and $n\in\{0\}\cup\N$, $(x+y)^n=\sum_{j=0}^nC_n^jx^{n-j}y^j$.
+\end{theorem}
+
+\begin{sourcenote}[Proof]
+The slides state the general formula without proof. The proof by induction below is supplied for completeness.
+\end{sourcenote}
+
+\emph{Proof.} For $n=0$ both sides equal $1$ ($C_0^0=1$, and $x^0y^0=1$). We prove the formula for $n\in\N$ by induction.
+\emph{Base} ($n=1$): $C_1^0x+C_1^1y=x+y$.
+\emph{Step:} assume the formula for $n$. Then, by M5,
+\[
+(x+y)^{n+1}=(x+y)\sum_{j=0}^nC_n^jx^{n-j}y^j=\sum_{j=0}^nC_n^jx^{n+1-j}y^j+\sum_{j=0}^nC_n^jx^{n-j}y^{j+1}.
+\]
+In the second sum, shift the index ($i=j+1$) so that the power of $y$ is again the index:
+$\sum_{i=1}^{n+1}C_n^{i-1}x^{n+1-i}y^{i}$. Now collect the terms with the same power $y^j$. The term $j=0$ appears only in the
+first sum, with coefficient $C_n^0=1=C_{n+1}^0$; the term $j=n+1$ appears only in the second, with coefficient
+$C_n^n=1=C_{n+1}^{n+1}$; and for $1\le j\le n$ the coefficient is $C_n^j+C_n^{j-1}=C_{n+1}^j$ by Pascal's rule. Hence
+$(x+y)^{n+1}=\sum_{j=0}^{n+1}C_{n+1}^jx^{n+1-j}y^j$, which is the formula for $n+1$. \hfill$\square$
+
+\section{Using the binomial formula}\label{sec:binom-use}
+
+\begin{example}[The first four terms of $(x+1)^n$][ex:x-plus-1]
+Write the binomial formula for $(x+1)^n$ and the first four terms explicitly, computing $C_n^0,C_n^1,C_n^2,C_n^3$.
+\src{SG: Jan 2026 Q1(a)}
+\solution
+With $y=1$, every power of $y$ equals $1$:
+\[
+(x+1)^n=\sum_{j=0}^{n}C_n^jx^{n-j}.
+\]
+The first four coefficients are
+\[
+C_n^0=1,\qquad C_n^1=n,\qquad C_n^2=\frac{n(n-1)}{2},\qquad C_n^3=\frac{n(n-1)(n-2)}{6},
+\]
+so (for $n\ge3$)
+\[
+(x+1)^n=x^n+n\,x^{n-1}+\frac{n(n-1)}{2}\,x^{n-2}+\frac{n(n-1)(n-2)}{6}\,x^{n-3}+\dots
+\]
+\end{example}
+
+\begin{example}[Estimating a power without a calculator][ex:102]
+Show that $1.02^{102}>6$. Hint: $1.02=\frac{2}{100}+1$; four terms of the expansion suffice. \src{SG: Jan 2026 Q1(b)}
+\solution
+Use the binomial formula in the form $(1+y)^n=\sum_{j=0}^nC_n^jy^j$ with $y=\frac2{100}=0.02$ and $n=102$. Every term is
+positive (since $y>0$), so the sum is greater than the sum of its first four terms:
+\[
+1.02^{102}>C_{102}^0+C_{102}^1(0.02)+C_{102}^2(0.02)^2+C_{102}^3(0.02)^3.
+\]
+Compute each term:
+\begin{align*}
+C_{102}^0&=1,\\
+C_{102}^1\,(0.02)&=102\times0.02=2.04,\\
+C_{102}^2\,(0.02)^2&=\frac{102\cdot101}{2}\times0.0004=5151\times0.0004=2.0604,\\
+C_{102}^3\,(0.02)^3&=\frac{102\cdot101\cdot100}{6}\times0.000008=171700\times0.000008=1.3736.
+\end{align*}
+The total is $1+2.04+2.0604+1.3736=6.474>6$. Hence $1.02^{102}>6.474>6$.
+\end{example}
+
+\begin{examtip}
+The key observation is that all omitted terms are positive, so dropping them gives a lower bound. State this explicitly:
+it is the logical step that turns a partial sum into a proof. Keep the arithmetic exact (calculators were not permitted
+on any of the past papers).
+\end{examtip}
+
+\begin{example}[A specific coefficient]
+Find the coefficient of $x^3$ in $(2x-3)^5$.
+\solution
+The general term is $C_5^j(2x)^{5-j}(-3)^j$. The power of $x$ is $5-j=3$ when $j=2$. The coefficient is
+$C_5^2\cdot2^3\cdot(-3)^2=10\cdot8\cdot9=720$.
+\end{example}
+
+\section{The binomial formula in economics and finance}\label{sec:binom-econ}
+
+\begin{example}[Compound interest][ex:compound]
+A deposit of $\pounds1000$ earns interest at $3\%$ per year, compounded annually. Use the binomial formula to approximate
+its value after $10$ years, and compare with simple interest.
+\solution
+The value is $1000(1+0.03)^{10}$. By the binomial formula,
+\[
+(1.03)^{10}=1+10(0.03)+45(0.03)^2+120(0.03)^3+\dots=1+0.3+0.0405+0.00324+\dots\approx1.3437,
+\]
+so the deposit is worth about $\pounds1343.7$ (the exact value is $\pounds1343.92$). Simple interest would give only
+$1000(1+10\times0.03)=\pounds1300$: that is the first two terms of the expansion. The remaining terms are the ``interest
+on interest''.
+\end{example}
+
+\begin{external}[Bernoulli's inequality again]
+For $y\ge0$, dropping all terms of $(1+y)^n$ after the second gives $(1+y)^n\ge1+ny$, a special case of Bernoulli's
+inequality (\cref{ex:bernoulli}). It says that compound growth is at least as large as simple growth.
+\end{external}
+
+% --------------------------------------------------------------------
+\section{Chapter review}
+% --------------------------------------------------------------------
+\subsection*{Summary}
+$k!$ is defined by $0!=1$ and $k!=(k-1)!\cdot k$. The binomial coefficient $C_n^j=\frac{n!}{(n-j)!j!}$ (also written
+$\binom nj$) is defined for $0\le j\le n$; it is symmetric, equals $1$ at the ends, and satisfies Pascal's rule
+$C_n^j+C_n^{j+1}=C_{n+1}^{j+1}$. The binomial formula $(x+y)^n=\sum_{j=0}^nC_n^jx^{n-j}y^j$ expands any power of a sum
+into $n+1$ terms; it is proved by induction using Pascal's rule. When all terms are positive, keeping only the first few
+gives a lower bound, which is how $1.02^{102}>6$ is shown.
+
+\subsection*{Key definitions}
+\begin{itemize}
+  \item $0!=1$, $k!=(k-1)!\cdot k$.
+  \item $C_n^j=\binom nj=\dfrac{n!}{(n-j)!\,j!}$ for $j,n\in\{0\}\cup\N$, $n\ge j$.
+\end{itemize}
+
+\subsection*{Key equations}
+\[
+(x+y)^n=\sum_{j=0}^{n}C_n^jx^{n-j}y^j,\qquad C_n^j=C_n^{n-j},\qquad C_n^j+C_n^{j+1}=C_{n+1}^{j+1},\qquad \sum_{j=0}^nC_n^j=2^n.
+\]
+
+\subsection*{Connections}
+The formula is written with $\sum$ (\cref{ch:sum}) and proved by induction (\cref{ch:ind}). Expanding $(x-\bar x)^n$ and
+similar expressions is needed when working with polynomials (\cref{ch:func}), and binomial expansions are used to
+estimate terms of sequences such as $(1+\frac1n)^n$ in Topic~3.
+
+\subsection*{Common mistakes}
+\begin{itemize}
+  \item $(x+y)^n=x^n+y^n$ (true only for $n=1$).
+  \item Forgetting the power on a coefficient, e.g.\ writing $2x^3$ for $(2x)^3$.
+  \item Losing signs in $(x-y)^n$.
+  \item Arithmetic slips in $C_n^j$: cancel $(n-j)!$ first.
+  \item Dropping terms to get a lower bound without noting that they are positive.
+\end{itemize}
+
+\subsection*{Exam checklist}
+\begin{checklist}
+  \item Compute factorials and binomial coefficients exactly.
+  \item State the binomial formula with the definition of $C_n^j$.
+  \item Write the first few terms of $(x+1)^n$ for general $n$.
+  \item Use a partial sum of a binomial expansion to prove a lower bound.
+  \item Find a specified coefficient in an expansion.
+\end{checklist}
+
+% --------------------------------------------------------------------
+\section{Practice questions}
+% --------------------------------------------------------------------
+\pq[basic] Compute $6!$, $\frac{10!}{8!}$, $C_6^2$, $C_7^3$ and $C_{20}^{18}$.
+
+\pq[basic] Expand $(1+2t)^4$ and $(a-b)^5$.
+
+\pq[conceptual] Explain why $(x+y)^n$ has $n+1$ terms, and why the sum of the exponents of $x$ and $y$ is $n$ in each term.
+
+\pq[mathematical] Use the binomial formula to show that $\sum_{j=0}^{n}C_n^j=2^n$ and that $\sum_{j=0}^{n}(-1)^jC_n^j=0$ for
+$n\ge1$.
+
+\pq[mathematical] Find the term independent of $x$ in $\big(x+\frac2x\big)^6$.
+
+\pq[application] An economy's real output grows by $2\%$ per year. Use the first three terms of a binomial expansion to
+estimate the percentage growth over $5$ years, and state whether your estimate is an under- or over-estimate.
+
+\pq[multi-step] Show that $1.01^{100}>2.7$ using the binomial formula. How many terms do you need?
+
+\pq[exam-style] (a) Write the binomial formula for $(x+1)^n$, $n\in\N$, and write the first four terms explicitly, computing
+$C_n^0,C_n^1,C_n^2,C_n^3$. (b) Use your answer to show that $1.03^{50}>4$.
+
+% --------------------------------------------------------------------
+\section{Solutions to practice questions}
+% --------------------------------------------------------------------
+\pqsol{8.1}
+$6!=720$; $\frac{10!}{8!}=10\cdot9=90$; $C_6^2=\frac{6\cdot5}2=15$; $C_7^3=\frac{7\cdot6\cdot5}{6}=35$;
+$C_{20}^{18}=C_{20}^2=\frac{20\cdot19}{2}=190$.
+
+\pqsol{8.2}
+$(1+2t)^4=1+4(2t)+6(2t)^2+4(2t)^3+(2t)^4=1+8t+24t^2+32t^3+16t^4$.
+$(a-b)^5=a^5-5a^4b+10a^3b^2-10a^2b^3+5ab^4-b^5$.
+
+\pqsol{8.3}
+The index $j$ (the power of $y$) runs from $0$ to $n$, giving $n+1$ values. Each term comes from choosing either $x$ or
+$y$ from each of the $n$ brackets, so the powers of $x$ and $y$ add to $n$; the term with $y^j$ therefore has $x^{n-j}$.
+
+\pqsol{8.4}
+Put $x=y=1$: $2^n=(1+1)^n=\sum_jC_n^j$. Put $x=1$, $y=-1$: $0=0^n=(1-1)^n=\sum_jC_n^j(-1)^j$ for $n\ge1$.
+
+\pqsol{8.5}
+The general term is $C_6^jx^{6-j}(2/x)^j=C_6^j2^jx^{6-2j}$. It is independent of $x$ when $j=3$: $C_6^3\cdot2^3=20\cdot8=160$.
+
+\pqsol{8.6}
+$(1.02)^5\approx1+5(0.02)+10(0.02)^2=1+0.1+0.004=1.104$, i.e.\ about $10.4\%$. The omitted terms are positive, so this is an
+underestimate (the exact value is $1.10408\dots$, about $10.41\%$).
+
+\pqsol{8.7}
+$(1+0.01)^{100}>1+100(0.01)+\frac{100\cdot99}{2}(0.0001)+\frac{100\cdot99\cdot98}{6}(0.000001)
+=1+1+0.495+0.1617=2.6567$, which is not yet enough. Adding the fifth term $C_{100}^4(0.01)^4=3921225\times10^{-8}=0.0392$ gives
+$2.6959$, still short. The sixth term $C_{100}^5(0.01)^5=75287520\times10^{-10}=0.0075$ gives $2.7034>2.7$. So six terms
+suffice, and since all omitted terms are positive, $1.01^{100}>2.7$.
+
+\pqsol{8.8}
+(a) $(x+1)^n=\sum_{j=0}^nC_n^jx^{n-j}=x^n+nx^{n-1}+\frac{n(n-1)}{2}x^{n-2}+\frac{n(n-1)(n-2)}{6}x^{n-3}+\dots$
+(b) $1.03^{50}=(1+0.03)^{50}>1+50(0.03)+\frac{50\cdot49}{2}(0.0009)+\frac{50\cdot49\cdot48}{6}(0.000027)
+=1+1.5+1.1025+0.5292=4.1317>4$, since all omitted terms are positive.

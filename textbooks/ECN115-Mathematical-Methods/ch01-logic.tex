@@ -1,0 +1,473 @@
+% ====================================================================
+\chapter{The Language of Mathematics}\label{ch:logic}
+% ====================================================================
+
+\begin{chapterintro}
+Mathematics is written in a small, precise language. A handful of words --- \emph{proposition},
+\emph{proof}, \emph{axiom}, \emph{theorem}, \emph{implies}, \emph{if and only if}, \emph{not},
+\emph{for all}, \emph{there exists} --- carry almost all of the logical weight in every argument you
+will meet in this module. This chapter teaches that language. Everything later in the book, from
+solving an inequality to proving that a sequence has a limit, is written in it.
+\end{chapterintro}
+
+\begin{prerequisites}
+None. This chapter starts from the beginning. It helps to be comfortable with elementary algebra
+(rearranging an equation such as $2x+1=0$) because the examples use it.
+\end{prerequisites}
+
+\section{Propositions}\label{sec:propositions}
+
+The basic unit of a mathematical argument is a sentence that makes a claim which is either correct or
+incorrect.
+
+\begin{definition}[Proposition][def:proposition]
+A \term{proposition} is a statement that may be either true or false. \src{L1, slide 8}
+\end{definition}
+
+The definition has two parts. A proposition is a \emph{statement} --- a complete declarative sentence,
+not a question, a command or a fragment --- and it must be possible to say that it is \emph{true} or
+\emph{false}. It does not matter whether we know which: ``every even number greater than 2 is the sum of
+two primes'' is a proposition even though nobody currently knows whether it is true.
+
+\begin{example}[Recognising propositions]
+Decide which of the following are propositions.
+\begin{enumerate}
+  \item $2+3=5$.
+  \item $2+3=6$.
+  \item $2+3$.
+  \item Is $7$ greater than $4$?
+  \item The unemployment rate in the United Kingdom in March 2026 was below 5\%.
+  \item $x>3$.
+\end{enumerate}
+\solution
+(a) is a proposition and it is true. (b) is a proposition and it is false; being false does not stop a
+statement from being a proposition. (c) is not a statement at all: it is the name of a number, with no
+verb and no claim. (d) is a question, so it is neither true nor false. (e) is a proposition: it is
+either true or false as a matter of fact, whether or not you know the figure.
+
+(f) needs care. On its own, ``$x>3$'' is neither true nor false until we know what $x$ is: it is true
+when $x=5$ and false when $x=1$. Such a sentence is a \emph{proposition depending on $x$}, sometimes
+called an \emph{open sentence} or a \emph{property of $x$}. It becomes a proposition once a value is
+substituted for $x$, or once it is turned into a claim about many values of $x$ with a quantifier
+(\cref{sec:quantifiers}).
+\end{example}
+
+\begin{note}[Propositions depending on a variable]
+Much of this module works with statements such as ``$x>3$'' or ``$P_n$: $1+2+\dots+n=n(n+1)/2$'',
+which depend on a variable. We write $P(x)$ or $P_n$ to show the dependence. Solving an inequality
+means finding the set of all $x$ for which $P(x)$ is true (\cref{ch:ineq}); proving a statement by
+induction means showing that $P_n$ is true for every natural number $n$ (\cref{ch:ind}).
+\end{note}
+
+\section{Proofs, axioms and theorems}\label{sec:proof}
+
+\begin{definition}[Proof, axiom, theorem][def:proof]
+\begin{itemize}
+  \item A \term{proof} is a demonstration that one proposition follows from one or more other
+  propositions.
+  \item An \term{axiom} is a proposition that is accepted without proof.
+  \item A \term{theorem} is a proposition that has been proved on the basis of axioms and previously
+  established theorems.
+\end{itemize}
+\src{L1, slide 8}
+\end{definition}
+
+These three words describe how mathematical knowledge is organised. Any argument has to start
+somewhere: we cannot prove everything from nothing, because every proof needs something to start from.
+The starting points are the \emph{axioms}. From them we derive \emph{theorems}, by \emph{proofs} in which
+each step follows logically from earlier steps. Once a theorem has been proved it may be used in later
+proofs exactly as if it were an axiom.
+
+\begin{intuition}
+Think of the axioms as the rules of a game and the theorems as positions that can be reached by legal
+moves. A proof is the record of the moves. Nobody asks you to justify the rules of chess; they ask you to
+show that a position can be reached by playing by the rules.
+\end{intuition}
+
+In ECN115 the axioms that matter most are the properties of the real numbers listed in
+\cref{ch:numbers} (labelled O1--O2, A1--A5 and M1--M6). They describe how addition, multiplication and
+the order ``$>$'' behave. Everything we do with inequalities is a sequence of steps, each justified by
+one of these properties. The slides make the point explicitly when they solve $2x+1>0$ by naming, at
+each step, which property is being used (\cref{sec:linear-ineq}).
+
+\begin{warning}[An axiom is not ``a fact too obvious to prove'']
+An axiom is a starting assumption, chosen because we have to start somewhere. Some very obvious facts
+are \emph{not} axioms in this module. For example, $0\cdot a=0$ for every real number $a$ is not on the
+list of properties O1--M6; it is a theorem that can be derived from them (\cref{prop:zero-times}).
+Whether something is an axiom depends on which list of assumptions has been chosen, not on how obvious
+it is.
+\end{warning}
+
+\section{Implication}\label{sec:implication}
+
+\begin{definition}[Implication][def:implication]
+Given propositions $P$ and $Q$, we write $P\Rightarrow Q$ for the proposition that \term{$P$ implies $Q$},
+that is, ``if $P$, then $Q$''. \src{L1, slide 8}
+\end{definition}
+
+The proposition $P$ is called the \emph{hypothesis} (or antecedent) and $Q$ the \emph{conclusion} (or
+consequent). The claim $P\Rightarrow Q$ is a promise: \emph{whenever $P$ is true, $Q$ is true as well.}
+It says nothing about what happens when $P$ is false.
+
+\begin{external}[When is ``$P\Rightarrow Q$'' true?]
+The slides define implication in words. In formal logic, the truth of $P\Rightarrow Q$ is fixed by the
+following table, where T means true and F means false.
+\begin{center}
+\begin{tabular}{cc|c}
+\toprule
+$P$ & $Q$ & $P\Rightarrow Q$\\
+\midrule
+T & T & T\\
+T & F & F\\
+F & T & T\\
+F & F & T\\
+\bottomrule
+\end{tabular}
+\end{center}
+The only way to break the promise ``if $P$ then $Q$'' is for $P$ to be true and $Q$ to be false. If $P$
+is false the promise has not been tested, so the implication counts as true.
+\end{external}
+
+\begin{example}[Implications in algebra]
+Consider, for real numbers $x$, the propositions $P$: ``$x>2$'' and $Q$: ``$x^2>4$''.
+\begin{enumerate}
+  \item Is $P\Rightarrow Q$ true for every real $x$?
+  \item Is $Q\Rightarrow P$ true for every real $x$?
+\end{enumerate}
+\solution
+(a) Yes. If $x>2$ then $x$ is positive and $x\cdot x>2\cdot x>2\cdot 2=4$ (multiplying an inequality
+by a positive number keeps its direction, property M6 in \cref{ch:numbers}). So $x^2>4$.
+
+(b) No. Take $x=-3$. Then $x^2=9>4$, so $Q$ is true, but $x>2$ is false. One such value, called a
+\term{counterexample}, is enough to show that ``$Q\Rightarrow P$ for every $x$'' is false.
+\end{example}
+
+\paragraph{Ways of saying ``$P\Rightarrow Q$''} The same implication is expressed in many ways in
+English, and you need to recognise all of them:
+``if $P$ then $Q$'', ``$P$ implies $Q$'', ``$Q$ if $P$'', ``$Q$ follows from $P$'',
+``$P$ only if $Q$'', ``$P$ is a \emph{sufficient} condition for $Q$'', and
+``$Q$ is a \emph{necessary} condition for $P$''.
+
+The words \emph{necessary} and \emph{sufficient} are used constantly in economics (for example,
+``a first-order condition is necessary for an interior maximum''). In $P\Rightarrow Q$, knowing $P$ is
+\emph{sufficient} to know $Q$; and $Q$ is \emph{necessary} for $P$, because $P$ cannot hold without $Q$.
+
+\begin{warning}[``Only if'' points the same way as ``implies'']
+``$P$ only if $Q$'' means $P\Rightarrow Q$, not $Q\Rightarrow P$. ``A firm makes a profit only if
+price exceeds average cost'' means ``profit $\Rightarrow$ price $>$ average cost''.
+\end{warning}
+
+\subsection{Converse and contrapositive}
+
+\begin{external}[Converse and contrapositive]
+From an implication $P\Rightarrow Q$ we can build two related implications.
+\begin{itemize}
+  \item The \term{converse} is $Q\Rightarrow P$. It is a \emph{different} claim: the example above
+  shows that $x>2\Rightarrow x^2>4$ is true while its converse is false.
+  \item The \term{contrapositive} is $(\text{not }Q)\Rightarrow(\text{not }P)$. It is \emph{equivalent}
+  to the original: an implication and its contrapositive are always both true or both false. For
+  example, ``if $x>2$ then $x^2>4$'' has contrapositive ``if $x^2\le 4$ then $x\le 2$''.
+\end{itemize}
+Confusing an implication with its converse is one of the most common errors in all of mathematics.
+\end{external}
+
+\section{Equivalence}\label{sec:equivalence}
+
+\begin{definition}[Equivalence][def:equivalence]
+When $P\Rightarrow Q$ and $Q\Rightarrow P$, we write $P\Leftrightarrow Q$ and say that $P$ and $Q$ are
+\term{equivalent}. \src{L1, slide 8}
+\end{definition}
+
+``$P\Leftrightarrow Q$'' is read ``$P$ if and only if $Q$'', often shortened to ``$P$ iff $Q$''. The
+``if'' half is $Q\Rightarrow P$ and the ``only if'' half is $P\Rightarrow Q$. Equivalent propositions are
+true in exactly the same circumstances.
+
+\begin{core}[Why equivalence matters when solving]
+When you solve an equation or inequality, you transform it step by step. If each step is an
+\emph{equivalence}, the final, simple statement is true for exactly the same values of $x$ as the
+original, so it describes the solution set exactly. If some step is only a one-way implication, the
+final statement may be true for values that do not satisfy the original, and the ``answer'' may be wrong.
+\end{core}
+
+\begin{example}[A one-way step that introduces a false solution]
+Solve $\sqrt{x+2}=x$ for real $x\ge -2$.
+\solution
+Squaring both sides gives $x+2=x^2$, that is, $x^2-x-2=0$, so $(x-2)(x+1)=0$ and $x=2$ or $x=-1$.
+But squaring is only a one-way step: $\sqrt{x+2}=x\Rightarrow x+2=x^2$ is true, while the converse is
+not (because $x$ could be negative). Checking in the original equation: $x=2$ gives $\sqrt4=2$, which
+is correct; $x=-1$ gives $\sqrt1=1\ne-1$, which is wrong. The solution is $x=2$ only. The false
+``solution'' $x=-1$ appeared because one step was an implication rather than an equivalence.
+\end{example}
+
+The slides illustrate the same principle with inequalities: in solving $2x+1>0$ they show not only
+$2x+1>0\Rightarrow 2x>-1$ but also the reverse, $2x>-1\Rightarrow 2x+1>0$, and only then conclude
+$2x+1>0\Leftrightarrow 2x>-1$ (\cref{ex:lin-ineq}).
+
+\section{Negation}\label{sec:negation}
+
+\begin{definition}[Negation][def:negation]
+The proposition ``\term{not $P$}'' is true when the proposition $P$ is false, and ``not $P$'' is false
+when $P$ is true. \src{L1, slide 8}
+\end{definition}
+
+Negation reverses the truth value. Forming the negation of a mathematical statement correctly is a skill
+in its own right, needed for proofs by contradiction and for showing that something does \emph{not}
+happen (for example, that a sequence does not have a limit, \cref{ex:no-limit}).
+
+\paragraph{Negating an inequality} For real numbers, exactly one of $a>b$, $a=b$ and $a<b$ is true
+(property O1, \cref{ch:numbers}). Therefore
+\[
+\text{not}(x>0)\quad\Longleftrightarrow\quad x\le 0, \qquad\qquad \text{not}(x\le 3)\quad\Longleftrightarrow\quad x>3.
+\]
+The negation of ``$x>0$'' is \emph{not} ``$x<0$'': it must also include $x=0$.
+
+\begin{external}[Negating ``and'' and ``or'': De Morgan's laws]
+The study guide adds the two rules for negating compound statements, known as De Morgan's laws:
+\[
+\text{not}(P\text{ and }Q)\ \Leftrightarrow\ (\text{not }P)\text{ or }(\text{not }Q),\qquad
+\text{not}(P\text{ or }Q)\ \Leftrightarrow\ (\text{not }P)\text{ and }(\text{not }Q).
+\]
+For example, the negation of ``$x>1$ and $y>1$'' is ``$x\le1$ or $y\le1$''. In mathematics ``or'' is
+always \emph{inclusive}: ``$P$ or $Q$'' is true when at least one of them is true, including when both are.
+Finally, the negation of an implication is
+$\text{not}(P\Rightarrow Q)\Leftrightarrow P\text{ and }(\text{not }Q)$: to deny a promise you must show
+that the condition held and the promised outcome did not.
+\end{external}
+
+\section{Quantifiers: ``for all'' and ``there exists''}\label{sec:quantifiers}
+
+Statements about \emph{many} objects at once need two further symbols.
+
+\begin{definition}[Quantifiers][def:quantifiers]
+Let $A$ be a set and $P$ a property (a proposition depending on an element $x$).
+\begin{itemize}
+  \item ``$\exists x\in A: P$'', or ``$\exists x\in A$ such that $P$'', means \emph{there exists at least
+  one element $x$ in the set $A$ such that the property $P$ holds for $x$}. The symbol $\exists$ is the
+  \term{existential quantifier}.
+  \item ``$\forall x\in A,\ P$'' means \emph{for all elements $x$ of the set $A$, the property $P$ is
+  true}. The symbol $\forall$ is the \term{universal quantifier}.
+\end{itemize}
+\src{L2, slide 21}
+\end{definition}
+
+\begin{example}[Quantifiers on a finite set]\label{ex:quant-finite}
+Let $A=\{2,4,6,8,10,12\}$. Show that $\exists x\in A: x\ge 10$ and that $\forall x\in A,\ x<20$.
+\solution
+For the first statement it is enough to exhibit one element: $10\in A$ and $10\ge10$ (so is $12$). For
+the second we must check every element: $2,4,6,8,10,12$ are all less than $20$. Both statements are
+therefore true. \src{L2, slide 21}
+\end{example}
+
+\begin{core}[How to prove and disprove quantified statements]
+\begin{itemize}
+  \item To prove $\exists x\in A: P(x)$, exhibit one particular $x\in A$ and check that $P(x)$ holds.
+  \item To prove $\forall x\in A,\ P(x)$, take an \emph{arbitrary} $x\in A$ --- one about which you assume
+  nothing except that it belongs to $A$ --- and show that $P(x)$ holds. Checking examples is not enough
+  unless $A$ is finite and you check every element.
+  \item To disprove $\forall x\in A,\ P(x)$, find one counterexample: an $x\in A$ for which $P(x)$ is
+  false.
+  \item To disprove $\exists x\in A: P(x)$, show that $P(x)$ is false for every $x\in A$.
+\end{itemize}
+\end{core}
+
+\subsection{Negating quantified statements}
+
+\begin{external}[Negation swaps the quantifiers]
+\[
+\text{not}\big(\forall x\in A,\ P(x)\big)\ \Leftrightarrow\ \exists x\in A:\ \text{not }P(x),\qquad
+\text{not}\big(\exists x\in A: P(x)\big)\ \Leftrightarrow\ \forall x\in A,\ \text{not }P(x).
+\]
+``Not every student passed'' means ``some student did not pass''; ``there is no student who passed''
+means ``every student failed''. When negating, the set $A$ after the quantifier does not change: the
+negation of a claim about real numbers is still a claim about real numbers.
+\end{external}
+
+\subsection{The order of quantifiers}
+
+When a statement contains several quantifiers, their order matters.
+
+\begin{example}[Order of quantifiers]\label{ex:quant-order}
+Compare
+\[
+\text{(i)}\ \ \forall n\in\Z,\ \exists m\in\Z:\ m>n
+\qquad\text{and}\qquad
+\text{(ii)}\ \ \exists m\in\Z:\ \forall n\in\Z,\ m>n.
+\]
+\solution
+Statement (i) says that for every integer $n$ there is some integer larger than it. This is true: given
+$n$, take $m=n+1$. The choice of $m$ is allowed to depend on $n$.
+
+Statement (ii) says that there is a single integer $m$ that is larger than every integer. This is false:
+whatever $m$ is proposed, the integer $n=m$ is not smaller than it. Here $m$ must be chosen first and
+then work for every $n$ simultaneously.
+\end{example}
+
+The definition of the limit of a sequence (\cref{ch:limits}) has the shape
+``$\forall\varepsilon>0,\ \exists N\in\N:\ \forall n>N,\ \dots$''. Reading it correctly depends entirely
+on this point: $N$ comes after $\varepsilon$, so $N$ may depend on $\varepsilon$.
+
+\section{How proofs are built}\label{sec:proof-types}
+
+The proofs in this book use a small number of patterns. They are introduced in the chapters where they
+are first needed, and are listed here so that you can recognise them.
+
+\begin{description}[style=nextline, font=\sffamily\bfseries\color{accent}]
+\item[Direct proof (chain of implications)] Start from what is given and reach the conclusion by steps
+each of which follows from earlier ones. Used for almost every computation, for example solving an
+inequality (\cref{ch:ineq}).
+\item[Proof of an equivalence] Prove $P\Rightarrow Q$ and $Q\Rightarrow P$ separately, or build a chain
+of steps each of which is reversible.
+\item[Proof by cases] If one of several cases must hold, and the conclusion follows in each case, the
+conclusion holds. Used for the sign analysis of a product (\cref{ex:product-ineq}) and for absolute
+values (\cref{ch:abs}).
+\item[Proof by contradiction] To prove $P$, assume ``not $P$'' and derive something impossible (for
+example $1<\tfrac12$). Then ``not $P$'' cannot hold, so $P$ does. Used to show that the sequence
+$1,0,1,0,\dots$ has no limit (\cref{ex:no-limit}).
+\item[Proof by mathematical induction] To prove $P_n$ for every $n\in\N$, prove $P_1$ and prove that
+$P_n\Rightarrow P_{n+1}$ for every $n$ (\cref{ch:ind}).
+\end{description}
+
+% --------------------------------------------------------------------
+\section{Chapter review}
+% --------------------------------------------------------------------
+\subsection*{Summary}
+A proposition is a statement that is either true or false. Mathematics organises propositions into
+axioms (accepted without proof) and theorems (proved from axioms and earlier theorems), connected by
+proofs. Propositions are combined with ``implies'' ($\Rightarrow$), ``if and only if'' ($\Leftrightarrow$)
+and ``not''. An implication is a one-way promise; an equivalence is a two-way one, and only a chain of
+equivalences is guaranteed to preserve a solution set exactly. Quantifiers turn properties of an element
+into claims about whole sets: $\exists$ is proved by an example, $\forall$ by an argument about an
+arbitrary element, and a false $\forall$ is disproved by one counterexample. Negation swaps $\forall$ and
+$\exists$, and the order of mixed quantifiers changes the meaning.
+
+\subsection*{Key definitions}
+\begin{itemize}
+  \item \textbf{Proposition:} a statement that may be either true or false.
+  \item \textbf{Proof:} a demonstration that one proposition follows from one or more others.
+  \item \textbf{Axiom:} a proposition accepted without proof.
+  \item \textbf{Theorem:} a proposition proved from axioms and previously established theorems.
+  \item \textbf{$P\Rightarrow Q$:} if $P$ then $Q$.\quad \textbf{$P\Leftrightarrow Q$:} $P\Rightarrow Q$ and
+  $Q\Rightarrow P$.\quad \textbf{not $P$:} true exactly when $P$ is false.
+  \item \textbf{$\exists x\in A: P$:} at least one $x\in A$ has property $P$.\quad
+  \textbf{$\forall x\in A,\ P$:} every $x\in A$ has property $P$.
+\end{itemize}
+
+\subsection*{Key logical equivalences}
+\begin{gather*}
+P\Leftrightarrow Q\ \text{ means }\ (P\Rightarrow Q)\text{ and }(Q\Rightarrow P);\qquad
+\text{not}(x>a)\Leftrightarrow x\le a;\\
+\text{not}(\forall x\in A,\ P)\Leftrightarrow \exists x\in A:\ \text{not }P;\qquad
+\text{not}(\exists x\in A: P)\Leftrightarrow \forall x\in A,\ \text{not }P.
+\end{gather*}
+
+\subsection*{Connections}
+The vocabulary of this chapter is used throughout. Set equality is defined by a two-way condition
+(\cref{ch:sets}); the properties of the real numbers are axioms (\cref{ch:numbers}); solving
+inequalities is the construction of a chain of equivalences (\cref{ch:ineq}); induction is a way of
+proving a $\forall$ statement about $\N$ (\cref{ch:ind}); and the definition of a limit is a statement
+with three nested quantifiers (\cref{ch:limits}).
+
+\subsection*{Common mistakes}
+\begin{itemize}
+  \item Treating $P\Rightarrow Q$ as if it meant $Q\Rightarrow P$ (confusing an implication with its converse).
+  \item Reading ``$P$ only if $Q$'' as $Q\Rightarrow P$.
+  \item Negating $x>0$ as $x<0$ instead of $x\le 0$.
+  \item ``Proving'' a $\forall$ statement by checking a few examples.
+  \item Swapping the order of $\forall$ and $\exists$.
+  \item Using a one-way step (such as squaring) when solving and not checking the answers.
+\end{itemize}
+
+\subsection*{Exam checklist}
+\begin{checklist}
+  \item Define proposition, proof, axiom and theorem in the words of the course.
+  \item Explain the difference between $\Rightarrow$ and $\Leftrightarrow$, with an example.
+  \item Form the negation of an inequality and of a quantified statement.
+  \item Prove an $\exists$ statement with an example and disprove a $\forall$ statement with a counterexample.
+  \item Explain why the order of quantifiers matters, using \cref{ex:quant-order}.
+\end{checklist}
+
+% --------------------------------------------------------------------
+\section{Practice questions}
+% --------------------------------------------------------------------
+\pq[basic] Which of the following are propositions? For each proposition, say whether it is true or false.
+(a) $7$ is an even number. (b) $3x+2$. (c) $\sqrt{16}=4$. (d) Calculate $5\times 6$.
+(e) Every natural number is greater than $0$.
+
+\pq[basic] State the converse and the contrapositive of: ``If a firm's revenue exceeds its costs, then the
+firm makes a profit.''
+
+\pq[conceptual] Explain why checking that a statement holds for $n=1,2,\dots,1000$ does not prove that it
+holds for every natural number $n$.
+
+\pq[mathematical] Write the negation of each statement, simplifying as far as possible.
+(a) $x\ge 5$. (b) $\forall x\in\R,\ x^2\ge 0$. (c) $\exists n\in\N: n^2=2$.
+(d) $x>1$ and $x<4$.
+
+\pq[mathematical] Let $A=\{1,3,5,7,9\}$. Decide whether each statement is true, with a reason.
+(a) $\forall x\in A,\ x$ is odd. (b) $\exists x\in A: x>8$. (c) $\forall x\in A,\ x<9$.
+(d) $\exists x\in A: x^2=25$.
+
+\pq[application] An economist claims: ``For every price $p>0$ there is a quantity $q>0$ that the consumer
+is willing to buy.'' A second economist claims: ``There is a quantity $q>0$ that the consumer is willing to
+buy at every price $p>0$.'' Write both claims with quantifiers and explain why they say different things.
+
+\pq[multi-step] Consider the claim ``for all real $x$, if $x^2=9$ then $x=3$''. (a) Is it true? Justify.
+(b) State its converse and decide whether the converse is true. (c) Replace the conclusion so that the
+resulting implication is true and its converse is also true, and write it as an equivalence.
+
+\pq[exam-style] (a) Explain what is meant by a \emph{proposition}, an \emph{axiom} and a \emph{theorem}.
+(b) Let $A=\{x\in\R: 0<x<1\}$. Determine whether each of the following is true, giving a proof or a
+counterexample: (i) $\forall x\in A,\ x^2<x$; (ii) $\exists x\in A: x^2=x$.
+
+% --------------------------------------------------------------------
+\section{Solutions to practice questions}
+% --------------------------------------------------------------------
+\pqsol{1.1}
+(a) A proposition; false. (b) Not a proposition: it is an expression (a number once $x$ is known), not a
+statement. (c) A proposition; true. (d) Not a proposition: it is an instruction. (e) A proposition; true
+($\N=\{1,2,3,\dots\}$, \cref{ch:numbers}).
+
+\pqsol{1.2}
+Let $P$ be ``revenue exceeds costs'' and $Q$ be ``the firm makes a profit''. The converse is ``If the firm
+makes a profit, then its revenue exceeds its costs.'' The contrapositive is ``If the firm does not make a
+profit, then its revenue does not exceed its costs.'' (With profit defined as revenue minus costs, all
+three statements are true here, but in general only the contrapositive is guaranteed to have the same
+truth value as the original.)
+
+\pqsol{1.3}
+The statement is a claim about infinitely many propositions $P_1,P_2,P_3,\dots$. Checking $1000$ of them
+establishes those $1000$ and says nothing about $P_{1001}$ or any later one; however many cases are
+checked, infinitely many remain. A proof must cover an \emph{arbitrary} natural number, for example by
+mathematical induction (\cref{ch:ind}). There are famous statements that hold for very many initial cases
+and then fail.
+
+\pqsol{1.4}
+(a) $x<5$. (b) $\exists x\in\R: x^2<0$ (a false statement, as it should be, since the original is true).
+(c) $\forall n\in\N,\ n^2\ne 2$. (d) By De Morgan's law, ``$x\le 1$ or $x\ge 4$''.
+
+\pqsol{1.5}
+(a) True: $1,3,5,7,9$ are all odd. (b) True: $9\in A$ and $9>8$. (c) False: $9\in A$ but $9<9$ is false;
+$x=9$ is a counterexample. (d) True: $x=5$.
+
+\pqsol{1.6}
+The first claim is $\forall p>0,\ \exists q>0$: the consumer buys $q$ at price $p$. The quantity may depend
+on the price, which is how demand normally works. The second is $\exists q>0:\ \forall p>0$, the consumer
+buys $q$ at price $p$: one fixed quantity would be bought however high the price, which is a far stronger
+(and economically implausible) claim. The quantifiers are the same; only their order differs, and that
+changes the meaning (\cref{ex:quant-order}).
+
+\pqsol{1.7}
+(a) False: $x=-3$ satisfies $x^2=9$ but $x\ne3$. (b) The converse is ``if $x=3$ then $x^2=9$'', which is
+true. (c) ``If $x^2=9$ then $x=3$ or $x=-3$'' is true (since $x^2-9=(x-3)(x+3)=0$ forces one factor to be
+zero), and its converse is true as well, so
+$x^2=9\Leftrightarrow (x=3\text{ or }x=-3)$.
+
+\pqsol{1.8}
+(a) A proposition is a statement that may be either true or false. An axiom is a proposition accepted
+without proof. A theorem is a proposition that has been proved on the basis of axioms and previously
+established theorems.
+(b)(i) True. Take an arbitrary $x\in A$, so $0<x<1$. Multiplying $x<1$ by the positive number $x$ keeps the
+direction (M6): $x\cdot x<1\cdot x$, that is, $x^2<x$. Since $x$ was arbitrary, the statement holds for all
+$x\in A$.
+(ii) False. If $x^2=x$ then $x(x-1)=0$, so $x=0$ or $x=1$; neither lies in $A$. Hence no $x\in A$ satisfies
+$x^2=x$. (Alternatively, (ii) contradicts (i).)

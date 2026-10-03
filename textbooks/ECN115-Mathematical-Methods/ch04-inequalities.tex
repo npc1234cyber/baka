@@ -1,0 +1,614 @@
+% ====================================================================
+\chapter{Solving Inequalities}\label{ch:ineq}
+% ====================================================================
+
+\begin{chapterintro}
+Inequalities are everywhere in economics: a budget must not be exceeded, output cannot be negative, a
+project is worth undertaking if its benefits exceed its costs. Solving an inequality means finding
+\emph{every} value of the unknown for which it is true. This chapter develops the method in stages ---
+linear inequalities, products of factors, quadratics and fractions --- and shows how each step rests on the
+properties of the real numbers from \cref{ch:numbers}.
+\end{chapterintro}
+
+\begin{prerequisites}
+Equivalence and why it matters for solving (\cref{sec:equivalence}); set-builder notation, unions and
+intersections (\cref{ch:sets}); the properties O1, A1--A5 and M1--M6 and the sign rules of \cref{prop:signs}
+(\cref{ch:numbers}); interval notation (\cref{sec:intervals}).
+\end{prerequisites}
+
+\section{What it means to solve an inequality}\label{sec:solve-meaning}
+
+An inequality in an unknown $x$, such as $2x+1>0$, is a proposition depending on $x$. Its
+\term{solution set} is the set of all real $x$ for which it is true, $\{x\in\R\mid 2x+1>0\}$. To
+\emph{solve} the inequality is to describe this set as simply as possible, usually as an interval or a union of
+intervals.
+
+\begin{core}[Solve by a chain of equivalences]
+Transform the inequality step by step, making sure that each step is an \emph{equivalence}
+(\cref{sec:equivalence}). Then the final, simple inequality has exactly the same solution set as the
+original, and its solution set is the answer. The two tools are:
+\begin{itemize}
+  \item \textbf{adding} the same number to both sides, which is always reversible (A5, applied twice);
+  \item \textbf{multiplying} both sides by the same number, which is reversible if the number is
+  non-zero, and which keeps the direction if the number is positive and reverses it if the number is
+  negative (M6).
+\end{itemize}
+\end{core}
+
+\begin{note}[How much justification to write]
+The slides justify each step by naming the property used, in order to show that the methods rest on the
+properties of the real numbers. They also say: ``When solving problems, it suffices just to do correct
+calculations.'' \src{L1, slide 22} In your own answers you do not need to cite A5 or M4 at every line; but you
+must get the direction right, and when you multiply or divide by something whose sign matters you should say
+what that sign is.
+\end{note}
+
+\section{Linear inequalities}\label{sec:linear-ineq}
+
+\begin{example}[The first inequality, step by step][ex:lin-ineq]
+Find all $x$ that satisfy $2x+1>0$. \src{L1, slides 22--23}
+\solution
+\emph{Step 1: remove the constant.} Using A5 and A4, add the number $-1$ to both sides; then use A2--A4 to
+simplify the left-hand side, and A1, A3 to find $0+(-1)=-1$:
+\[
+2x+1>0\ \Longrightarrow\ 2x+1+(-1)>0+(-1)\ \Longrightarrow\ 2x>-1.
+\]
+The reverse implication works as well: add $1$ to both sides of $2x>-1$,
+\[
+2x>-1\ \Longrightarrow\ 2x+1>-1+1\ \Longrightarrow\ 2x+1>0.
+\]
+Therefore the two inequalities are equivalent: $2x+1>0\Leftrightarrow 2x>-1$.
+
+\emph{Step 2: remove the coefficient.} By M4 there is an inverse $1/2$ of the non-zero number $2$, and
+$1/2>0$ (\cref{prop:signs}(v)). Using M6, multiply both sides of $2x>-1$ by $1/2$; the direction is kept:
+\[
+2x>-1\ \Longrightarrow\ \tfrac12\cdot 2x>\tfrac12\cdot(-1)\ \Longrightarrow\ x>-\tfrac12.
+\]
+Similarly the reverse implication holds, multiplying by $2>0$: $x>-\tfrac12\Rightarrow 2x>-1$.
+
+\emph{Conclusion.} All three inequalities are equivalent,
+\[
+2x+1>0\ \Longleftrightarrow\ 2x>-1\ \Longleftrightarrow\ x>-\tfrac12,
+\]
+and the solution of $2x+1>0$ is $x\in(-\tfrac12,\infty)$.
+\end{example}
+
+The example shows why both directions are checked. If we had shown only $2x+1>0\Rightarrow x>-\tfrac12$, we
+would know that every solution lies in $(-\tfrac12,\infty)$, but not that every number in $(-\tfrac12,\infty)$
+is a solution.
+
+\subsection{The general linear inequality}
+
+\begin{proposition}[Solving $ax+b>0$][prop:linear]
+Let $a,b\in\R$. The solution set of $ax+b>0$ is
+\[
+\begin{cases}
+\left(-\dfrac ba,\ \infty\right) & \text{if } a>0,\\[2ex]
+\left(-\infty,\ -\dfrac ba\right) & \text{if } a<0,\\[2ex]
+\R\ \text{ if } b>0,\quad\text{and}\quad \emptyset\ \text{ if } b\le0, & \text{if } a=0.
+\end{cases}
+\]
+\end{proposition}
+\emph{Proof.} Adding $-b$ to both sides gives the equivalent inequality $ax>-b$. If $a>0$, multiply by
+$1/a>0$, which keeps the direction: $x>-b/a$. If $a<0$, multiply by $1/a<0$, which reverses it: $x<-b/a$.
+Both steps are reversible (multiply back by $a$). If $a=0$ the inequality reads $0>-b$, i.e.\ $b>0$, which does
+not involve $x$ at all: it is true for every $x$ if $b>0$ and for no $x$ if $b\le0$. \hfill$\square$
+
+\begin{example}[Dividing by a negative number]
+Solve $5-3x>11$.
+\solution
+Add $-5$ to both sides: $-3x>6$. Now divide by $-3$, i.e.\ multiply by $-\tfrac13$. Since $-\tfrac13<0$, the
+second clause of M6 applies and the direction \emph{reverses}: $x<-2$. The solution is $x\in(-\infty,-2)$.
+
+\emph{Check.} $x=-3$ gives $5+9=14>11$, true; $x=0$ gives $5>11$, false. Both agree with the answer.
+\end{example}
+
+\begin{example}[Collecting terms first]
+Find all $x$ satisfying $\tfrac12x-3>2x+1$.
+\solution
+Add $-2x$ and $+3$ to both sides (A5, twice): $\tfrac12x-2x>1+3$, that is, $-\tfrac32x>4$. Multiply by
+$-\tfrac23<0$; the direction reverses (M6): $x<-\tfrac83$. The solution is $x\in(-\infty,-\tfrac83)$.
+\emph{Check:} $x=-3$ gives $-4.5>-5$, true; $x=0$ gives $-3>1$, false. \src{SG, mock Q2(b)}
+\end{example}
+
+\subsection{Inequalities with a parameter}
+
+A \term{parameter} is a letter standing for a fixed but unspecified number, such as a price or a tax rate.
+When an inequality involves a parameter, the answer usually depends on it, and the dependence arises exactly
+at the step where we multiply or divide by an expression containing it.
+
+\begin{example}[Solving $ax>1$][ex:ax-gt-1]
+Let $a\in\R$ be a parameter. Find all $x$ with $ax>1$.
+\solution
+The step we would like to take is ``divide by $a$''. Whether this is allowed, and what it does to the
+direction, depends on the sign of $a$, so we split into three exhaustive cases (O1).
+\begin{itemize}
+  \item $a>0$: $1/a$ exists (M4) and is positive, so the direction is kept: $x>1/a$, i.e.\ $x\in(1/a,\infty)$.
+  \item $a<0$: $1/a$ exists and is negative, so the direction reverses: $x<1/a$, i.e.\ $x\in(-\infty,1/a)$.
+  \item $a=0$: there is no $1/0$, so we cannot divide. The inequality reads $0>1$, false for every $x$: the
+  solution set is $\emptyset$.
+\end{itemize}
+\end{example}
+
+\begin{example}[A parameter multiplying a bracket]
+Let $a\in\R$. Find all $x$ satisfying $a(x-1)>0$. \src{SG, mock Q2(d)}
+\solution
+\begin{itemize}
+  \item $a>0$: multiply by $1/a>0$: $x-1>0$, so $x\in(1,\infty)$.
+  \item $a<0$: multiply by $1/a<0$, reversing: $x-1<0$, so $x\in(-\infty,1)$.
+  \item $a=0$: the left side is $0$ for every $x$, and $0>0$ is false, so the solution set is $\emptyset$.
+\end{itemize}
+\end{example}
+
+\begin{examtip}[``Your answer should depend on the parameter'']
+Parameter questions appeared on all three past ECN115 papers summarised in the study guide, usually with a
+hint such as ``consider three cases: $a>0$, $a=0$, $a<0$''. The marks are for carrying out each case correctly
+and for not forgetting the case $a=0$, which can never be folded into the other two because $1/0$ does not
+exist.
+\end{examtip}
+
+\section{Products: sign analysis}\label{sec:sign-analysis}
+
+\begin{example}[A product of two linear factors][ex:product-ineq]
+Find all $x$ that satisfy $(2x+1)(x-1)>0$. \src{L1, slide 24}
+\solution
+Neither $2x+1$ nor $x-1$ can be equal to zero: otherwise $(2x+1)(x-1)=0$ (\cref{prop:zero-times}), and $0>0$
+is false. So by trichotomy (O1) each factor is either positive or negative, and it suffices to consider four
+cases (\cref{prop:signs}(vi)):
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$2x+1$ & $x-1$ & $(2x+1)(x-1)$\\
+\midrule
+$>0$ & $>0$ & $>0$\\
+$>0$ & $<0$ & $<0$\\
+$<0$ & $>0$ & $<0$\\
+$<0$ & $<0$ & $>0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Therefore $(2x+1)(x-1)>0$ if and only if
+\[
+\big[\,2x+1>0\ \text{ and }\ x-1>0\,\big]\quad\text{or}\quad\big[\,2x+1<0\ \text{ and }\ x-1<0\,\big].
+\]
+Since $2x+1>0$ is equivalent to $x>-\tfrac12$, $x-1>0$ is equivalent to $x>1$, and $x>1\Rightarrow x>-\tfrac12$,
+we have $[2x+1>0\text{ and }x-1>0]\Leftrightarrow x>1$. Similarly $[2x+1<0\text{ and }x-1<0]\Leftrightarrow x<-\tfrac12$.
+Thus the solution is
+\[
+x\in(-\infty,-\tfrac12)\cup(1,\infty).
+\]
+\end{example}
+
+Two small but important points of logic appear in this example. Inside each case the two conditions are joined
+by ``and'', so their solution sets are \emph{intersected}; and a pair of conditions such as ``$x>1$ and
+$x>-\tfrac12$'' collapses to the stronger one, $x>1$. The cases themselves are joined by ``or'', so their
+solution sets are combined by \emph{union}.
+
+\subsection{The sign chart}
+
+The four-case table can be organised on the number line. The \term{critical points} are the values where a
+factor is zero, here $x=-\tfrac12$ and $x=1$. They split the line into intervals, and on each interval every
+factor keeps one sign. Record the signs in a chart and multiply.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=11mm, y=7mm]
+  \draw[-{Stealth}] (-3.5,0) -- (4.5,0) node[right] {$x$};
+  \foreach \x/\l in {-1/{-\tfrac12}, 2/{1}} { \draw (\x,0.15) -- (\x,-0.15) node[below] {$\l$}; }
+  \node[anchor=east, font=\small] at (-3.6,-1.3) {$2x+1$};
+  \node[anchor=east, font=\small] at (-3.6,-2.3) {$x-1$};
+  \node[anchor=east, font=\small] at (-3.6,-3.3) {$(2x+1)(x-1)$};
+  \foreach \y/\a/\b/\c in {-1.3/$-$/$+$/$+$, -2.3/$-$/$-$/$+$, -3.3/$+$/$-$/$+$} {
+    \node at (-2.4,\y) {\a}; \node at (0.5,\y) {\b}; \node at (3.3,\y) {\c};
+  }
+  \foreach \x in {-1,2} \draw[guide] (\x,-0.4) -- (\x,-3.8);
+  \node[font=\small] at (-1,-1.3) {$0$}; \node[font=\small] at (2,-2.3) {$0$};
+  \node[font=\small] at (-1,-3.3) {$0$}; \node[font=\small] at (2,-3.3) {$0$};
+  \draw[accent, line width=2.4pt] (-3.4,-4.4) -- (-1,-4.4); \draw[accent, line width=2.4pt] (2,-4.4) -- (4.4,-4.4);
+  \node[circle, draw=accent, fill=white, thick, inner sep=1.5pt] at (-1,-4.4) {};
+  \node[circle, draw=accent, fill=white, thick, inner sep=1.5pt] at (2,-4.4) {};
+  \node[anchor=east, font=\small] at (-3.6,-4.4) {solution of $>0$};
+\end{tikzpicture}
+\caption{Sign chart for $(2x+1)(x-1)$. The critical points $-\tfrac12$ and $1$ divide the line into three
+intervals; on each, each factor has a constant sign. The product is positive on the two outer intervals, so
+the solution of $(2x+1)(x-1)>0$ is $(-\infty,-\tfrac12)\cup(1,\infty)$. Open dots show that the critical points
+are excluded, because the inequality is strict.}
+\label{fig:sign-chart}
+\end{figure}
+
+\begin{external}[Why the signs are constant between critical points]
+A linear factor $mx+c$ with $m\ne0$ changes sign only at its root $-c/m$: by \cref{prop:linear} it is positive on
+one side of the root and negative on the other. So between consecutive critical points no factor changes sign,
+and neither does the product. This is why testing one convenient point in each interval is enough.
+\end{external}
+
+\begin{example}[A product that must be negative]
+Solve $(x+3)(2x-7)<0$.
+\solution
+The critical points are $x=-3$ and $x=\tfrac72$. A product is negative exactly when the factors have opposite
+signs:
+\begin{itemize}
+  \item $x+3>0$ and $2x-7<0$: $x>-3$ and $x<\tfrac72$, i.e.\ $-3<x<\tfrac72$;
+  \item $x+3<0$ and $2x-7>0$: $x<-3$ and $x>\tfrac72$, which is impossible.
+\end{itemize}
+The solution is $x\in(-3,\tfrac72)$.
+\end{example}
+
+\begin{example}[A non-strict inequality][ex:nonstrict]
+Find all $x$ satisfying $(3-x)(x+2)\ge0$. \src{SG, mock Q2(c)}
+\solution
+Now the product may also be \emph{zero}, which happens at $x=3$ and $x=-2$; both satisfy $\ge0$, so they are
+included. Away from these points each factor is positive or negative, and the product is positive when the signs
+agree:
+\begin{itemize}
+  \item $3-x>0$ and $x+2>0$: $x<3$ and $x>-2$, i.e.\ $-2<x<3$;
+  \item $3-x<0$ and $x+2<0$: $x>3$ and $x<-2$, impossible.
+\end{itemize}
+Adding the two points where the product is zero gives $x\in[-2,3]$. Note the \emph{square} brackets.
+\end{example}
+
+\begin{warning}[Strict and non-strict inequalities]
+For $>0$ or $<0$ the critical points are excluded (round brackets); for $\ge0$ or $\le0$ they are included
+(square brackets). Writing $(-2,3)$ instead of $[-2,3]$ in \cref{ex:nonstrict} omits two solutions.
+\end{warning}
+
+\section{Quadratic inequalities}\label{sec:quadratic}
+
+A quadratic inequality, such as $3x^2-5x+2>0$, can be solved by rewriting the quadratic as a product of two
+linear factors and then using sign analysis.
+
+\begin{example}[Factorising through the roots][ex:quad-ineq]
+Find all $x$ that satisfy $3x^2-5x+2>0$. \src{L1, slide 25}
+\solution
+\emph{Idea.} Represent $3x^2-5x+2$ as a product of two linear terms (if possible),
+$3x^2-5x+2=e\cdot(x+f)\cdot(x+g)$ for some real numbers $e,f,g$.
+
+\emph{Finding $e$.} Expanding, $e(x+f)(x+g)=ex^2+e(f+g)x+efg$. Comparing the coefficients of $x^2$ gives $e=3$.
+Comparing the others gives only $f+g=-\tfrac53$ and $fg=\tfrac23$, which do not immediately give $f$ and $g$.
+
+\emph{Observation.} Substitute $x=-f$: then $e(x+f)(x+g)=e\cdot0\cdot(g-f)=0$. Thus $x=-f$ is a solution
+(\emph{root}) of the equation $3x^2-5x+2=0$, and similarly $x=-g$ is a root. So $f$ and $g$ can be found by
+solving the equation.
+
+\emph{Solving the equation.} The discriminant is $D=(-5)^2-4\cdot3\cdot2=25-24=1$, so the roots are
+\[
+x_{1,2}=\frac{-(-5)\pm\sqrt1}{2\cdot 3}=\frac{5\pm1}{6},\qquad x_1=\tfrac23,\quad x_2=1.
+\]
+Hence $3x^2-5x+2=3\,(x-\tfrac23)(x-1)$.
+
+\emph{Sign analysis.} Solving $3(x-\tfrac23)(x-1)>0$ as in \cref{ex:product-ineq} (the factor $3$ is positive and
+does not affect the sign), the inequality $3x^2-5x+2>0$ is equivalent to
+\[
+x\in(-\infty,\tfrac23)\cup(1,\infty).
+\]
+\end{example}
+
+\subsection{The quadratic formula}
+
+\begin{keyformula}[Roots of a quadratic][kf:quadratic]{x_{1,2}=\frac{-b\pm\sqrt{D}}{2a},\qquad D=b^2-4ac}
+\fsymbols $a,b,c$ are the real coefficients of $ax^2+bx+c$, with $a\ne0$; $D$ is the \emph{discriminant};
+$x_1,x_2$ are the roots, the values of $x$ where $ax^2+bx+c=0$; the symbol $\pm$ means that one root uses $+$
+and the other $-$.
+\fmeaning The formula gives every real solution of $ax^2+bx+c=0$. The discriminant tells you how many there are:
+two distinct real roots if $D>0$, one repeated root $x=-b/(2a)$ if $D=0$, and no real roots if $D<0$ (the square
+root of a negative number is not a real number).
+\forigin Completing the square: $ax^2+bx+c=a\big[(x+\tfrac b{2a})^2-\tfrac{D}{4a^2}\big]$ (\cref{kf:complete-square}).
+Setting this to zero gives $(x+\tfrac b{2a})^2=\tfrac D{4a^2}$, and taking square roots (possible only when $D\ge0$)
+gives the formula.
+\fuse Whenever a quadratic must be factorised and the factors are not obvious; in particular, as the first step in
+solving any quadratic inequality.
+\fexample For $3x^2-5x+2$: $a=3$, $b=-5$, $c=2$. Then $D=(-5)^2-4(3)(2)=1$, $\sqrt D=1$, and
+$x=\frac{5\pm1}{6}$, giving $\tfrac23$ and $1$. Check: $3(\tfrac23)^2-5(\tfrac23)+2=\tfrac43-\tfrac{10}3+2=0$.
+\fmistakes Writing $-b$ incorrectly when $b$ is negative (here $-b=+5$); dividing only $\sqrt D$ by $2a$ instead
+of the whole numerator; forgetting that $D<0$ means there are no real roots, not that the formula ``fails''.
+\frearrange Once the roots are known, the quadratic factorises as
+$ax^2+bx+c=a(x-x_1)(x-x_2)$. Comparing coefficients gives $x_1+x_2=-b/a$ and $x_1x_2=c/a$, a quick check on
+the roots.
+\fchanges Increasing $c$ (with $a>0$) lowers $D=b^2-4ac$: the two roots move towards each other, merge when
+$D=0$, and disappear when $D<0$. Geometrically the parabola is lifted upwards until it no longer meets the
+$x$-axis.
+\fexam Usually as an unmarked first step (``factorise'', ``find the roots''). A parameter in $c$ leads to a question
+such as ``for which values of $c$ does the equation have two distinct roots?'', answered by solving $D>0$.
+\end{keyformula}
+
+\subsection{The sign of a quadratic}
+
+Once $ax^2+bx+c=a(x-x_1)(x-x_2)$ with $x_1<x_2$, sign analysis gives a rule worth remembering.
+
+\begin{proposition}[Sign of a quadratic with two roots][prop:quad-sign]
+Let $a>0$ and $x_1<x_2$. Then $a(x-x_1)(x-x_2)$ is positive for $x<x_1$ and for $x>x_2$, zero at $x_1$ and $x_2$,
+and negative for $x_1<x<x_2$. If $a<0$ all the signs are reversed.
+\end{proposition}
+\emph{Proof.} For $x<x_1$ both factors are negative; for $x>x_2$ both are positive; between the roots
+$x-x_1>0$ and $x-x_2<0$. Apply \cref{prop:signs}(vi), then multiply by $a$ using M6. \hfill$\square$
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[stat, width=9cm, height=6.2cm, xmin=-0.6, xmax=2.2, ymin=-0.6, ymax=3.2,
+  xlabel={$x$}, ylabel={$y$}, xtick={0,0.6667,1,2}, xticklabels={$0$,$\tfrac23$,$1$,$2$},
+  ytick={0,1,2,3}, axis x line=middle, axis y line=middle, x label style={anchor=west}, y label style={anchor=south}]
+  \addplot[curve, accent, domain=-0.45:2.05, samples=100] {3*x^2-5*x+2};
+  \addplot[line width=3pt, corecol, opacity=0.8, domain=-0.6:0.6667] {0};
+  \addplot[line width=3pt, corecol, opacity=0.8, domain=1:2.2] {0};
+  \node[circle, draw=corecol, fill=white, thick, inner sep=1.5pt] at (axis cs:0.6667,0) {};
+  \node[circle, draw=corecol, fill=white, thick, inner sep=1.5pt] at (axis cs:1,0) {};
+  \node[lab, accent, anchor=west] at (axis cs:0.15,2.6) {$y=3x^2-5x+2$};
+\end{axis}
+\end{tikzpicture}
+\caption{The parabola $y=3x^2-5x+2$ opens upwards because the leading coefficient $3$ is positive. It crosses the
+$x$-axis at the roots $\tfrac23$ and $1$, lies below the axis between them and above it outside them. The thick
+segments show the solution set of $3x^2-5x+2>0$.}
+\label{fig:parabola}
+\end{figure}
+
+\begin{warning}[Answering between the roots]
+For a quadratic with positive leading coefficient, ``$>0$'' is solved \emph{outside} the roots and ``$<0$''
+\emph{between} them. A quick test of one point (for example $x=0$, if it is not a root) catches the error: in
+\cref{ex:quad-ineq}, $x=0$ gives $2>0$, and $0$ is indeed outside $[\tfrac23,1]$.
+\end{warning}
+
+\subsection{When the discriminant is zero or negative}
+
+The lecture example has $D>0$. The other two cases are handled by completing the square.
+
+\begin{keyformula}[Completing the square][kf:complete-square]{ax^2+bx+c=a\left(x+\frac{b}{2a}\right)^2-\frac{D}{4a},\qquad D=b^2-4ac}
+\fsymbols $a\ne0$, $b$, $c$ real coefficients; $D$ the discriminant.
+\fmeaning Every quadratic is a multiple of a perfect square plus a constant. Since a square is never negative, the
+sign of the quadratic can be read off directly.
+\forigin Expand the right-hand side:
+$a\big(x^2+\tfrac bax+\tfrac{b^2}{4a^2}\big)-\tfrac{b^2-4ac}{4a}=ax^2+bx+\tfrac{b^2}{4a}-\tfrac{b^2}{4a}+c=ax^2+bx+c$.
+\fuse When $D=0$ or $D<0$, or when you need the minimum (or maximum) value of a quadratic.
+\fexample $x^2-5x+\tfrac{25}{4}=(x-\tfrac52)^2$ ($D=0$), and $x^2-5x+7=(x-\tfrac52)^2+\tfrac34$ ($D=-3$).
+\fmistakes Forgetting to factor out $a$ before completing the square; sign errors in $\tfrac b{2a}$.
+\fchanges If $a>0$ the quadratic is smallest at $x=-\tfrac b{2a}$, where it equals $-\tfrac D{4a}$. If $D<0$ this
+minimum is positive, so the quadratic is positive everywhere; if $D=0$ the minimum is $0$, attained only at
+$x=-\tfrac b{2a}$.
+\fexam ``Show that the expression is positive for all $x$'', with the hint ``write it as a square plus a constant''.
+\end{keyformula}
+
+\begin{proposition}[Sign of a quadratic when $D\le0$][prop:quad-D0]
+Let $a>0$. If $D=0$, then $ax^2+bx+c=a(x-x_0)^2$ with $x_0=-\tfrac b{2a}$, which is positive for every
+$x\ne x_0$ and zero at $x_0$. If $D<0$, then $ax^2+bx+c>0$ for every real $x$.
+\end{proposition}
+\emph{Proof.} By \cref{kf:complete-square}, $ax^2+bx+c=a(x-x_0)^2-\tfrac D{4a}$. A square is $\ge0$, and is $>0$
+unless what is squared is zero (\cref{prop:signs}(iv)). If $D=0$ the constant vanishes; if $D<0$ the constant
+$-\tfrac D{4a}$ is positive, so the sum is positive. \hfill$\square$
+
+\begin{example}[A quadratic with a parameter][ex:quad-param]
+Let $c\in\R$ and consider $x^2-5x+c$. \src{SG, mock Q3}
+\begin{enumerate}
+  \item For which $c$ does $x^2-5x+c=0$ have two distinct real roots?
+  \item Solve $x^2-5x+6>0$.
+  \item Solve $x^2-5x+\tfrac{25}4>0$.
+  \item Show that if $c>\tfrac{25}{4}$ then $x^2-5x+c>0$ for every $x\in\R$.
+\end{enumerate}
+\solution
+(a) $D=(-5)^2-4\cdot1\cdot c=25-4c$. Two distinct roots exactly when $D>0$: $25-4c>0\Leftrightarrow c<\tfrac{25}4$
+(dividing by $4>0$ keeps the direction). So $c\in(-\infty,\tfrac{25}4)$.
+
+(b) $D=1$, roots $\frac{5\pm1}2=2,3$, so $x^2-5x+6=(x-2)(x-3)$. The leading coefficient is positive, so the
+expression is positive outside the roots: $x\in(-\infty,2)\cup(3,\infty)$.
+
+(c) $D=0$ and $x^2-5x+\tfrac{25}4=(x-\tfrac52)^2$, which is positive except at $x=\tfrac52$. So
+$x\in(-\infty,\tfrac52)\cup(\tfrac52,\infty)=\R\setminus\{\tfrac52\}$. In (b) a whole interval was excluded; here
+the two roots have merged and only one point is excluded.
+
+(d) Completing the square, $x^2-5x+c=(x-\tfrac52)^2+(c-\tfrac{25}4)$. The square is $\ge0$ and, when
+$c>\tfrac{25}4$, the constant is $>0$; so the sum is positive for every $x$. (This is the case $D<0$.)
+\end{example}
+
+\begin{example}[A non-strict quadratic inequality]
+Solve $2x^2-7x+3\ge0$.
+\solution
+$D=49-24=25$, roots $\frac{7\pm5}{4}$, i.e.\ $\tfrac12$ and $3$. So $2x^2-7x+3=2(x-\tfrac12)(x-3)$. With leading
+coefficient $2>0$, the expression is $\ge0$ outside the roots and at the roots themselves:
+$x\in(-\infty,\tfrac12]\cup[3,\infty)$.
+\end{example}
+
+\section{Inequalities involving fractions}\label{sec:fraction-ineq}
+
+\begin{example}[An incorrect argument][ex:one-over-x]
+A student solves $\dfrac1x>2$ as follows: ``Multiply both sides by $x$ to obtain $1>2x$. Dividing by $2$ gives
+$x<\tfrac12$. Therefore the solution is $x\in(-\infty,\tfrac12)$.'' Explain the error and find the correct
+solution. \src{SG, mock Q6}
+\solution
+\emph{The error.} Multiplying an inequality by $x$ is governed by M6, which keeps the direction only if $x>0$ and
+reverses it if $x<0$. The sign of $x$ is unknown, so the step is not justified. Moreover $x=0$ is not allowed at
+all, since $1/0$ is undefined.
+
+\emph{A value wrongly included.} $x=-1$ lies in the student's answer, but $1/(-1)=-1>2$ is false.
+
+\emph{Correct solution.} Split by the sign of $x$.
+\begin{itemize}
+  \item $x>0$: multiplying by $x>0$ keeps the direction, $1>2x$, so $x<\tfrac12$. With $x>0$: $0<x<\tfrac12$.
+  \item $x<0$: then $1/x<0<2$ (\cref{prop:signs}(v)), so the inequality fails for every negative $x$.
+  \item $x=0$: excluded, as $1/x$ is undefined.
+\end{itemize}
+The solution set is $(0,\tfrac12)$.
+\end{example}
+
+The safest general method avoids multiplying by an expression of unknown sign altogether.
+
+\begin{core}[Method for inequalities with fractions]
+\begin{enumerate}[label=\arabic*.]
+  \item Move everything to one side, so that the other side is $0$.
+  \item Combine into a single fraction $\dfrac{N(x)}{M(x)}$ and factorise numerator and denominator.
+  \item Apply sign analysis to the factors of $N$ and $M$: a quotient has the same sign as the corresponding
+  product, because $N/M=N\cdot M\cdot(1/M^2)$ and $1/M^2>0$.
+  \item Exclude the zeros of $M$ (the fraction is undefined there); include the zeros of $N$ only for
+  $\ge$ or $\le$.
+\end{enumerate}
+\end{core}
+
+\begin{example}[Using the method]
+Solve $\dfrac1x>2$ and $\dfrac{x+1}{x-2}\ge0$.
+\solution
+For the first, $\frac1x-2>0\Leftrightarrow\frac{1-2x}{x}>0$. Critical points $x=0$ and $x=\tfrac12$. Signs:
+for $x<0$, numerator $+$, denominator $-$, quotient $-$; for $0<x<\tfrac12$, both $+$, quotient $+$; for
+$x>\tfrac12$, numerator $-$, denominator $+$, quotient $-$. Solution $(0,\tfrac12)$, as before.
+
+For the second, critical points $x=-1$ (numerator zero) and $x=2$ (denominator zero). For $x<-1$ both factors
+are negative, quotient positive; for $-1<x<2$ the quotient is negative; for $x>2$ it is positive. Include $x=-1$
+(where the quotient is $0$) but not $x=2$ (undefined): $x\in(-\infty,-1]\cup(2,\infty)$.
+\end{example}
+
+\section{Inequalities in economics}\label{sec:ineq-econ}
+
+\begin{example}[Break-even output][ex:break-even]
+A firm sells its product at price $p=12$ per unit. Its total cost of producing $q$ units is $C(q)=200+7q$
+(a fixed cost of $200$ and a cost of $7$ per unit). For which outputs $q\ge0$ does the firm make a strictly
+positive profit?
+\solution
+Profit is revenue minus cost: $\pi(q)=12q-(200+7q)=5q-200$. We need $5q-200>0\Leftrightarrow 5q>200\Leftrightarrow q>40$
+(multiplying by $\tfrac15>0$). The firm makes a profit exactly when $q\in(40,\infty)$. The value $q=40$ is the
+\emph{break-even output}.
+\end{example}
+
+\begin{example}[A quadratic profit function]
+Suppose instead that profit is $\pi(q)=-q^2+10q-16$. For which $q$ is profit positive?
+\solution
+$-q^2+10q-16>0\Leftrightarrow q^2-10q+16<0$ (multiplying by $-1$ reverses the direction). The roots of
+$q^2-10q+16$ are $\frac{10\pm\sqrt{100-64}}2=\frac{10\pm6}2$, i.e.\ $2$ and $8$, so $q^2-10q+16=(q-2)(q-8)$, which is
+negative between the roots. Profit is positive exactly for $q\in(2,8)$: producing too little fails to cover
+fixed costs, and producing too much drives costs up faster than revenue.
+\end{example}
+
+% --------------------------------------------------------------------
+\section{Chapter review}
+% --------------------------------------------------------------------
+\subsection*{Summary}
+Solving an inequality means describing its solution set exactly, which requires a chain of equivalences.
+Adding a number to both sides is always reversible; multiplying by a positive number keeps the direction,
+by a negative number reverses it, and by zero destroys it (M6). A linear inequality $ax+b>0$ is solved by one
+addition and one multiplication, with three cases when $a$ is a parameter. A product is positive when its
+factors share a sign and negative when they have opposite signs; organising this on the number line around the
+critical points gives the sign chart. A quadratic is factorised through its roots, found with the discriminant;
+with positive leading coefficient it is positive outside its roots and negative between them, and completing the
+square handles the cases $D=0$ and $D<0$. Fractions are handled by moving everything to one side and analysing
+the signs of numerator and denominator, never by multiplying by an expression of unknown sign.
+
+\subsection*{Key definitions}
+\begin{itemize}
+  \item \textbf{Solution set} of an inequality: the set of all values of the unknown for which it is true.
+  \item \textbf{Critical points}: the values at which a factor (of a numerator or denominator) is zero.
+  \item \textbf{Discriminant} of $ax^2+bx+c$: $D=b^2-4ac$.
+\end{itemize}
+
+\subsection*{Key equations}
+\begin{gather*}
+D=b^2-4ac,\qquad x_{1,2}=\frac{-b\pm\sqrt D}{2a},\\
+ax^2+bx+c=a(x-x_1)(x-x_2)\ \ (D\ge0),\qquad
+ax^2+bx+c=a\Big(x+\frac b{2a}\Big)^2-\frac D{4a}.
+\end{gather*}
+
+\subsection*{Connections}
+Every step uses the properties of \cref{ch:numbers}. Answers are sets, written with the interval and union
+notation of \cref{ch:sets}. Absolute-value inequalities (\cref{ch:abs}) reduce to the methods here, and the
+definition of a limit (\cref{ch:limits}) requires solving inequalities such as $2^{-n}<\varepsilon$ for $n$.
+In Topic~4, the sign of a derivative written as a fraction $P(x)/Q(x)$ is found by exactly this sign analysis.
+
+\subsection*{Common mistakes}
+\begin{itemize}
+  \item Not reversing the inequality when multiplying or dividing by a negative number.
+  \item Dividing by a parameter or variable without considering its sign, or forgetting the zero case.
+  \item Multiplying both sides by $x$ in an inequality with $1/x$.
+  \item Using $\cap$ to combine the cases of a sign analysis (cases are combined with $\cup$).
+  \item Solving ``$>0$'' for a quadratic with positive leading coefficient by taking the interval between the roots.
+  \item Wrong brackets: round for strict inequalities and for excluded points, square for included endpoints.
+\end{itemize}
+
+\subsection*{Exam checklist}
+\begin{checklist}
+  \item Solve a linear inequality, stating where the direction changes and why.
+  \item Solve $ax>b$ or $a(x-k)>0$ for all values of a parameter $a$.
+  \item Carry out a sign analysis for a product of linear factors, including non-strict cases.
+  \item Find roots with the discriminant and factorise a quadratic.
+  \item Solve quadratic inequalities for $D>0$, $D=0$ and $D<0$.
+  \item Solve inequalities involving fractions without multiplying by an expression of unknown sign.
+\end{checklist}
+
+% --------------------------------------------------------------------
+\section{Practice questions}
+% --------------------------------------------------------------------
+\pq[basic] Solve: (a) $3x-4\le 8$; (b) $7-2x>1$; (c) $\tfrac{x}{3}+1\ge \tfrac{x}{2}$.
+
+\pq[basic] Solve $(x-4)(x+1)>0$ and $(x-4)(x+1)\le0$.
+
+\pq[mathematical] Solve $x^2-x-6<0$ and $4x^2+4x+1>0$.
+
+\pq[mathematical] Show that $x^2+2x+5>0$ for every real $x$.
+
+\pq[conceptual] Explain why, in a sign analysis, the cases are combined with $\cup$ while the conditions within a
+case are combined with $\cap$.
+
+\pq[mathematical] Solve $\dfrac{2x-1}{x+3}<1$.
+
+\pq[application] A consumer has $\pounds 60$ to spend on two goods priced $\pounds 4$ and $\pounds 6$ per unit. She
+wants to buy $x$ units of the first good and exactly $6$ units of the second. For which $x\ge0$ can she afford
+this?
+
+\pq[multi-step] Let $b\in\R$ be a parameter. Find all $x$ with $bx+3>x$. Your answer should depend on $b$.
+
+\pq[multi-step] For which values of the parameter $k$ is $x^2+kx+4>0$ for every real $x$?
+
+\pq[exam-style] Let $a\in\R$ be a parameter.
+(a) Find all $x$ satisfying $(x-a)(x-1)<0$. Your answer should depend on $a$. Hint: consider the cases $a>1$,
+$a=1$ and $a<1$.
+(b) A student claims that $\dfrac{x-1}{x}\ge1$ is equivalent to $x-1\ge x$ and hence has no solutions. Explain
+why the argument is not correct and find the solution set.
+
+% --------------------------------------------------------------------
+\section{Solutions to practice questions}
+% --------------------------------------------------------------------
+\pqsol{4.1}
+(a) $3x\le12$, so $x\le4$: $x\in(-\infty,4]$.
+(b) $-2x>-6$; dividing by $-2<0$ reverses: $x<3$, so $x\in(-\infty,3)$.
+(c) Multiply by $6>0$: $2x+6\ge3x$, so $6\ge x$: $x\in(-\infty,6]$.
+
+\pqsol{4.2}
+Critical points $-1$ and $4$. The product is positive when both factors have the same sign: $x<-1$ or $x>4$. So
+$(x-4)(x+1)>0\Leftrightarrow x\in(-\infty,-1)\cup(4,\infty)$, and $(x-4)(x+1)\le0\Leftrightarrow x\in[-1,4]$
+(between the roots, roots included).
+
+\pqsol{4.3}
+$x^2-x-6=(x-3)(x+2)$, negative between the roots: $x\in(-2,3)$.
+$4x^2+4x+1=(2x+1)^2$ ($D=0$), positive except at $x=-\tfrac12$: $x\in\R\setminus\{-\tfrac12\}$.
+
+\pqsol{4.4}
+$x^2+2x+5=(x+1)^2+4$. A square is $\ge0$, so the sum is $\ge4>0$ for every $x$. (Equivalently $D=4-20<0$ with a
+positive leading coefficient.)
+
+\pqsol{4.5}
+Within a case, \emph{both} conditions must hold (for instance ``$2x+1>0$ \emph{and} $x-1>0$''), and the set of $x$
+satisfying two conditions simultaneously is the intersection of their solution sets. A number solves the
+original inequality if it falls into \emph{some} case (``case 1 \emph{or} case 4''), and the set of $x$ satisfying
+at least one of several conditions is the union of their solution sets. Intersection corresponds to ``and'' and
+union to ``or'' (\cref{sec:intersection-union}).
+
+\pqsol{4.6}
+$\frac{2x-1}{x+3}-1<0\Leftrightarrow\frac{2x-1-(x+3)}{x+3}<0\Leftrightarrow\frac{x-4}{x+3}<0$. Critical points
+$-3$ and $4$; the quotient is negative when the signs differ, which happens for $-3<x<4$. Solution $(-3,4)$.
+
+\pqsol{4.7}
+Cost $4x+6\cdot6=4x+36\le60\Leftrightarrow4x\le24\Leftrightarrow x\le6$. With $x\ge0$: $x\in[0,6]$.
+
+\pqsol{4.8}
+$bx+3>x\Leftrightarrow(b-1)x>-3$.
+If $b>1$: $x>-\frac3{b-1}$, i.e.\ $x\in\big(-\frac3{b-1},\infty\big)$.
+If $b<1$: dividing by $b-1<0$ reverses, $x<-\frac3{b-1}=\frac3{1-b}$, i.e.\ $x\in\big(-\infty,\frac3{1-b}\big)$.
+If $b=1$: $0>-3$, true for all $x$: the solution set is $\R$.
+
+\pqsol{4.9}
+With leading coefficient $1>0$, $x^2+kx+4>0$ for all $x$ exactly when there are no real roots, $D<0$ (if $D=0$
+the quadratic is zero at one point; if $D>0$ it is negative between the roots). $D=k^2-16<0\Leftrightarrow
+(k-4)(k+4)<0\Leftrightarrow k\in(-4,4)$.
+
+\pqsol{4.10}
+(a) The critical points are $a$ and $1$; the product is negative strictly between them.
+If $a>1$: $x\in(1,a)$. If $a<1$: $x\in(a,1)$. If $a=1$: $(x-1)^2<0$ has no solution, so the solution set is
+$\emptyset$.
+(b) Multiplying by $x$ is valid only for $x>0$; for $x<0$ the direction reverses, and $x=0$ is excluded. Correct
+method: $\frac{x-1}{x}-1\ge0\Leftrightarrow\frac{-1}{x}\ge0$. The numerator is negative, so the quotient is
+$\ge0$ exactly when $x<0$ (and it is never $0$). Solution set $(-\infty,0)$. For example $x=-1$ gives
+$\frac{-2}{-1}=2\ge1$, a solution the student's argument missed.

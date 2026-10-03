@@ -1,0 +1,310 @@
+% ====================================================================
+\chapter{Summation Notation}\label{ch:sum}
+% ====================================================================
+
+\begin{chapterintro}
+Totals are central to economics: total revenue over twelve months, total consumption over a lifetime, the sum
+of the incomes of everyone in a country. Writing out such sums term by term is impractical, and the summation
+operator $\sum$ provides a compact and precise notation for them. This chapter defines the notation, fixes the
+conventions for unusual cases, and establishes the three properties that allow sums to be manipulated.
+\end{chapterintro}
+
+\begin{prerequisites}
+The properties of addition and multiplication A1--A4, M1--M5 (\cref{ch:numbers}); the natural numbers and integers
+(\cref{sec:number-systems}).
+\end{prerequisites}
+
+\section{The summation operator}\label{sec:sigma}
+
+We can add many numbers, such as $3+5+2+9+5$. When the numbers are labelled by an index that runs through
+consecutive integers, there is a shorthand.
+
+\begin{definition}[Summation operator][def:sigma]
+Let $a_k,a_{k+1},\dots,a_n$ be numbers, indexed by an integer $j$ that takes the consecutive values
+$k,k+1,\dots$ up to $n$. Their sum is written
+\[
+\sum_{j=k}^{n}a_j=a_k+a_{k+1}+\dots+a_{n-1}+a_n.
+\]
+We read this as follows: as the index $j$ changes from $k$ to $n$, we sum up all the corresponding numbers $a_j$.
+In running text the same sum is often written $\sum_{j=k}^n a_j$. \src{L1, slide 27}
+\end{definition}
+
+The integer $j$ is the \term{index of summation}, $k$ is the \term{lower limit} and $n$ the \term{upper limit}.
+The index is a \emph{dummy variable}: it has no meaning outside the sum, and any other letter can be used without
+changing the value, $\sum_{j=1}^4 j^2=\sum_{i=1}^4 i^2=30$. The limits $k$ and $n$ may be any integers, including
+negative ones and zero.
+
+\begin{example}[Evaluating sums][ex:sums]
+Evaluate, for $a_j=j$ and $b_j=j^2$,
+\[
+\sum_{j=3}^{7}a_j,\qquad\sum_{j=-2}^{3}a_j,\qquad\sum_{j=3}^{7}b_j,\qquad\sum_{j=-2}^{3}b_j.
+\]
+\src{L1, slide 28}
+\solution
+Write out each term and add:
+\begin{align*}
+\sum_{j=3}^{7}j&=3+4+5+6+7=25,\\
+\sum_{j=-2}^{3}j&=-2-1+0+1+2+3=3,\\
+\sum_{j=3}^{7}j^2&=3^2+4^2+5^2+6^2+7^2=9+16+25+36+49=135,\\
+\sum_{j=-2}^{3}j^2&=(-2)^2+(-1)^2+0^2+1^2+2^2+3^2=4+1+0+1+4+9=19.
+\end{align*}
+Note that the sums starting at $j=-2$ include the terms for $j=-2,-1$ and $0$.
+\end{example}
+
+\section{Counting terms, one-term sums and empty sums}\label{sec:sigma-conventions}
+
+\begin{core}[The number of terms]
+The sum $\sum_{j=k}^n a_j$ (with $n\ge k$) has $n-k+1$ terms, because both the lower and the upper limit are
+included. For example, $\sum_{j=3}^7$ has $7-3+1=5$ terms ($j=3,4,5,6,7$), not $4$.
+\end{core}
+
+Two boundary cases need to be fixed.
+
+\begin{definition}[One term and zero terms][def:sigma-boundary]
+\begin{itemize}
+  \item When $n=k$, the sum consists of one term, with index $j=n=k$: \ $\displaystyle\sum_{j=k}^{k}a_j=a_k$.
+  \item By analogy, when $n=k-1$, we define the value of the summation operator as a sum of zero terms, which we
+  take to be zero: \ $\displaystyle\sum_{j=k}^{k-1}a_j=0$.
+\end{itemize}
+\src{L1, slide 29}
+\end{definition}
+
+The first is a consequence of the definition; the second is a \emph{convention}, a choice made so that the notation
+behaves well. Why zero? Adding a sum of no numbers should not change a total, and zero is the number whose addition
+changes nothing (A3). \Cref{prop:empty-forced} below shows that zero is in fact the only value consistent with the
+splitting property P3.
+
+\begin{keyformula}[Sum of a constant][kf:constant-sum]{\sum_{j=k}^{n}a=\underbrace{a+a+\dots+a}_{n-k+1\ \text{terms}}=(n-k+1)\,a}
+\fsymbols $a$ is a fixed real number (the same for every $j$); $k\le n$ are integers; $n-k+1$ is the number of terms.
+\fmeaning If every term equals $a$, the sum is the number of terms times $a$. \src{L1, slide 29}
+\forigin Repeated addition is multiplication: the sum has $n-k+1$ terms, each equal to $a$, and
+$a+a+\dots+a=(1+1+\dots+1)a$ by M5.
+\fuse Whenever a sum contains a constant part, for example after splitting $\sum(4j+3)$ into $4\sum j+\sum 3$.
+\fexample $\sum_{j=-5}^{9}4$: the count is $9-(-5)+1=15$, so the sum is $15\times4=60$.
+\fmistakes Using $n-k$ instead of $n-k+1$ (which would give $56$ above); with a negative lower limit, computing
+$9-5$ instead of $9-(-5)$.
+\fchanges Raising the upper limit by one adds one more copy of $a$; for $n=k-1$ the formula gives $0\cdot a=0$, in
+agreement with the empty-sum convention.
+\fexam As a short computation (``evaluate $\sum_{j=-4}^{11}7$''), or as a step in finding a closed form.
+\end{keyformula}
+
+\section{Properties of the summation operator}\label{sec:sigma-props}
+
+\begin{proposition}[Properties P1--P3][prop:sigma-props]
+For numbers $a_j$, $b_j$ and a constant $c$:
+\begin{align*}
+\text{(P1)}\quad &\sum_{j=k}^{n}(a_j+b_j)=\sum_{j=k}^{n}a_j+\sum_{j=k}^{n}b_j,\\
+\text{(P2)}\quad &\sum_{j=k}^{n}c\cdot a_j=c\cdot\sum_{j=k}^{n}a_j,\\
+\text{(P3)}\quad &\sum_{j=k}^{n}a_j+\sum_{j=n+1}^{m}a_j=\sum_{j=k}^{m}a_j\qquad\text{for }k\le n\le m.
+\end{align*}
+P1 and P2 follow from the properties of the real numbers; P3 comes from the definition of the operator.
+\src{L1, slide 30}
+\end{proposition}
+\emph{Proof.} (P1) The left side is $(a_k+b_k)+(a_{k+1}+b_{k+1})+\dots+(a_n+b_n)$. By commutativity and
+associativity of addition (A1, A2), the terms may be reordered and regrouped as
+$(a_k+\dots+a_n)+(b_k+\dots+b_n)$.
+
+(P2) $ca_k+ca_{k+1}+\dots+ca_n=c(a_k+a_{k+1}+\dots+a_n)$ by the distributive law (M5, applied repeatedly).
+
+(P3) The first sum adds the terms with indices $k,\dots,n$, the second those with indices $n+1,\dots,m$; together
+they add each term with index from $k$ to $m$ exactly once. (When $n=m$ the second sum is empty and equals $0$.)
+\hfill$\square$
+
+The difference between the two kinds of justification is worth noticing. P1 and P2 are about the numbers being
+added, and they hold because of how addition and multiplication behave. P3 is about the notation: splitting the
+range of the index and re-joining it gives back the same list of terms.
+
+\begin{proposition}[The empty sum must be zero][prop:empty-forced]
+If P3 is to hold also when $n=k-1$, then $\sum_{j=k}^{k-1}a_j$ must equal $0$.
+\end{proposition}
+\emph{Proof.} Put $n=k-1$ in P3 with any $m\ge k$: $\sum_{j=k}^{k-1}a_j+\sum_{j=k}^{m}a_j=\sum_{j=k}^{m}a_j$.
+Adding $-\sum_{j=k}^m a_j$ to both sides (A5, A4) gives $\sum_{j=k}^{k-1}a_j=0$. \hfill$\square$
+
+\begin{warning}[What the properties do not say]
+There is no rule for products or powers inside a sum:
+\[
+\sum_{j}a_jb_j\ne\Big(\sum_j a_j\Big)\Big(\sum_j b_j\Big),\qquad \sum_j a_j^2\ne\Big(\sum_j a_j\Big)^2\quad\text{in general.}
+\]
+For example, $\sum_{j=1}^2 j^2=1+4=5$, while $\big(\sum_{j=1}^2 j\big)^2=3^2=9$. Also, P2 allows only a factor $c$ that
+does not depend on the index to be taken outside.
+\end{warning}
+
+\begin{external}[Shifting the index]
+Replacing $j$ by $i+1$ throughout shifts the limits down by one:
+$\sum_{j=k}^{n}a_j=\sum_{i=k-1}^{n-1}a_{i+1}$. Both sides list the same terms. For example
+$\sum_{j=1}^{n}j=\sum_{i=0}^{n-1}(i+1)$. Index shifts are needed to combine sums with different limits.
+\end{external}
+
+\section{Computing sums with the properties}\label{sec:sigma-compute}
+
+\begin{example}[A sum with a negative lower limit]
+Evaluate $\sum_{j=-1}^{4}(j^2-j)$, showing the individual terms. \src{SG, mock Q4(a)}
+\solution
+For $j=-1,0,1,2,3,4$ the terms $j^2-j$ are
+$(1+1)+(0-0)+(1-1)+(4-2)+(9-3)+(16-4)=2+0+0+2+6+12=22$.
+\end{example}
+
+\begin{example}[Two methods for one sum]
+Compute $\sum_{j=2}^{6}(2j-1)$ directly and by the properties.
+\solution
+Directly: $3+5+7+9+11=35$. By the properties, with $\sum_{j=2}^6 j=2+3+4+5+6=20$ and $6-2+1=5$ terms:
+\[
+\sum_{j=2}^{6}(2j-1)\overset{\text{P1}}{=}\sum_{j=2}^{6}2j+\sum_{j=2}^{6}(-1)\overset{\text{P2}}{=}2\sum_{j=2}^{6}j+5\cdot(-1)=40-5=35.
+\]
+\end{example}
+
+\begin{example}[A closed form][ex:closed-form]
+Given that $\sum_{j=1}^{n}j=\frac{n(n+1)}{2}$ (proved in \cref{ch:ind}), find a closed-form expression for
+$\sum_{j=1}^{n}(4j+3)$, naming each property used. \src{SG, mock Q4(b)}
+\solution
+\[
+\sum_{j=1}^{n}(4j+3)\overset{\text{P1}}{=}\sum_{j=1}^{n}4j+\sum_{j=1}^{n}3\overset{\text{P2}}{=}4\sum_{j=1}^{n}j+\sum_{j=1}^{n}3
+=4\cdot\frac{n(n+1)}{2}+(n-1+1)\cdot3=2n^2+2n+3n=2n^2+5n,
+\]
+using the constant-sum rule (\cref{kf:constant-sum}) for $\sum 3$. Check with $n=2$: $7+11=18$ and
+$2\cdot4+5\cdot2=18$.
+\end{example}
+
+\begin{example}[Further evaluations]
+Evaluate (a) $\sum_{j=-3}^{2}j^3$; (b) $\sum_{j=-4}^{11}7$; (c) $\sum_{j=7}^{6}a_j$.
+\solution
+(a) $(-27)+(-8)+(-1)+0+1+8=-27$. (The terms for $j=\pm1$ and $j=\pm2$ cancel in pairs.)
+(b) $11-(-4)+1=16$ terms, so $16\times7=112$.
+(c) The upper limit is one below the lower limit, so this is an empty sum, equal to $0$ by convention.
+\end{example}
+
+\begin{external}[Recalling $\sum_{j=1}^n j$ by pairing]
+Write the sum forwards and backwards and add: each of the $n$ columns of $1+2+\dots+n$ and $n+(n-1)+\dots+1$ adds to
+$n+1$, so twice the sum is $n(n+1)$. This is a way to \emph{recall} the formula; in the course it is \emph{proved} by
+induction (\cref{ex:sum-n}).
+\end{external}
+
+\section{Sums in economics}\label{sec:sigma-econ}
+
+\begin{example}[Total and average revenue]
+A shop's revenue in month $t$ is $R_t$ for $t=1,\dots,12$. Write total annual revenue and average monthly revenue in
+summation notation. If $R_t=1000+50t$, compute both.
+\solution
+Total revenue is $\sum_{t=1}^{12}R_t$ and the average is $\frac1{12}\sum_{t=1}^{12}R_t$. With $R_t=1000+50t$,
+\[
+\sum_{t=1}^{12}(1000+50t)=12\cdot1000+50\sum_{t=1}^{12}t=12000+50\cdot\frac{12\cdot13}{2}=12000+3900=15900,
+\]
+and the average is $15900/12=1325$.
+\end{example}
+
+\begin{example}[Discounting a stream of payments]
+An asset pays $\pounds100$ at the end of each of the next three years, and the interest rate is $r=5\%$. Its present
+value is $\sum_{t=1}^{3}\frac{100}{(1.05)^t}$. Evaluate it to the nearest penny.
+\solution
+$\frac{100}{1.05}+\frac{100}{1.05^2}+\frac{100}{1.05^3}=95.238+90.703+86.384=272.32$ (to the nearest penny). A
+closed form for sums of this geometric type is proved by induction in \cref{ch:ind}.
+\end{example}
+
+% --------------------------------------------------------------------
+\section{Chapter review}
+% --------------------------------------------------------------------
+\subsection*{Summary}
+$\sum_{j=k}^n a_j$ denotes $a_k+\dots+a_n$; the index is a dummy variable and the sum has $n-k+1$ terms. A sum with
+$n=k$ has one term; a sum with $n=k-1$ has none and is defined to be $0$, the only value compatible with P3. A sum of
+a constant is the number of terms times the constant. P1 and P2 --- sums split over addition and constants come
+outside --- follow from the properties of the real numbers; P3 --- adjacent ranges can be joined --- follows from the
+definition. Products and squares cannot be taken through a sum.
+
+\subsection*{Key definitions}
+\begin{itemize}
+  \item $\sum_{j=k}^{n}a_j=a_k+a_{k+1}+\dots+a_n$; index $j$, limits $k$ and $n$.
+  \item $\sum_{j=k}^{k}a_j=a_k$; \ $\sum_{j=k}^{k-1}a_j=0$ (empty sum, by definition).
+\end{itemize}
+
+\subsection*{Key equations}
+\begin{gather*}
+\sum_{j=k}^{n}a=(n-k+1)a,\qquad \sum(a_j+b_j)=\sum a_j+\sum b_j,\qquad \sum c\,a_j=c\sum a_j,\\
+\sum_{j=k}^{n}a_j+\sum_{j=n+1}^{m}a_j=\sum_{j=k}^{m}a_j\ \ (k\le n\le m).
+\end{gather*}
+
+\subsection*{Connections}
+Sums are the natural setting for induction (\cref{ch:ind}): a statement about $\sum_{j=1}^{n}$ for every $n$ is proved
+by peeling off the last term with P3. The binomial formula (\cref{ch:binom}) and polynomials (\cref{ch:func}) are
+written with $\sum$. Infinite sums, the subject of Lecture~3, are limits (\cref{ch:limits}) of finite sums.
+
+\subsection*{Common mistakes}
+\begin{itemize}
+  \item Counting $n-k$ terms instead of $n-k+1$.
+  \item Starting at $j=0$ or $j=1$ when the lower limit is negative, and losing terms.
+  \item Taking a factor depending on $j$ outside the sum.
+  \item Writing $\sum a_jb_j=\sum a_j\sum b_j$ or $\sum a_j^2=(\sum a_j)^2$.
+\end{itemize}
+
+\subsection*{Exam checklist}
+\begin{checklist}
+  \item Expand and evaluate a sum with any integer limits.
+  \item State the one-term and empty-sum conventions and justify the empty-sum value.
+  \item State P1, P2 and P3 and say which come from the properties of $\R$ and which from the definition.
+  \item Use the properties and the constant-sum rule to find closed forms.
+\end{checklist}
+
+% --------------------------------------------------------------------
+\section{Practice questions}
+% --------------------------------------------------------------------
+\pq[basic] Evaluate $\sum_{j=1}^{5}(3j-2)$, $\sum_{j=0}^{4}2^j$ and $\sum_{j=-2}^{2}(j^2+1)$.
+
+\pq[basic] Write in summation notation: (a) $1+4+9+16+25+36$; (b) $2+4+6+\dots+100$; (c) $1-1+1-1+1-1$.
+
+\pq[conceptual] How many terms does $\sum_{j=-3}^{10}a_j$ have? Explain why the formula for the number of terms
+has a ``$+1$''.
+
+\pq[mathematical] Using $\sum_{j=1}^n j=\frac{n(n+1)}{2}$ and the properties of $\sum$, find closed forms for
+$\sum_{j=1}^{n}(6j-1)$ and $\sum_{j=11}^{20}j$.
+
+\pq[mathematical] Show that $\sum_{j=1}^{n}\big(a_{j+1}-a_j\big)=a_{n+1}-a_1$ for any numbers $a_1,\dots,a_{n+1}$.
+Use this to evaluate $\sum_{j=1}^{n}\Big(\frac{1}{j}-\frac{1}{j+1}\Big)$.
+
+\pq[application] A firm's cost of producing the $j$-th unit is $c_j=20+0.5j$ (so the first unit costs $20.5$). Write
+the total cost of producing $n$ units as a sum and find a closed form. How much does it cost to produce $40$ units?
+
+\pq[multi-step] Show by a counterexample that $\sum_{j=1}^{n}a_jb_j=\Big(\sum_{j=1}^{n}a_j\Big)\Big(\sum_{j=1}^{n}b_j\Big)$
+is false in general, and find a condition on $n$ under which it is always true.
+
+\pq[exam-style] (a) State the value of $\sum_{j=7}^{6}a_j$ and explain why this value is adopted.
+(b) Suppose $a_j=c$ for every $j$. Explain why $\sum_{j=k}^{n}a_j=(n-k+1)c$ and evaluate $\sum_{j=-5}^{9}4$.
+(c) Find a closed form for $\sum_{j=1}^{n}(4j+3)$, naming each property of the summation operator used.
+
+% --------------------------------------------------------------------
+\section{Solutions to practice questions}
+% --------------------------------------------------------------------
+\pqsol{6.1}
+$1+4+7+10+13=35$; \ $1+2+4+8+16=31$; \ $5+2+1+2+5=15$.
+
+\pqsol{6.2}
+(a) $\sum_{j=1}^{6}j^2$. (b) $\sum_{j=1}^{50}2j$. (c) $\sum_{j=1}^{6}(-1)^{j+1}$ (or $\sum_{j=0}^{5}(-1)^j$).
+
+\pqsol{6.3}
+$10-(-3)+1=14$ terms. The indices run $-3,-2,\dots,10$. The difference $n-k=13$ counts the steps between the first
+and last index; the number of indices is one more than the number of steps, because both endpoints are included.
+
+\pqsol{6.4}
+$\sum_{j=1}^{n}(6j-1)=6\cdot\frac{n(n+1)}2-n=3n^2+3n-n=3n^2+2n$.
+By P3, $\sum_{j=11}^{20}j=\sum_{j=1}^{20}j-\sum_{j=1}^{10}j=210-55=155$.
+
+\pqsol{6.5}
+Write out the sum: $(a_2-a_1)+(a_3-a_2)+\dots+(a_{n+1}-a_n)$. Each $a_j$ with $2\le j\le n$ appears once with $+$ and
+once with $-$, so everything cancels except $a_{n+1}-a_1$. (Formally: by P1 and P2 the sum is
+$\sum_{j=1}^n a_{j+1}-\sum_{j=1}^n a_j=\sum_{i=2}^{n+1}a_i-\sum_{j=1}^n a_j=a_{n+1}-a_1$, using an index shift and
+P3.) With $a_j=-\frac1j$: $\frac1j-\frac1{j+1}=a_{j+1}-a_j$, so the sum is $a_{n+1}-a_1=1-\frac1{n+1}=\frac{n}{n+1}$.
+
+\pqsol{6.6}
+$C(n)=\sum_{j=1}^{n}(20+0.5j)=20n+0.5\cdot\frac{n(n+1)}2=20n+\frac{n(n+1)}{4}$.
+$C(40)=800+\frac{40\cdot41}{4}=800+410=1210$.
+
+\pqsol{6.7}
+$n=2$, $a_1=a_2=b_1=b_2=1$: the left side is $2$, the right side is $2\cdot2=4$. When $n=1$ both sides equal $a_1b_1$, so
+the identity holds for every choice of numbers exactly when $n=1$ (for $n\ge2$ the example above, padded with zeros,
+is a counterexample).
+
+\pqsol{6.8}
+(a) $0$. The upper limit is one less than the lower limit, so the sum has no terms, and a sum of zero terms is
+defined to be $0$. The choice keeps P3 valid in the boundary case (\cref{prop:empty-forced}), and zero is the
+number whose addition changes nothing.
+(b) The sum is $c+c+\dots+c$ with one term for each index $k,k+1,\dots,n$, i.e.\ $n-k+1$ terms, so it equals $(n-k+1)c$.
+Here $9-(-5)+1=15$ terms, so the sum is $60$.
+(c) See \cref{ex:closed-form}: $2n^2+5n$.

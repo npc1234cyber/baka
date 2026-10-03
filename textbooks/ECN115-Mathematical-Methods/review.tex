@@ -1,0 +1,402 @@
+% ====================================================================
+\chapter{Final Master Review}\label{ch:review}
+% ====================================================================
+\markboth{Final Master Review}{}
+
+This final part draws the whole book together. It is designed for revision: read the module summary and the concept map
+to see the structure, use the formula sheet and the glossary as references, work through the checklist honestly, and then
+attempt the final practice paper under timed conditions (about $1.2$ minutes per mark, without a calculator) before reading
+the solutions.
+
+\section*{Module summary}
+\addcontentsline{toc}{section}{Module summary}
+
+\paragraph{The language (\cref{ch:logic,ch:sets})} Mathematics is written in propositions --- statements that are true or
+false --- linked by implication, equivalence and negation, and quantified with ``for all'' ($\forall$) and ``there exists''
+($\exists$). Axioms are accepted without proof; theorems are proved from them. Sets collect objects; they are compared by
+$\subseteq$ and $=$ (two sets are equal exactly when each is a subset of the other) and combined by $\cap$, $\cup$ and
+$\setminus$. Set-builder notation $\{x\in A\mid P\}$ describes a set by a property, and solving an inequality amounts to
+describing such a set simply.
+
+\paragraph{The numbers (\cref{ch:numbers})} $\N\subseteq\Z\subseteq\Q\subseteq\R$. The real numbers satisfy thirteen
+properties: trichotomy and transitivity of the order (O1--O2), five properties of addition (A1--A5) and six of
+multiplication (M1--M6). The rationals satisfy them too; the real numbers are distinguished by the (non-examinable) Least
+Upper Bound property, which says the number line has no gaps. Intervals name the sets of numbers between two endpoints.
+
+\paragraph{Calculation (\cref{ch:ineq,ch:abs,ch:sum})} Inequalities are solved by chains of equivalences: adding is always
+safe, multiplying by a positive number keeps the direction, by a negative number reverses it (M6). Products are handled by
+sign analysis; quadratics are factorised through their roots using the discriminant; fractions are handled by bringing
+everything to one side. The absolute value measures size and $|x-y|$ measures distance; the triangle inequality says a
+detour is never shorter than the direct route. The summation operator $\sum$ writes long sums compactly and obeys P1--P3,
+with the conventions that a one-term sum is that term and an empty sum is $0$.
+
+\paragraph{Proof and structure (\cref{ch:ind,ch:binom,ch:func})} Induction proves a proposition for every natural number
+by proving a base and a step. It establishes summation formulas, the binomial formula
+$(x+y)^n=\sum_jC_n^jx^{n-j}y^j$, and --- in its strong form --- the factorisation $p(x)=(x-\bar x)q(x)$ of a polynomial
+through any root. Functions associate each element of a domain with a unique element of a codomain; two functions are equal
+only if domains, codomains and values agree.
+
+\paragraph{Limits (\cref{ch:limits})} A sequence is a function on $\N$. A number $x$ is its limit if for every
+$\varepsilon>0$ there is $N$ such that $|a_n-x|<\varepsilon$ for all $n>N$. Convergence is proved by producing $N$ for an
+arbitrary $\varepsilon$; non-convergence by contradiction, using the triangle inequality. Limits are unique and preserve
+non-strict inequalities. This definition is the gateway to the rest of the module.
+
+\section*{How the ideas connect}
+\addcontentsline{toc}{section}{How the ideas connect}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[node distance=8mm and 9mm, every node/.style={mapnode=34mm}]
+  \node (prop) {Propositions,\\ $\Rightarrow$, $\Leftrightarrow$, not};
+  \node[right=of prop] (quant) {Quantifiers $\forall$, $\exists$};
+  \node[right=of quant] (proof) {Proof: direct, cases,\\ contradiction};
+  \node[below=of prop] (sets) {Sets: $\subseteq$, $\cap$, $\cup$, $\setminus$};
+  \node[below=of quant] (axioms) {Axioms of $\R$:\\ O1--2, A1--5, M1--6};
+  \node[below=of proof] (ind) {Induction\\ (successor property)};
+  \node[below=of sets] (int) {Intervals and\\ solution sets};
+  \node[below=of axioms] (ineq) {Inequalities: M6,\\ sign analysis, $D$};
+  \node[below=of ind] (sum) {Summation $\sum$,\\ P1--P3};
+  \node[below=of int] (func) {Functions, polynomials,\\ factor theorem};
+  \node[below=of ineq] (abs) {Absolute value,\\ triangle inequality};
+  \node[below=of sum] (binom) {Binomial formula};
+  \node[below=of abs, mapnode=70mm, fill=corebg, draw=corecol] (lim) {Sequences and the limit:\\
+     $\forall\varepsilon>0\ \exists N\ \forall n>N:\ |a_n-x|<\varepsilon$};
+  \draw[maparrow] (prop) -- (quant); \draw[maparrow] (quant) -- (proof);
+  \draw[maparrow] (prop) -- (sets); \draw[maparrow] (quant) -- (axioms); \draw[maparrow] (proof) -- (ind);
+  \draw[maparrow] (sets) -- (int); \draw[maparrow] (axioms) -- (ineq); \draw[maparrow] (ind) -- (sum);
+  \draw[maparrow] (int) -- (ineq);
+  \draw[maparrow] (int) -- (func); \draw[maparrow] (ineq) -- (abs); \draw[maparrow] (sum) -- (binom);
+  \draw[maparrow] (func) |- (lim); \draw[maparrow] (abs) -- (lim); \draw[maparrow] (binom) |- (lim);
+\end{tikzpicture}
+\caption{Concept map of the book. Arrows point from ideas to the ideas that use them. Every route ends at the definition of
+the limit, which needs quantifiers, inequalities, distance and induction together. (Induction is also used to prove the
+factor theorem for polynomials, \cref{thm:factor}.)}
+\label{fig:concept-map}
+\end{figure}
+
+\paragraph{Five threads that run through everything}
+\begin{enumerate}[label=\arabic*.]
+  \item \emph{Equivalence preserves solution sets.} Whether solving an inequality (\cref{ch:ineq}) or proving set equality
+  (\cref{ch:sets}), the goal is a two-way statement.
+  \item \emph{The sign of a multiplier.} M6 drives linear inequalities, sign analysis, parameter cases, quadratic and
+  fractional inequalities, and every manipulation of inequalities inside limit proofs.
+  \item \emph{Arbitrary versus particular.} $\forall$ statements are proved for an arbitrary object, $\exists$ statements by
+  an example; this structures subset proofs, induction steps and limit proofs alike.
+  \item \emph{Distance.} $|x-y|$ and the triangle inequality turn ``close to'' into algebra.
+  \item \emph{Building on the previous case.} Induction, the summation property P3 (peeling off the last term) and Pascal's
+  rule all express a structure in terms of a smaller one.
+\end{enumerate}
+
+\clearpage
+\section*{Master formula sheet}
+\addcontentsline{toc}{section}{Master formula sheet}
+
+{\small
+\renewcommand{\arraystretch}{1.35}
+\begin{longtable}{@{}p{0.33\textwidth}p{0.36\textwidth}p{0.25\textwidth}@{}}
+\toprule
+\textbf{Formula} & \textbf{Meaning and variables} & \textbf{Conditions / when to use}\\
+\midrule
+\endhead
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{accent} Logic and sets}\\
+$P\Leftrightarrow Q$ iff $(P\Rightarrow Q)$ and $(Q\Rightarrow P)$ & Equivalence is implication both ways & Proving ``iff''; solving\\
+$\text{not}(\forall x\in A,P)\Leftrightarrow\exists x\in A:\text{not }P$ & Negating a universal claim & Counterexamples\\
+$\text{not}(\exists x\in A:P)\Leftrightarrow\forall x\in A,\text{not }P$ & Negating an existential claim & Contradiction proofs\\
+$A=B\Leftrightarrow(A\subseteq B\text{ and }B\subseteq A)$ & Set equality via two inclusions & Proving sets equal\\
+$A\setminus B=\{x\in A\mid x\notin B\}$ & Set difference & Definition questions\\
+$A\subseteq B\Rightarrow A\setminus B=\emptyset$ & Removing a superset leaves nothing & (Converse also true)\\
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{accent} Real numbers and inequalities}\\
+$a>b,\ c>0\Rightarrow ac>bc$;\ \ $a>b,\ c<0\Rightarrow ac<bc$ & M6: sign of multiplier decides direction & Every multiplication/division\\
+$a>b\Leftrightarrow a+c>b+c$ & Adding preserves order (A5 twice) & Moving terms across\\
+$ax+b>0$: $x>-\frac ba$ ($a>0$), $x<-\frac ba$ ($a<0$) & Linear inequality & Case $a=0$ separately\\
+$uv>0\Leftrightarrow$ same signs; $uv<0\Leftrightarrow$ opposite & Sign of a product & Sign analysis\\
+$D=b^2-4ac$,\ \ $x_{1,2}=\frac{-b\pm\sqrt D}{2a}$ & Discriminant and roots of $ax^2+bx+c$ & $a\ne0$; real roots iff $D\ge0$\\
+$ax^2+bx+c=a(x-x_1)(x-x_2)$ & Factorisation through roots & $D\ge0$\\
+$ax^2+bx+c=a\big(x+\frac b{2a}\big)^2-\frac D{4a}$ & Completing the square & $D\le0$; minimum value\\
+$a>0$: quadratic $>0$ outside roots, $<0$ between & Sign of a quadratic & Quadratic inequalities\\
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{accent} Absolute value}\\
+$|x|=x$ ($x\ge0$), $-x$ ($x<0$);\ $|x|=\max\{x,-x\}$ & Size of $x$ & Definition\\
+$-|a|\le a\le|a|$,\ $|{-a}|=|a|$,\ $|ab|=|a||b|$ & Basic properties & Simplifying\\
+$|x-z|\le|x-y|+|y-z|$;\ $|a+b|\le|a|+|b|$ & Triangle inequality & Bounding distances; limits\\
+$|x-a|<r\Leftrightarrow a-r<x<a+r$ & Within distance $r$ of $a$ & $r>0$\\
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{accent} Sums and induction}\\
+$\sum_{j=k}^na_j=a_k+\dots+a_n$ & $n-k+1$ terms & Integers $k\le n$\\
+$\sum_{j=k}^{k-1}a_j=0$,\ $\sum_{j=k}^{k}a_j=a_k$ & Empty and one-term sums & Conventions\\
+$\sum_{j=k}^na=(n-k+1)a$ & Constant summand & Count terms carefully\\
+P1, P2, P3 & Split sums; constants out; join ranges & Manipulating sums\\
+$\sum_{j=1}^nj=\frac{n(n+1)}2$;\ $\sum_{j=1}^nj^2=\frac{n(n+1)(2n+1)}6$ & Standard sums & Closed forms\\
+$\sum_{t=0}^{n-1}r^t=\frac{1-r^n}{1-r}$ & Geometric sum & $r\ne1$\\
+Base $P_1$ + step $P_n\Rightarrow P_{n+1}$ & Induction & Statements for all $n\in\N$\\
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{accent} Binomial formula}\\
+$0!=1$, $k!=(k-1)!\,k$;\ \ $C_n^j=\frac{n!}{(n-j)!\,j!}$ & Factorial; binomial coefficient & $0\le j\le n$\\
+$(x+y)^n=\sum_{j=0}^nC_n^jx^{n-j}y^j$ & Expansion of a power of a sum & $n\in\{0\}\cup\N$\\
+$C_n^j=C_n^{n-j}$,\ \ $C_n^j+C_n^{j+1}=C_{n+1}^{j+1}$ & Symmetry; Pascal's rule & Computing coefficients\\
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{accent} Functions, polynomials, limits}\\
+$p(\bar x)=0\Leftrightarrow p(x)=(x-\bar x)q(x)$ & Factor theorem (L2.1), $\deg q=n-1$ & $\deg p=n\ge1$\\
+$\forall\varepsilon>0\ \exists N\in\N\ \forall n>N:\ |a_n-x|<\varepsilon$ & $x$ is a limit of $(a_n)$ & Proving convergence\\
+$a_n\ge0$, $a_n\to a\Rightarrow a\ge0$ & Limits preserve $\ge$ & Not $>$\\
+\bottomrule
+\end{longtable}
+}
+
+\section*{Glossary}
+\addcontentsline{toc}{section}{Glossary}
+
+\glossentry{Absolute value}{$|x|=x$ if $x\ge0$ and $|x|=-x$ if $x<0$; equivalently $|x|=\max\{x,-x\}$.}{How big a number is,
+ignoring its sign; $|x-y|$ is how far apart $x$ and $y$ are.}
+\glossentry{Axiom}{A proposition accepted without proof.}{A starting rule of the game; in ECN115, the properties O1--M6 of the
+real numbers.}
+\glossentry{Binomial coefficient}{$C_n^j=\binom nj=\frac{n!}{(n-j)!\,j!}$ for integers $0\le j\le n$.}{The number in front of
+$x^{n-j}y^j$ when $(x+y)^n$ is multiplied out.}
+\glossentry{Binomial formula}{$(x+y)^n=\sum_{j=0}^nC_n^jx^{n-j}y^j$.}{A one-line recipe for multiplying out any power of a sum.}
+\glossentry{Codomain}{The set $R$ in $f\colon D\to R$, in which the values of $f$ lie.}{Where the outputs are allowed to land.}
+\glossentry{Coefficient}{In $f(x)=\sum_{k=0}^na_kx^k$, the numbers $a_0,\dots,a_n$.}{The fixed numbers multiplying the powers of $x$.}
+\glossentry{Completing the square}{Writing $ax^2+bx+c=a(x+\frac b{2a})^2-\frac D{4a}$.}{Rewriting a quadratic as a square plus a
+constant, so its sign and minimum are visible.}
+\glossentry{Contrapositive}{Of $P\Rightarrow Q$: the implication $(\text{not }Q)\Rightarrow(\text{not }P)$.}{The same promise read
+backwards; always equivalent to the original.}
+\glossentry{Converge}{A sequence converges if it has a finite limit.}{It settles down towards a single number.}
+\glossentry{Converse}{Of $P\Rightarrow Q$: the implication $Q\Rightarrow P$.}{The reversed claim; it may be false even when the
+original is true.}
+\glossentry{Counterexample}{An element for which a claimed $\forall$ statement fails.}{One case that breaks a general claim.}
+\glossentry{Critical point (of a sign analysis)}{A value at which a factor of the numerator or denominator is zero.}{A place
+where an expression can change sign.}
+\glossentry{Degree}{For a polynomial with at least one non-zero coefficient, the largest $k$ with $a_k\ne0$.}{The highest
+power of $x$ that actually appears.}
+\glossentry{Discriminant}{$D=b^2-4ac$ for $ax^2+bx+c$.}{Tells you whether a quadratic has two, one or no real roots.}
+\glossentry{Domain}{The set $D$ in $f\colon D\to R$ of inputs.}{The values the function accepts.}
+\glossentry{Element}{An object in a set; written $x\in A$.}{One of the things in the bag.}
+\glossentry{Empty set}{The set with no elements, $\emptyset$ (or $\{\}$).}{An empty bag.}
+\glossentry{Empty sum}{$\sum_{j=k}^{k-1}a_j$, defined to be $0$.}{Adding up nothing gives nothing.}
+\glossentry{Equal functions}{Functions with the same domain, the same codomain and the same value at every point.}{Not just the
+same formula: the same inputs, outputs and allowed outputs.}
+\glossentry{Equal sets}{Sets with exactly the same elements; equivalently, each is a subset of the other.}{Same contents,
+however described.}
+\glossentry{Equivalence}{$P\Leftrightarrow Q$: $P\Rightarrow Q$ and $Q\Rightarrow P$.}{Two statements that are true in exactly
+the same situations.}
+\glossentry{Existential quantifier}{$\exists x\in A: P$ --- there is at least one $x\in A$ with property $P$.}{``Some'' or ``there
+is''; proved by giving an example.}
+\glossentry{Factorial}{$0!=1$ and $k!=(k-1)!\cdot k$.}{$1\times2\times\dots\times k$.}
+\glossentry{Function}{A rule (formally, a set of ordered pairs) assigning to each element of a domain a unique element of a
+codomain.}{A machine that takes each allowed input to exactly one output.}
+\glossentry{Implication}{$P\Rightarrow Q$: if $P$, then $Q$.}{A one-way promise; broken only if $P$ happens and $Q$ does not.}
+\glossentry{Induction (mathematical)}{Proving $P_n$ for all $n\in\N$ by proving $P_1$ (base) and $P_n\Rightarrow P_{n+1}$ for all $n$
+(step).}{Knock over the first domino and make sure each knocks over the next.}
+\glossentry{Induction hypothesis}{The assumption that $P_n$ (or $P_1,\dots,P_n$) holds, made while proving the step.}{What you are
+allowed to use about the previous case.}
+\glossentry{Integers}{$\Z=\{\dots,-2,-1,0,1,2,\dots\}$.}{Whole numbers, positive, negative and zero.}
+\glossentry{Intersection}{$A\cap B$: the objects in both $A$ and $B$.}{What two sets have in common.}
+\glossentry{Interval}{A set of real numbers between two endpoints, e.g.\ $[a,b]=\{x\in\R\mid a\le x\le b\}$.}{A stretch of the
+number line; square brackets include the endpoint, round ones exclude it.}
+\glossentry{Least upper bound}{An upper bound $z$ of $A$ such that every $w<z$ is exceeded by some element of $A$.}{The
+smallest number that is at least every element of the set (non-examinable).}
+\glossentry{Limit (of a sequence)}{$x$ such that $\forall\varepsilon>0\ \exists N\in\N\ \forall n>N:\ |a_n-x|<\varepsilon$.}{The
+number the terms eventually stay as close to as you like.}
+\glossentry{Monomial}{A single term $a_kx^k$ of a polynomial.}{One piece of a polynomial.}
+\glossentry{Natural numbers}{$\N=\{1,2,3,\dots\}$ (not including $0$ in this module).}{The counting numbers.}
+\glossentry{Negation}{``not $P$'': true exactly when $P$ is false.}{The opposite claim.}
+\glossentry{Numerical function}{A function $f\colon D\to R$ with $D,R\subseteq\R$.}{A function from numbers to numbers.}
+\glossentry{Numerical sequence}{A sequence whose terms are real numbers.}{An endless list of numbers.}
+\glossentry{Parameter}{A letter standing for a fixed but unspecified number.}{A number in the problem that you are not told,
+so the answer depends on it.}
+\glossentry{Polynomial}{A function $f(x)=\sum_{k=0}^na_kx^k$.}{A sum of multiples of powers of $x$.}
+\glossentry{Proof}{A demonstration that one proposition follows from one or more others.}{A step-by-step argument that leaves no
+room for doubt.}
+\glossentry{Proposition}{A statement that may be either true or false.}{A claim.}
+\glossentry{Rational numbers}{$\Q$: numbers $p/q$ with $p\in\Z$, $q\in\N$.}{Fractions.}
+\glossentry{Real numbers}{$\R$: informally, the points of the number line.}{All the numbers on the line, including $\sqrt2$ and $\pi$.}
+\glossentry{Root}{A value $\bar x$ with $f(\bar x)=0$.}{Where the graph meets the horizontal axis.}
+\glossentry{Sequence}{An infinite ordered list $(x_1,x_2,\dots)$; formally a function with domain $\N$.}{A list of values,
+one for each period $1,2,3,\dots$.}
+\glossentry{Set}{A collection of objects (taken as a basic notion).}{A bag of things; only membership matters.}
+\glossentry{Set-builder notation}{$\{x\in A\mid x\text{ has property }P\}$.}{``The members of $A$ that satisfy $P$.''}
+\glossentry{Set difference}{$A\setminus B=\{x\in A\mid x\notin B\}$.}{$A$ with everything in $B$ thrown out.}
+\glossentry{Solution set}{The set of all values for which an equation or inequality holds.}{Every answer, collected together.}
+\glossentry{Subset}{$A\subseteq B$: every element of $A$ is an element of $B$.}{$A$ fits inside $B$.}
+\glossentry{Successor property}{For any $n\in\N$, $n+1\in\N$.}{There is always a next natural number.}
+\glossentry{Summation operator}{$\sum_{j=k}^na_j=a_k+a_{k+1}+\dots+a_n$.}{Shorthand for adding a list of terms.}
+\glossentry{Superset}{$B$ is a superset of $A$ if $A\subseteq B$.}{The bigger set that contains $A$.}
+\glossentry{Theorem}{A proposition proved on the basis of axioms and previously established theorems.}{A claim that has been
+shown to follow from the rules.}
+\glossentry{Triangle inequality}{$|x-z|\le|x-y|+|y-z|$; equivalently $|a+b|\le|a|+|b|$.}{A detour is never shorter than the
+direct route.}
+\glossentry{Trichotomy}{Property O1: for real $a,b$ exactly one of $a>b$, $a=b$, $a<b$ holds.}{Any two numbers can be compared,
+in exactly one way.}
+\glossentry{Union}{$A\cup B$: the objects in $A$, in $B$, or in both.}{Everything in either set.}
+\glossentry{Universal quantifier}{$\forall x\in A,\ P$ --- every $x\in A$ has property $P$.}{``All''; proved for an arbitrary
+element.}
+\glossentry{Upper bound}{$y$ with $x\le y$ for every $x\in A$.}{A ceiling for the set.}
+
+\section*{What do I actually need to know?}
+\addcontentsline{toc}{section}{What do I actually need to know?}
+
+Tick each item only when you can do it without notes.
+
+\subsection*{Chapter 1: The language of mathematics}
+\begin{checklist}
+  \item Define proposition, proof, axiom and theorem.
+  \item Explain $P\Rightarrow Q$, $P\Leftrightarrow Q$ and ``not $P$''; give the converse and contrapositive of an implication.
+  \item Negate inequalities, ``and''/``or'' statements and quantified statements.
+  \item Prove $\exists$ statements by example and disprove $\forall$ statements by counterexample.
+  \item Explain why $\forall n\,\exists m$ and $\exists m\,\forall n$ differ.
+\end{checklist}
+\subsection*{Chapter 2: Sets}
+\begin{checklist}
+  \item Define subset, set equality, intersection, union, set difference and set-builder notation.
+  \item Calculate $A\cap B$, $A\cup B$, $A\setminus B$ for given sets.
+  \item Prove a subset relation for arbitrary sets.
+  \item Answer ``find all sets $D$ such that\dots'' and ``are there sets such that\dots'' questions.
+\end{checklist}
+\subsection*{Chapter 3: Number systems}
+\begin{checklist}
+  \item State $\N,\Z,\Q,\R$, their inclusions and the successor property.
+  \item State O1--O2, A1--A5, M1--M6, especially both clauses of M6.
+  \item Explain why $\R$ is needed beyond $\Q$.
+  \item Write intervals in set-builder notation and back.
+\end{checklist}
+\subsection*{Chapter 4: Inequalities}
+\begin{checklist}
+  \item Solve linear inequalities, reversing the direction when dividing by a negative number.
+  \item Solve parameter inequalities by cases $a>0$, $a=0$, $a<0$.
+  \item Solve product, quadratic and fractional inequalities by sign analysis.
+  \item Use the discriminant and completing the square.
+\end{checklist}
+\subsection*{Chapter 5: Absolute value}
+\begin{checklist}
+  \item Define $|x|$ both ways and prove its basic properties.
+  \item State and apply the triangle inequality; derive $|a+b|\le|a|+|b|$ and $|a|\le|a-b|+|b|$.
+  \item Solve $|x-a|<r$ and $|x-a|>r$.
+\end{checklist}
+\subsection*{Chapter 6: Summation}
+\begin{checklist}
+  \item Evaluate sums with any integer limits; count $n-k+1$ terms.
+  \item State the one-term and empty-sum conventions and P1--P3.
+  \item Find closed forms using P1, P2 and the constant-sum rule.
+\end{checklist}
+\subsection*{Chapter 7: Induction}
+\begin{checklist}
+  \item State the principle of induction with base, step and hypothesis.
+  \item Prove summation formulas and simple inequalities by induction.
+  \item State the alternative (strong) formulation and use it with several base cases.
+\end{checklist}
+\subsection*{Chapter 8: Binomial formula}
+\begin{checklist}
+  \item Compute $k!$ and $C_n^j$; state the binomial formula.
+  \item Expand powers and find specific coefficients.
+  \item Prove lower bounds such as $1.02^{102}>6$ using partial sums.
+\end{checklist}
+\subsection*{Chapter 9: Functions and polynomials}
+\begin{checklist}
+  \item Give the informal and formal definitions of a function and of equal functions.
+  \item Define polynomial, degree, monomial and root.
+  \item State Theorem L2.1 and use it to factorise polynomials.
+\end{checklist}
+\subsection*{Chapter 10: Sequences and limits}
+\begin{checklist}
+  \item Define sequence and numerical sequence; state the definition of a limit exactly.
+  \item Find $N$ for a given $\varepsilon$; prove convergence from the definition.
+  \item Prove that a sequence such as $1,0,1,0,\dots$ has no limit.
+  \item Prove that limits preserve non-strict inequalities.
+\end{checklist}
+
+\section*{Final practice paper}
+\addcontentsline{toc}{section}{Final practice paper}
+
+This paper is written in the style of the past ECN115 papers (definitions, ``if yes give an example, if no argue why'',
+parameter questions and ``explain why the argument is wrong''), but uses only the material in this book. Total: 100 marks.
+
+\setcounter{pq}{0}
+\renewcommand{\thepq}{F.\arabic{pq}}
+
+\pq[18 marks] Let $A$, $B$ be sets.
+(a) Define the set difference $A\setminus B$ and state what it means for $A$ and $B$ to be equal in terms of $\subseteq$. [5]
+(b) Are there non-empty sets of natural numbers with $A\cup B=A$ and $A\ne B$? If yes, give an example; if no, argue why. [4]
+(c) Find all sets $D\subseteq\N$ such that $\{1,2\}\cup D=\{1,2,3,4\}$ and $1\notin D$. [5]
+(d) Prove that $A\setminus B\subseteq A$ for all sets $A,B$. [4]
+
+\pq[22 marks]
+(a) Solve $4-\tfrac{3}{2}x\ge x+9$, naming the property that decides the direction at the step where you divide. [5]
+(b) Solve $(2-x)(3x+1)<0$. [5]
+(c) Let $a\in\R$ be a parameter. Find all $x$ with $(a-2)x\le a-2$. Your answer should depend on $a$. [6]
+(d) Solve $\dfrac{x+2}{x-1}\le 2$. [6]
+
+\pq[16 marks]
+(a) State the triangle inequality for real numbers $x,y,z$. [2]
+(b) Prove that $|a|-|b|\le|a-b|$ for all real $a,b$. [4]
+(c) Solve $|3x-2|\le 4$ and $|x+1|\ge|x-3|$. [6]
+(d) Show that if $|x-2|<1$ then $|x^2-4|<5$. [4]
+
+\pq[16 marks]
+(a) Evaluate $\sum_{j=-2}^{3}(2j+1)$ and $\sum_{j=4}^{3}j^5$. [3]
+(b) Prove by induction that $\sum_{j=1}^{n}(3j-1)=\frac{n(3n+1)}{2}$ for all $n\in\N$, identifying the base, the hypothesis and
+where it is used. [8]
+(c) A student checks the identity in (b) for $n=1,\dots,20$ and says this proves it. Explain why this is not a proof. [2]
+(d) Find $\sum_{j=1}^{n}(3j-1)$ using P1, P2 and $\sum_{j=1}^nj=\frac{n(n+1)}2$ instead. [3]
+
+\pq[14 marks]
+(a) Write the binomial formula for $(1+x)^n$ and the first four terms explicitly. [5]
+(b) Show that $1.05^{40}>6$. [6]
+(c) Find the coefficient of $x^4$ in $(1-2x)^7$. [3]
+
+\pq[14 marks]
+(a) Define what it means that a number $x$ is a limit of a sequence $(a_n)$. [4]
+(b) Prove from the definition that $\frac{2n+3}{n+1}\to2$. [5]
+(c) A student argues: ``The sequence $a_n=(-1)^n\frac{n}{n+1}$ has terms that get closer and closer to $1$ and to $-1$, so it
+converges to both $1$ and $-1$.'' Explain why this argument is wrong and prove that $(a_n)$ has no limit. [5]
+
+\section*{Solutions to the final practice paper}
+\addcontentsline{toc}{section}{Solutions to the final practice paper}
+
+\pqsol{F.1}
+(a) $A\setminus B=\{x\in A\mid x\notin B\}$, the elements of $A$ that are not elements of $B$. $A=B$ if and only if
+$A\subseteq B$ and $B\subseteq A$.
+(b) Yes. $A\cup B=A$ holds exactly when $B\subseteq A$. Take $A=\{1,2\}$, $B=\{1\}$: both non-empty, $A\cup B=\{1,2\}=A$ and
+$A\ne B$.
+(c) $3,4\in D$ (they are in the union but not in $\{1,2\}$); $D\subseteq\{1,2,3,4\}$; $1\notin D$; $2$ is free. So
+$D\in\{\{3,4\},\{2,3,4\}\}$.
+(d) Let $x\in A\setminus B$. By definition $x\in A$ and $x\notin B$; in particular $x\in A$. As $x$ was arbitrary,
+$A\setminus B\subseteq A$.
+
+\pqsol{F.2}
+(a) $4-\tfrac32x\ge x+9\Leftrightarrow-\tfrac52x\ge5$. Multiplying by $-\tfrac25<0$ reverses the inequality (M6, second
+clause): $x\le-2$. Solution $(-\infty,-2]$.
+(b) Critical points $x=2$ and $x=-\tfrac13$. The product is negative when the signs differ: $2-x>0$ and $3x+1<0$ gives
+$x<-\tfrac13$; $2-x<0$ and $3x+1>0$ gives $x>2$. Solution $(-\infty,-\tfrac13)\cup(2,\infty)$.
+(c) If $a>2$: divide by $a-2>0$: $x\le1$, i.e.\ $(-\infty,1]$. If $a<2$: divide by $a-2<0$, reversing: $x\ge1$, i.e.\
+$[1,\infty)$. If $a=2$: $0\le0$, true for all $x$: $\R$.
+(d) $\frac{x+2}{x-1}-2\le0\Leftrightarrow\frac{x+2-2x+2}{x-1}\le0\Leftrightarrow\frac{4-x}{x-1}\le0$. Critical points $1$ (excluded)
+and $4$ (included). For $x<1$: numerator $+$, denominator $-$: quotient $-$, included. For $1<x<4$: both $+$: excluded. For
+$x>4$: numerator $-$, denominator $+$: quotient $-$, included. Solution $(-\infty,1)\cup[4,\infty)$.
+
+\pqsol{F.3}
+(a) $|x-z|\le|x-y|+|y-z|$.
+(b) With $x=a$, $y=b$, $z=0$: $|a|\le|a-b|+|b|$, so $|a|-|b|\le|a-b|$.
+(c) $|3x-2|\le4\Leftrightarrow-4\le3x-2\le4\Leftrightarrow-\tfrac23\le x\le2$: $[-\tfrac23,2]$. For the second, square (both sides
+$\ge0$): $(x+1)^2\ge(x-3)^2\Leftrightarrow2x+1\ge-6x+9\Leftrightarrow8x\ge8\Leftrightarrow x\ge1$: $[1,\infty)$ (points at least as far
+from $-1$ as from $3$).
+(d) If $|x-2|<1$ then $1<x<3$, so $3<x+2<5$ and $|x+2|<5$; hence $|x^2-4|=|x-2|\,|x+2|<1\cdot5=5$.
+
+\pqsol{F.4}
+(a) $-3-1+1+3+5+7=12$; the second is an empty sum, $0$.
+(b) Let $P_n$ be the identity. Base: $3-1=2=\frac{1\cdot4}{2}$. Hypothesis: assume $P_n$. Step:
+$\sum_{j=1}^{n+1}(3j-1)=\frac{n(3n+1)}2+(3n+2)$ (hypothesis used) $=\frac{3n^2+7n+4}{2}=\frac{(n+1)(3n+4)}{2}=\frac{(n+1)(3(n+1)+1)}{2}$,
+which is $P_{n+1}$. By induction $P_n$ holds for all $n\in\N$.
+(c) It verifies twenty propositions $P_1,\dots,P_{20}$; the claim concerns infinitely many, and nothing is said about
+$P_{21}$ onwards. A proof needs the general step.
+(d) $3\sum j-\sum1=\frac{3n(n+1)}2-n=\frac{3n^2+n}{2}=\frac{n(3n+1)}2$.
+
+\pqsol{F.5}
+(a) $(1+x)^n=\sum_{j=0}^nC_n^jx^j=1+nx+\frac{n(n-1)}2x^2+\frac{n(n-1)(n-2)}6x^3+\dots$
+(b) With $x=0.05$, $n=40$, all terms positive:
+$1.05^{40}>1+40(0.05)+780(0.0025)+9880(0.000125)=1+2+1.95+1.235=6.185>6$
+(using $C_{40}^2=780$, $C_{40}^3=9880$).
+(c) General term $C_7^j(-2x)^j$; for $j=4$: $C_7^4\cdot16=35\cdot16=560$.
+
+\pqsol{F.6}
+(a) $x$ is a limit of $(a_n)$ if for every $\varepsilon>0$ there exists $N\in\N$ such that $|a_n-x|<\varepsilon$ for all $n>N$.
+(b) $\big|\frac{2n+3}{n+1}-2\big|=\frac{1}{n+1}<\frac1n$. Given $\varepsilon>0$, choose $N\ge\frac1\varepsilon$. For $n>N$:
+$\big|\frac{2n+3}{n+1}-2\big|<\frac1n<\frac1N\le\varepsilon$.
+(c) A sequence has at most one limit, and being close to two values infinitely often prevents convergence rather than
+giving two limits. Proof: suppose $x$ is a limit, and take $\varepsilon=\tfrac12$. There is $N$ with $|a_n-x|<\tfrac12$ for $n>N$.
+Choose an even $m>N$ and an odd $k>N$ with $m,k\ge3$; then $a_m=\frac m{m+1}\ge\tfrac34$ and $a_k=-\frac{k}{k+1}\le-\tfrac34$. By the
+triangle inequality, $\tfrac32\le|a_m-a_k|\le|a_m-x|+|x-a_k|<\tfrac12+\tfrac12=1$, a contradiction. So $(a_n)$ has no limit.
